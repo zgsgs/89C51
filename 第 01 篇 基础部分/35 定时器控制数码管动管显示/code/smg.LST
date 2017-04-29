@@ -1,0 +1,63 @@
+C51 COMPILER V8.08   SMG                                                                   08/10/2009 15:27:50 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE SMG
+OBJECT MODULE PLACED IN smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0xbf
+   9          };
+  10          uchar code Table_OF_Digits[][8]=
+  11          {
+  12                  {0,9,10,1,2,10,2,5},
+  13                  {2,1,10,5,7,10,3,9},
+  14          };
+  15          
+  16          uchar i = 0,j=0;
+  17          uint t = 0;
+  18          
+  19          void main()
+  20          {
+  21   1              P3 = 0x80;
+  22   1              TMOD = 0x00;
+  23   1              TH0 = (8191-4000)/32;
+  24   1              TL0 = (8191-4000)%32;
+  25   1              IE = 0x82;
+  26   1              TR0 = 1;
+  27   1              while(1);
+  28   1      }
+  29          
+  30          void DSY_Show() interrupt 1
+  31          {
+  32   1              TH0 = (8191-4000)/32;
+  33   1              TL0 = (8191-4000)%32;
+  34   1              P3 = _crol_(P3,1);
+  35   1              P0 = DSY_CODE[Table_OF_Digits[i][j]];
+  36   1              j = (j+1)%8;
+  37   1              if(++t!=350) return;
+  38   1              t = 0;
+  39   1              i = (i+1)%2;    
+  40   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    151    ----
+   CONSTANT SIZE    =     27    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,75 @@
+C51 COMPILER V8.08   YJ                                                                    08/10/2009 16:26:58 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE YJ
+OBJECT MODULE PLACED IN yj.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE yj.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar i=0;
+   7          sbit SPK = P3^4;
+   8          sbit K1 = P1^0;
+   9          uchar code HI_LIST[]=
+  10          {
+  11                  0,266,229,232,233,236,238,240,241,242,244,245,246,247,248
+  12          };
+  13          uchar code LO_LIST[]=
+  14          {
+  15                  0,4,13,10,20,3,8,6,2,23,5,26,1,4,3
+  16          };
+  17          
+  18          void T0_INT() interrupt 1
+  19          {
+  20   1              TL0 = LO_LIST[i];
+  21   1              TH0 = HI_LIST[i];
+  22   1              SPK = !SPK;
+  23   1      }
+  24          
+  25          void DelayMS(uint ms)
+  26          {
+  27   1              uchar t;
+  28   1              while(ms--)
+  29   1              {
+  30   2                      for(t=0;t<120;t++);
+  31   2              }
+  32   1      }
+  33          
+  34          void main()
+  35          {
+  36   1              IE = 0x82;
+  37   1              TMOD = 0x00;
+  38   1              while(1)
+  39   1              {
+  40   2                      while(K1==1);
+  41   2                      while(K1==0);
+  42   2                      for(i=1;i<15;i++)
+  43   2                      {
+  44   3                              TR0 = 1;
+  45   3                              DelayMS(500);
+  46   3                              TR0 = 0;
+  47   3                              DelayMS(50);
+  48   3                      }
+  49   2              }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     97    ----
+   CONSTANT SIZE    =     30    ----
+C51 COMPILER V8.08   YJ                                                                    08/10/2009 16:26:58 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

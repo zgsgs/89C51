@@ -1,0 +1,103 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2009  11:09:36  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE bcd.obj TO bcd RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  bcd.obj (BCD)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  bcd (BCD)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0016H     UNIT         ?PR?_DELAYMS?BCD
+            CODE    0019H     0010H     UNIT         ?CO?BCD
+            CODE    0029H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0035H     0002H     UNIT         ?PR?MAIN?BCD
+
+
+
+OVERLAY MAP OF MODULE:   bcd (BCD)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?BCD
+
+?PR?MAIN?BCD                   0008H    0001H
+
+
+
+SYMBOL TABLE OF MODULE:  bcd (BCD)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BCD
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0003H         PUBLIC        _DelayMS
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  11:09:36  PAGE 2
+
+
+  D:00B8H         PUBLIC        IP
+  C:0035H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0021H         PUBLIC        BCD_CODE
+  C:0019H         PUBLIC        DSY_Index
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0003H         LINE#         14
+  C:0003H         LINE#         15
+  C:0003H         LINE#         17
+  C:000DH         LINE#         18
+  C:000DH         LINE#         19
+  C:0018H         LINE#         20
+  C:0018H         LINE#         21
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        k
+  -------         ENDDO         
+  C:0035H         LINE#         23
+  C:0035H         LINE#         24
+  C:0035H         LINE#         26
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BCD
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?BCD
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?CO?BCD
+
+Program Size: data=10.0 xdata=0 code=55
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,51 @@
+C51 COMPILER V8.08   9                                                                     08/11/2009 11:05:40 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 9
+OBJECT MODULE PLACED IN 9.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 9.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          
+   6          sbit Signal = P1^0;
+   7          sbit BEEP = P3^7;
+   8          
+   9          void Delay(uint x)
+  10          {
+  11   1              uchar i;
+  12   1              while(x--)
+  13   1              {
+  14   2                      for(i=0;i<120;i++);
+  15   2              }
+  16   1      }
+  17          
+  18          void main()
+  19          {
+  20   1              while(1)
+  21   1              {
+  22   2                      if(Signal)
+  23   2                      {
+  24   3                              BEEP=~BEEP;
+  25   3                              Delay(3);       
+  26   3                      }
+  27   2              }
+  28   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     36    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

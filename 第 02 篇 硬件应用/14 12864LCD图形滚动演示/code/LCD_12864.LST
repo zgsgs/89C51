@@ -1,0 +1,153 @@
+C51 COMPILER V8.08   LCD_12864                                                             08/12/2009 14:53:40 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LCD_12864
+OBJECT MODULE PLACED IN LCD_12864.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE LCD_12864.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <stdio.h>
+   2          #include <math.h>
+   3          #include <intrins.h>
+   4          #include <absacc.h>
+   5          #include <string.h>
+   6          #include "LCD_12864.h"
+   7          
+   8          sbit RESET = P3^3;
+   9          uchar code LCD_WIDTH = 16;
+  10          uchar code LCD_HEIGHT = 64;
+  11          uchar gCurRow,gCurCol;
+  12          uchar tCurRow,tCurCol;
+  13          uchar ShowModeSW;
+  14          uint txthome,grhome;
+  15          
+  16          uchar Status_BIT_01();
+  17          uchar Status_BIT_3();
+  18          uchar LCD_Write_Command(uchar cmd);
+  19          uchar LCD_Write_Command_P1(uchar cmd,uchar para1);
+  20          uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2);
+  21          uchar LCD_Write_Data(uchar dat);
+  22          void cls();
+  23          uchar LCD_Initialise();
+  24          void Set_LCD_POS(uchar row,uchar col);
+  25          uchar Status_BIT_01()
+  26          {
+  27   1              uchar i;
+  28   1              for(i=5;i>0;i--)
+  29   1              {
+  30   2                      if((LCMCW & 0x03)==0x03)
+  31   2                      break;
+  32   2              }
+  33   1              return i;
+  34   1      }
+  35          
+  36          uchar Status_BIT_3()
+  37          {
+  38   1              uchar i;
+  39   1              for(i=5;i>0;i--)
+  40   1              {
+  41   2                      if((LCMCW & 0x08)==0x08)
+  42   2                      break;
+  43   2              }
+  44   1              return i;       
+  45   1      }
+  46          
+  47          uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2)
+  48          {
+  49   1              if(Status_BIT_01()==0) return 1;
+  50   1              LCMDW = para1;
+  51   1              if(Status_BIT_01()==0) return 2;
+  52   1              LCMDW = para2;
+  53   1              if(Status_BIT_01()==0) return 3;
+  54   1              LCMDW = cmd;
+  55   1              return 0;
+C51 COMPILER V8.08   LCD_12864                                                             08/12/2009 14:53:40 PAGE 2   
+
+  56   1      }
+  57          
+  58          uchar LCD_Write_Command_P1(uchar cmd,uchar para1)
+  59          {
+  60   1              if(Status_BIT_01()==0) return 1;
+  61   1              LCMDW = para1;
+  62   1              if(Status_BIT_01()==0) return 2;
+  63   1              LCMDW = cmd;
+  64   1              return 0;       
+  65   1      }  
+  66          
+  67          uchar LCD_Write_Command(uchar cmd)
+  68          {
+  69   1              if(Status_BIT_01()==0) return 1;
+  70   1              LCMDW = cmd;
+  71   1              return 0;       
+  72   1      }
+  73          
+  74          uchar LCD_Write_Data(uchar dat)
+  75          {
+  76   1              if(Status_BIT_3()==0) return 1;
+  77   1              LCMDW = dat;
+  78   1              return 0;               
+  79   1      }
+  80          
+  81          void Set_LCD_POS(uchar row,uchar col)
+  82          {
+  83   1              uint Pos;
+  84   1              Pos = row*LCD_WIDTH+col;
+  85   1              LCD_Write_Command_P2(LC_ADD_POS,Pos%256,Pos/256);
+  86   1              gCurRow = row;
+  87   1              gCurCol = col;
+  88   1      }
+  89          
+  90          void cls()
+  91          {
+  92   1              uint i;
+  93   1              LCD_Write_Command_P2(LC_ADD_POS,0x00,0x00);
+  94   1              LCD_Write_Command(LC_AUT_WR);
+  95   1              for(i=0;i<0x2000;i++)
+  96   1              {
+  97   2                      Status_BIT_3();
+  98   2                      LCD_Write_Data(0x00);
+  99   2              }
+ 100   1              LCD_Write_Command(LC_AUT_OVR);
+ 101   1              LCD_Write_Command_P2(LC_ADD_POS,0x00,0x00);
+ 102   1              gCurRow = 0;
+ 103   1              gCurCol = 0;
+ 104   1      }
+ 105          
+ 106          uchar LCD_Initialise()
+ 107          {
+ 108   1              RESET = 0;
+ 109   1              RESET = 1;
+ 110   1              LCD_Write_Command_P2(LC_TXT_STP,0x00,0x00);
+ 111   1              LCD_Write_Command_P2(LC_TXT_WID,LCD_WIDTH,0x00);
+ 112   1              LCD_Write_Command_P2(LC_GRH_STP,0x00,0x00);
+ 113   1              LCD_Write_Command_P2(LC_GRH_WID,LCD_WIDTH,0x00);
+ 114   1              LCD_Write_Command_P1(LC_CGR_POS,CGRAMSTART >> 11);
+ 115   1              LCD_Write_Command(LC_CUR_SHP | 0x01);
+ 116   1              LCD_Write_Command(LC_MOD_OR);
+ 117   1              LCD_Write_Command(LC_DIS_SW | 0x08);
+C51 COMPILER V8.08   LCD_12864                                                             08/12/2009 14:53:40 PAGE 3   
+
+ 118   1              grhome = GRSTART;
+ 119   1              txthome = TXTSTART;
+ 120   1              return 0;
+ 121   1      }
+ 122          
+ 123          
+ 124          
+ 125          
+ 126          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    302    ----
+   CONSTANT SIZE    =      2    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

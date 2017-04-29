@@ -1,0 +1,280 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/07/2009  21:35:46  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 24c04.obj TO 24c04 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  24c04.obj (24C04)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  24c04 (24C04)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?24C04
+            IDATA   000CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     004FH     UNIT         ?PR?CONVERT_AND_DISPLAY?24C04
+            CODE    00DEH     001DH     UNIT         ?PR?_DELAYMS?24C04
+            CODE    00FBH     0019H     UNIT         ?PR?STOP?24C04
+            CODE    0114H     0018H     UNIT         ?PR?_WRITE_A_BYTE?24C04
+            CODE    012CH     0016H     UNIT         ?PR?_WRITE_RANDOM_ADDRESS_BYTE?24C04
+            CODE    0142H     0015H     UNIT         ?PR?RECEIVE_A_BYTE?24C04
+            CODE    0157H     0014H     UNIT         ?PR?MAIN?24C04
+            CODE    016BH     0012H     UNIT         ?PR?READ_CURRENT_ADDRESS_DATA?24C04
+            CODE    017DH     0011H     UNIT         ?PR?START?24C04
+            CODE    018EH     000FH     UNIT         ?PR?RACK?24C04
+            CODE    019DH     000EH     UNIT         ?PR?_RANDOM_READ?24C04
+            CODE    01ABH     000DH     UNIT         ?PR?NO_ACK?24C04
+            CODE    01B8H     000AH     UNIT         ?CO?24C04
+            CODE    01C2H     0009H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   24c04 (24C04)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?24C04
+  +--> ?C_INITSEG
+
+?PR?MAIN?24C04
+  +--> ?PR?_RANDOM_READ?24C04
+  +--> ?PR?_WRITE_RANDOM_ADDRESS_BYTE?24C04
+  +--> ?PR?CONVERT_AND_DISPLAY?24C04
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/07/2009  21:35:46  PAGE 2
+
+
+
+?PR?_RANDOM_READ?24C04
+  +--> ?PR?START?24C04
+  +--> ?PR?STOP?24C04
+  +--> ?PR?READ_CURRENT_ADDRESS_DATA?24C04
+
+?PR?STOP?24C04
+  +--> ?PR?_WRITE_A_BYTE?24C04
+
+?PR?_WRITE_A_BYTE?24C04
+  +--> ?PR?RACK?24C04
+
+?PR?READ_CURRENT_ADDRESS_DATA?24C04
+  +--> ?PR?START?24C04
+  +--> ?PR?_WRITE_A_BYTE?24C04
+  +--> ?PR?RECEIVE_A_BYTE?24C04
+  +--> ?PR?NO_ACK?24C04
+  +--> ?PR?STOP?24C04
+
+?PR?_WRITE_RANDOM_ADDRESS_BYTE?24C04
+  +--> ?PR?START?24C04
+  +--> ?PR?_WRITE_A_BYTE?24C04
+  +--> ?PR?STOP?24C04
+  +--> ?PR?_DELAYMS?24C04
+
+?PR?CONVERT_AND_DISPLAY?24C04
+  +--> ?CO?24C04
+  +--> ?PR?_DELAYMS?24C04
+
+
+
+SYMBOL TABLE OF MODULE:  24c04 (24C04)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        24C04
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        Count
+  D:00A8H         PUBLIC        IE
+  C:017DH         PUBLIC        Start
+  C:00E5H         PUBLIC        _DelayMS
+  C:008FH         PUBLIC        Convert_And_Display
+  D:00B8H         PUBLIC        IP
+  B:00D0H.7       PUBLIC        CY
+  C:018EH         PUBLIC        RACK
+  C:0114H         PUBLIC        _Write_A_Byte
+  C:0157H         PUBLIC        main
+  C:0103H         PUBLIC        Stop
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:019DH         PUBLIC        _Random_Read
+  C:01ABH         PUBLIC        NO_ACK
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/07/2009  21:35:46  PAGE 3
+
+
+  C:016BH         PUBLIC        Read_Current_Address_Data
+  B:0090H.1       PUBLIC        SDA
+  C:0142H         PUBLIC        Receive_A_Byte
+  B:0090H.0       PUBLIC        SCL
+  D:00C8H         PUBLIC        T2CON
+  C:01B8H         PUBLIC        DSY_CODE
+  D:0009H         PUBLIC        DISP_Buffer
+  C:012CH         PUBLIC        _Write_Random_Address_Byte
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0030
+  -------         ENDPROC       L?0030
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:00E5H         LINE#         18
+  C:00E5H         LINE#         19
+  C:00E5H         LINE#         21
+  C:00EFH         LINE#         22
+  C:00EFH         LINE#         23
+  C:00FAH         LINE#         24
+  C:00FAH         LINE#         25
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          START
+  C:017DH         LINE#         27
+  C:017DH         LINE#         28
+  C:017DH         LINE#         29
+  C:018DH         LINE#         30
+  -------         ENDPROC       START
+  -------         PROC          L?0029
+  -------         ENDPROC       L?0029
+  -------         PROC          STOP
+  C:0103H         LINE#         32
+  C:0103H         LINE#         33
+  C:0103H         LINE#         34
+  C:0113H         LINE#         35
+  -------         ENDPROC       STOP
+  -------         PROC          RACK
+  C:018EH         LINE#         37
+  C:018EH         LINE#         38
+  C:018EH         LINE#         39
+  C:019CH         LINE#         40
+  -------         ENDPROC       RACK
+  -------         PROC          NO_ACK
+  C:01ABH         LINE#         42
+  C:01ABH         LINE#         43
+  C:01ABH         LINE#         44
+  C:01B7H         LINE#         45
+  -------         ENDPROC       NO_ACK
+  -------         PROC          _WRITE_A_BYTE
+  D:0007H         SYMBOL        b
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:0114H         LINE#         47
+  C:0114H         LINE#         48
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/07/2009  21:35:46  PAGE 4
+
+
+  C:0114H         LINE#         50
+  C:0116H         LINE#         51
+  C:0116H         LINE#         52
+  C:0125H         LINE#         53
+  C:0129H         LINE#         54
+  -------         ENDPROC       _WRITE_A_BYTE
+  -------         PROC          RECEIVE_A_BYTE
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0007H         SYMBOL        d
+  -------         ENDDO         
+  C:0142H         LINE#         57
+  C:0142H         LINE#         58
+  C:0142H         LINE#         60
+  C:0144H         LINE#         61
+  C:0144H         LINE#         62
+  C:0152H         LINE#         63
+  C:0156H         LINE#         64
+  C:0156H         LINE#         65
+  -------         ENDPROC       RECEIVE_A_BYTE
+  -------         PROC          _WRITE_RANDOM_ADDRESS_BYTE
+  D:0004H         SYMBOL        add
+  D:0005H         SYMBOL        dat
+  C:012CH         LINE#         67
+  C:012EH         LINE#         68
+  C:012EH         LINE#         69
+  C:0131H         LINE#         70
+  C:0136H         LINE#         71
+  C:0138H         LINE#         72
+  C:0138H         LINE#         73
+  C:013BH         LINE#         74
+  -------         ENDPROC       _WRITE_RANDOM_ADDRESS_BYTE
+  -------         PROC          READ_CURRENT_ADDRESS_DATA
+  -------         DO            
+  D:0007H         SYMBOL        d
+  -------         ENDDO         
+  C:016BH         LINE#         77
+  C:016BH         LINE#         78
+  C:016BH         LINE#         80
+  C:016EH         LINE#         81
+  C:0173H         LINE#         82
+  C:0176H         LINE#         83
+  C:0179H         LINE#         84
+  C:017CH         LINE#         85
+  C:017CH         LINE#         86
+  -------         ENDPROC       READ_CURRENT_ADDRESS_DATA
+  -------         PROC          _RANDOM_READ
+  D:0005H         SYMBOL        addr
+  C:019DH         LINE#         88
+  C:019FH         LINE#         89
+  C:019FH         LINE#         90
+  C:01A2H         LINE#         91
+  C:01A4H         LINE#         92
+  C:01A4H         LINE#         93
+  C:01A7H         LINE#         94
+  C:01AAH         LINE#         95
+  -------         ENDPROC       _RANDOM_READ
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/07/2009  21:35:46  PAGE 5
+
+
+  -------         PROC          CONVERT_AND_DISPLAY
+  C:008FH         LINE#         97
+  C:008FH         LINE#         98
+  C:008FH         LINE#         99
+  C:0097H         LINE#         100
+  C:00A6H         LINE#         101
+  C:00AEH         LINE#         102
+  C:00B2H         LINE#         103
+  C:00B2H         LINE#         104
+  C:00B5H         LINE#         105
+  C:00B9H         LINE#         106
+  C:00B9H         LINE#         107
+  C:00BCH         LINE#         108
+  C:00BCH         LINE#         109
+  C:00BCH         LINE#         110
+  C:00BFH         LINE#         111
+  C:00C4H         LINE#         112
+  C:00C7H         LINE#         113
+  C:00CAH         LINE#         114
+  C:00CCH         LINE#         115
+  C:00CFH         LINE#         116
+  C:00D2H         LINE#         117
+  C:00D7H         LINE#         118
+  -------         ENDPROC       CONVERT_AND_DISPLAY
+  -------         PROC          MAIN
+  C:0157H         LINE#         121
+  C:0157H         LINE#         122
+  C:0157H         LINE#         123
+  C:0160H         LINE#         124
+  C:0166H         LINE#         125
+  C:0166H         LINE#         126
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        24C04
+
+Program Size: data=13.0 xdata=0 code=459
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

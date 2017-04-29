@@ -1,0 +1,58 @@
+C51 COMPILER V8.08   BCD                                                                   08/11/2009 11:09:35 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE BCD
+OBJECT MODULE PLACED IN bcd.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE bcd.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          uchar code DSY_Index[] = 
+   6          {
+   7                  0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f
+   8          };
+   9          uchar code BCD_CODE[] =
+  10          {
+  11                  2,0,0,9,10,8,10,7
+  12          };
+  13          
+  14          void DelayMS(uint ms)
+  15          {
+  16   1              uchar i;
+  17   1              while(ms--)
+  18   1              {
+  19   2                      for(i=0;i<120;i++);
+  20   2              }
+  21   1      }
+  22          
+  23          void main()
+  24          {
+  25   1              uchar k;
+  26   1              while(1);
+  27   1              {
+  28   2                      for(k=0;k<8;k++)
+  29   2                      {
+  30   3                              P2 = DSY_Index[k];
+  31   3                              P0 = BCD_CODE[k];
+  32   3                              DelayMS(1);
+  33   3                      }
+  34   2              }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     24    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

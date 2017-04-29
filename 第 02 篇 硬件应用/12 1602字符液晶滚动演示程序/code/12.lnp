@@ -1,0 +1,5 @@
+"STARTUP.obj",
+"LCD1602.obj",
+"main.obj" 
+TO "12" 
+RAMSIZE(256) 

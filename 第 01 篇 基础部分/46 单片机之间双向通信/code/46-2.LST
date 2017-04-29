@@ -1,0 +1,82 @@
+C51 COMPILER V8.08   46_2                                                                  08/11/2009 09:58:19 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 46_2
+OBJECT MODULE PLACED IN 46-2.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 46-2.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          sbit LED1 = P1^0;
+   6          sbit LED2 = P1^3;
+   7          sbit K1 = P1^7;
+   8          uchar NumX = 0xff;
+   9          void Delay(uint x)
+  10          {
+  11   1              uchar i;
+  12   1              while(x--)
+  13   1              {
+  14   2                      for(i=0;i<120;i++);
+  15   2              }
+  16   1      }
+  17          
+  18          void main()
+  19          {
+  20   1              LED1=LED2=1;
+  21   1              SCON = 0x50;
+  22   1              TMOD = 0x20;
+  23   1              PCON = 0x00;
+  24   1              TH1  = 0xfd;
+  25   1              TL1  = 0xfd;
+  26   1              TI   = 0;
+  27   1              RI   = 0;
+  28   1              TR1  = 1;
+  29   1              IE   = 0x90;
+  30   1              while(1)
+  31   1              {
+  32   2                      Delay(100);
+  33   2                      if(K1==0);
+  34   2                      {
+  35   3                              while(K1==0);
+  36   3                              NumX = (NumX+1)%11;
+  37   3                              SBUF = NumX;
+  38   3                              while(TI == 0);
+  39   3                              TI = 0;
+  40   3                      }
+  41   2              }
+  42   1      }
+  43          
+  44          void Serial_INT() interrupt 4
+  45          {
+  46   1              if(RI)
+  47   1              {
+  48   2                      RI = 0;
+  49   2                      switch(SBUF)
+  50   2                      {
+  51   3                              case 'X': LED1=1;LED2=1;break;
+  52   3                              case 'A': LED1=0;LED2=1;break;
+  53   3                              case 'B': LED2=0;LED1=1;break;
+  54   3                              case 'C': LED1=0;LED2=0;
+  55   3                      }
+C51 COMPILER V8.08   46_2                                                                  08/11/2009 09:58:19 PAGE 2   
+
+  56   2              }
+  57   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    147    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

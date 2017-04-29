@@ -1,0 +1,86 @@
+C51 COMPILER V8.08   3                                                                     08/11/2009 10:42:45 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 3
+OBJECT MODULE PLACED IN 3.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 3.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          
+   7          sbit SH_CP = P2^0;
+   8          sbit DS    = P2^1;
+   9          sbit ST_CP = P2^2;
+  10          uchar temp;
+  11          uchar code DSY_CODE[]=
+  12          {
+  13                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90       
+  14          };
+  15          
+  16          void Delay(uint x)
+  17          {
+  18   1              uchar i;
+  19   1              while(x--)
+  20   1              {
+  21   2                      for(i=0;i<120;i++);
+  22   2              }
+  23   1      }
+  24          
+  25          void In_595()
+  26          {
+  27   1              uchar i;
+  28   1              for(i=0;i<8;i++)
+  29   1              {
+  30   2                      temp <<= 1;
+  31   2                      DS   = CY;
+  32   2                      SH_CP = 1;
+  33   2                      _nop_();
+  34   2                      _nop_();
+  35   2                      SH_CP = 0;
+  36   2              }
+  37   1      }
+  38          
+  39          void Out_595()
+  40          {
+  41   1              ST_CP = 0;
+  42   1              _nop_();
+  43   1              ST_CP = 1;
+  44   1              _nop_();
+  45   1              ST_CP = 0;
+  46   1      }
+  47          
+  48          void main()
+  49          {
+  50   1              uchar i;
+  51   1              while(1)
+  52   1              {
+  53   2                      for(i=0;i<10;i++)
+  54   2                      {
+  55   3                              temp = DSY_CODE[i];
+C51 COMPILER V8.08   3                                                                     08/11/2009 10:42:45 PAGE 2   
+
+  56   3                              In_595();
+  57   3                              Out_595();
+  58   3                              Delay(200);
+  59   3                      }
+  60   2              }
+  61   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     80    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

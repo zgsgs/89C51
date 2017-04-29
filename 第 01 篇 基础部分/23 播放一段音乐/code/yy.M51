@@ -1,0 +1,129 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  10:51:14  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE yy.obj TO yy RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  yy.obj (YY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  yy (YY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0063H     UNIT         ?PR?PLAYMUSIC?YY
+            CODE    0066H     0034H     UNIT         ?CO?YY
+            CODE    009AH     0016H     UNIT         ?PR?_DELAYMS?YY
+            CODE    00B0H     000CH     UNIT         ?PR?MAIN?YY
+            CODE    00BCH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   yy (YY)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?YY
+
+?PR?MAIN?YY                    -----    -----
+  +--> ?PR?PLAYMUSIC?YY
+  +--> ?PR?_DELAYMS?YY
+
+?PR?PLAYMUSIC?YY               0008H    0002H
+  +--> ?CO?YY
+  +--> ?PR?_DELAYMS?YY
+
+
+
+SYMBOL TABLE OF MODULE:  yy (YY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        YY
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:51:14  PAGE 2
+
+
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:009AH         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:0003H         PUBLIC        PlayMusic
+  B:00B0H.7       PUBLIC        BEEP
+  C:00B0H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0080H         PUBLIC        SONG_LONG
+  C:0066H         PUBLIC        SONG_TONE
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:009AH         LINE#         15
+  C:009AH         LINE#         16
+  C:009AH         LINE#         18
+  C:00A4H         LINE#         19
+  C:00A4H         LINE#         20
+  C:00AFH         LINE#         21
+  C:00AFH         LINE#         22
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          PLAYMUSIC
+  -------         DO            
+  D:0008H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  D:0006H         SYMBOL        k
+  -------         ENDDO         
+  C:0003H         LINE#         24
+  C:0003H         LINE#         25
+  C:0003H         LINE#         26
+  C:0008H         LINE#         27
+  C:0018H         LINE#         28
+  C:0018H         LINE#         29
+  C:002EH         LINE#         30
+  C:002EH         LINE#         31
+  C:0030H         LINE#         32
+  C:004DH         LINE#         33
+  C:0054H         LINE#         34
+  C:005BH         LINE#         35
+  C:0063H         LINE#         36
+  C:0065H         LINE#         37
+  -------         ENDPROC       PLAYMUSIC
+  -------         PROC          MAIN
+  C:00B0H         LINE#         39
+  C:00B0H         LINE#         40
+  C:00B0H         LINE#         41
+  C:00B0H         LINE#         42
+  C:00B0H         LINE#         43
+  C:00B3H         LINE#         44
+  C:00BAH         LINE#         45
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:51:14  PAGE 3
+
+
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        YY
+
+Program Size: data=11.0 xdata=0 code=200
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

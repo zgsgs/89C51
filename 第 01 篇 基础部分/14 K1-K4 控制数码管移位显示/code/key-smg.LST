@@ -1,0 +1,95 @@
+C51 COMPILER V8.08   KEY_SMG                                                               08/10/2009 09:18:55 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_SMG
+OBJECT MODULE PLACED IN key-smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          uchar code DSY_CODE[]=
+   6          {
+   7                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0xff
+   8          };
+   9          uchar code DSY_Index[]=
+  10          {
+  11                  0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01
+  12          };
+  13          uchar Display_Buffer[]=
+  14          {
+  15                  0,10,10,10,10,10,10,10
+  16          };
+  17          
+  18          void DelayMS(uint x)
+  19          {
+  20   1              uchar t;
+  21   1              while(x--)
+  22   1              {
+  23   2                      for(t=0;t<120;t++);
+  24   2              }
+  25   1      }
+  26          
+  27          void Show_Count_ON_DSY()
+  28          {
+  29   1              uchar i;
+  30   1              for(i=0;i<8;i++)
+  31   1              {
+  32   2                      P2 = DSY_Index[i];
+  33   2                      P0 = DSY_CODE[Display_Buffer[i]];
+  34   2                      DelayMS(2);
+  35   2              }
+  36   1      }
+  37          
+  38          void main()
+  39          {
+  40   1              uchar i;
+  41   1              uchar Key_NO,Key_Counts=0;
+  42   1              P0 = 0xff;
+  43   1              P1 = 0xff;
+  44   1              P2 = 0x00;
+  45   1              while(1)
+  46   1              {
+  47   2                      Show_Count_ON_DSY();
+  48   2                      P1 = 0xff;
+  49   2                      Key_NO = P1;
+  50   2                      switch(Key_NO)
+  51   2                      {
+  52   3                              case 0xfe: Key_Counts++;
+  53   3                                                      if(Key_Counts>8)
+  54   3                                                              Key_Counts = 8;
+  55   3                                                      Display_Buffer[Key_Counts-1] = Key_Counts;
+C51 COMPILER V8.08   KEY_SMG                                                               08/10/2009 09:18:55 PAGE 2   
+
+  56   3                                                      break;
+  57   3                              case 0xfd: if(Key_Counts>0)
+  58   3                                                              Display_Buffer[--Key_Counts] = 10;
+  59   3                                                      if(Key_Counts==0)       
+  60   3                                                      Display_Buffer[0] = 0;
+  61   3                                                      break;
+  62   3                              case 0xfb: Display_Buffer[0]=0;
+  63   3                                                      for(i=1;i<8;i++)
+  64   3                                                              Display_Buffer[i] = 10;
+  65   3                                                      Key_Counts = 0;
+  66   3                      }
+  67   2                      while(P1 != 0xff)
+  68   2                              Show_Count_ON_DSY();
+  69   2              }
+  70   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    158    ----
+   CONSTANT SIZE    =     19    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

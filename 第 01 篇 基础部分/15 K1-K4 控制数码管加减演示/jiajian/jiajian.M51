@@ -1,0 +1,155 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  09:35:33  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE jiajian.obj TO jiajian RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  jiajian.obj (JIAJIAN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  jiajian (JIAJIAN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0005H     UNIT         ?DT?JIAJIAN
+            IDATA   000DH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     004EH     UNIT         ?PR?MAIN?JIAJIAN
+            CODE    00DDH     0047H     UNIT         ?PR?SHOW_COUNTS_ON_DSY?JIAJIAN
+            CODE    0124H     0016H     UNIT         ?PR?_DELAYMS?JIAJIAN
+            CODE    013AH     000BH     UNIT         ?CO?JIAJIAN
+            CODE    0145H     0009H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   jiajian (JIAJIAN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?JIAJIAN
+  +--> ?C_INITSEG
+
+?PR?MAIN?JIAJIAN
+  +--> ?PR?SHOW_COUNTS_ON_DSY?JIAJIAN
+
+?PR?SHOW_COUNTS_ON_DSY?JIAJIAN
+  +--> ?CO?JIAJIAN
+  +--> ?PR?_DELAYMS?JIAJIAN
+
+
+
+SYMBOL TABLE OF MODULE:  jiajian (JIAJIAN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  09:35:33  PAGE 2
+
+
+
+  -------         MODULE        JIAJIAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        Key_Code
+  D:0009H         PUBLIC        Key_Counts
+  D:00A8H         PUBLIC        IE
+  C:0124H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:008FH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:00DDH         PUBLIC        Show_Counts_ON_DSY
+  D:00C8H         PUBLIC        T2CON
+  C:013AH         PUBLIC        DSY_CODE
+  D:000AH         PUBLIC        Num_Buffer
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:0124H         LINE#         13
+  C:0124H         LINE#         14
+  C:0124H         LINE#         16
+  C:012EH         LINE#         17
+  C:012EH         LINE#         18
+  C:0139H         LINE#         19
+  C:0139H         LINE#         20
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          SHOW_COUNTS_ON_DSY
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:00DDH         LINE#         22
+  C:00DDH         LINE#         23
+  C:00DDH         LINE#         24
+  C:00DFH         LINE#         25
+  C:00E7H         LINE#         26
+  C:00F4H         LINE#         27
+  C:00FDH         LINE#         28
+  C:00FFH         LINE#         29
+  C:00FFH         LINE#         30
+  C:010BH         LINE#         31
+  C:010DH         LINE#         32
+  C:0118H         LINE#         33
+  C:011FH         LINE#         34
+  C:0123H         LINE#         35
+  -------         ENDPROC       SHOW_COUNTS_ON_DSY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        i
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  09:35:33  PAGE 3
+
+
+  C:008FH         LINE#         37
+  C:008FH         LINE#         38
+  C:008FH         LINE#         40
+  C:0092H         LINE#         41
+  C:0095H         LINE#         42
+  C:0098H         LINE#         43
+  C:009BH         LINE#         44
+  C:009BH         LINE#         45
+  C:009BH         LINE#         46
+  C:009EH         LINE#         47
+  C:00A1H         LINE#         48
+  C:00A4H         LINE#         49
+  C:00A9H         LINE#         50
+  C:00A9H         LINE#         51
+  C:00ABH         LINE#         52
+  C:00ABH         LINE#         53
+  C:00AEH         LINE#         54
+  C:00B2H         LINE#         55
+  C:00B2H         LINE#         56
+  C:00BFH         LINE#         57
+  C:00BFH         LINE#         58
+  C:00CAH         LINE#         59
+  C:00D5H         LINE#         60
+  C:00D8H         LINE#         61
+  C:00D8H         LINE#         62
+  C:00DBH         LINE#         63
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        JIAJIAN
+
+Program Size: data=14.0 xdata=0 code=334
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

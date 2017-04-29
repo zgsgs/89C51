@@ -1,0 +1,51 @@
+C51 COMPILER V8.08   JDQ                                                                   08/10/2009 10:15:17 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE JDQ
+OBJECT MODULE PLACED IN jdq.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE jdq.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          sbit K1 = P1^0;
+   5          sbit RELAY = P2^4;
+   6          void DelayMS(uint ms)
+   7          {
+   8   1              uchar t;
+   9   1              while(ms--)
+  10   1              {
+  11   2                      for(t=0;t<120;t++);
+  12   2              }
+  13   1      }
+  14          
+  15          void main()
+  16          {
+  17   1              P1 = 0xff;
+  18   1              RELAY = 1;
+  19   1              while(1)
+  20   1              {
+  21   2                      if(K1==0)
+  22   2                      {
+  23   3                              while(K1==0);
+  24   3                              RELAY = ~RELAY;
+  25   3                              DelayMS(20);
+  26   3                      }
+  27   2              }
+  28   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     44    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

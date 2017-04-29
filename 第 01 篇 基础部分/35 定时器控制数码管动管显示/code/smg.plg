@@ -1,0 +1,28 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\35 定时器控制数码管动管显示\code\smg.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling smg.c...
+SMG.C(8): error C242: 'scalar': too many initializers
+SMG.C(16): error C141: syntax error near 'unsigned'
+SMG.C(36): error C183: unmodifiable lvalue
+SMG.C(39): error C183: unmodifiable lvalue
+Target not created
+Build target 'Target 1'
+compiling smg.c...
+SMG.C(8): error C242: 'scalar': too many initializers
+Target not created
+Build target 'Target 1'
+compiling smg.c...
+linking...
+Program Size: data=13.0 xdata=0 code=335
+"smg" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

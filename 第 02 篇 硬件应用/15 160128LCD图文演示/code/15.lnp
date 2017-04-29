@@ -1,0 +1,4 @@
+"LCD_160128.obj",
+"main.obj" 
+TO "15" 
+RAMSIZE(256) 

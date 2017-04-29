@@ -1,0 +1,113 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  13:27:12  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE timer.obj TO timer RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  timer.obj (TIMER)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  timer (TIMER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?TIMER
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     006BH     UNIT         ?PR?LED_FLASH_AND_SCROLL?TIMER
+            CODE    0079H     0020H     UNIT         ?PR?MAIN?TIMER
+            CODE    0099H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   timer (TIMER)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TIMER
+
+
+
+SYMBOL TABLE OF MODULE:  timer (TIMER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TIMER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  B:0080H.2       PUBLIC        R1
+  D:00B0H         PUBLIC        P3
+  B:0080H.3       PUBLIC        Y1
+  D:00A8H         PUBLIC        IE
+  C:000EH         PUBLIC        LED_Flash_and_Scroll
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  13:27:12  PAGE 2
+
+
+  D:00B8H         PUBLIC        IP
+  C:0079H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:0008H         PUBLIC        i
+  D:000AH         PUBLIC        j
+  D:000CH         PUBLIC        k
+  B:0080H.0       PUBLIC        B1
+  B:0080H.1       PUBLIC        G1
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:0079H         LINE#         9
+  C:0079H         LINE#         10
+  C:0079H         LINE#         11
+  C:0086H         LINE#         12
+  C:0089H         LINE#         13
+  C:008CH         LINE#         14
+  C:008FH         LINE#         15
+  C:0092H         LINE#         16
+  C:0095H         LINE#         17
+  C:0097H         LINE#         18
+  -------         ENDPROC       MAIN
+  -------         PROC          LED_FLASH_AND_SCROLL
+  C:000EH         LINE#         21
+  C:0012H         LINE#         23
+  C:0023H         LINE#         24
+  C:0029H         LINE#         25
+  C:003CH         LINE#         26
+  C:003CH         LINE#         27
+  C:0040H         LINE#         28
+  C:0044H         LINE#         29
+  C:0048H         LINE#         30
+  C:004CH         LINE#         31
+  C:0052H         LINE#         32
+  C:0052H         LINE#         33
+  C:0063H         LINE#         34
+  C:0069H         LINE#         35
+  C:006CH         LINE#         36
+  C:0074H         LINE#         37
+  -------         ENDPROC       LED_FLASH_AND_SCROLL
+  -------         ENDMOD        TIMER
+
+Program Size: data=15.0 xdata=0 code=157
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

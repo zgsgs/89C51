@@ -1,0 +1,89 @@
+C51 COMPILER V8.08   JIAJIAN                                                               08/10/2009 09:35:33 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE JIAJIAN
+OBJECT MODULE PLACED IN jiajian.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE jiajian.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0xff
+   9          };
+  10          uchar Num_Buffer[] = {0,0,0};
+  11          uchar Key_Code,Key_Counts=0;
+  12          
+  13          void DelayMS(uint x)
+  14          {
+  15   1              uchar t;
+  16   1              while(x--)
+  17   1              {
+  18   2                      for(t=0;t<120;t++);
+  19   2              }
+  20   1      }
+  21          
+  22          void Show_Counts_ON_DSY()
+  23          {
+  24   1              uchar i,j=0x01;
+  25   1              Num_Buffer[2]=Key_Counts/100;
+  26   1              Num_Buffer[1]=Key_Counts/10%10;
+  27   1              Num_Buffer[0]=Key_Counts%10;
+  28   1              for(i=0;i<3;i++)
+  29   1              {
+  30   2                      j = _cror_(j,1);
+  31   2                      P2 = j;
+  32   2                      P0 = DSY_CODE[Num_Buffer[i]];
+  33   2                      DelayMS(1);
+  34   2              }
+  35   1      }
+  36          
+  37          void main()
+  38          {
+  39   1              uchar i;
+  40   1              P0 = 0xff;
+  41   1              P1 = 0xff;
+  42   1              P2 = 0x00;
+  43   1              Key_Code = 0xff;
+  44   1              while(1)
+  45   1              {
+  46   2                      Show_Counts_ON_DSY();
+  47   2                      P1 = 0xff;
+  48   2                      Key_Code = P1;
+  49   2                      if(Key_Code != 0xff)
+  50   2                      {
+  51   3                              for(i=0;i<30;i++)
+  52   3                              {
+  53   4                                      Show_Counts_ON_DSY();
+  54   4                              }
+  55   3                      }
+C51 COMPILER V8.08   JIAJIAN                                                               08/10/2009 09:35:33 PAGE 2   
+
+  56   2                      switch(Key_Code)
+  57   2                      {
+  58   3                              case 0xfe:if(Key_Counts<255) Key_Counts++;break;
+  59   3                              case 0xfd:if(Key_Counts>0)       Key_Counts--;break;
+  60   3                              case 0xfb:Key_Counts=0;
+  61   3                      }
+  62   2                      Key_Code = 0xff;
+  63   2              }
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    171    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

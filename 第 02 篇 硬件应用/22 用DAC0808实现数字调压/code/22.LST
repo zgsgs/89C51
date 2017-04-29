@@ -1,0 +1,62 @@
+C51 COMPILER V8.08   22                                                                    08/12/2009 11:04:52 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 22
+OBJECT MODULE PLACED IN 22.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 22.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          
+   6          sbit K1 = P3^0;
+   7          sbit K2 = P3^1;
+   8          sbit K3 = P3^2;
+   9          sbit K4 = P3^3;
+  10          sbit K5 = P3^4;
+  11          sbit K6 = P3^5;
+  12          sbit K7 = P3^6;
+  13          sbit K8 = P3^7;
+  14          
+  15          void DelayMS(uint ms)
+  16          {
+  17   1              uchar i;
+  18   1              while(ms--)
+  19   1              {
+  20   2                      for(i=0;i<120;i++);
+  21   2              }
+  22   1      }
+  23          
+  24          void main()
+  25          {
+  26   1              P2 = 0x00;
+  27   1              while(1)
+  28   1              {
+  29   2                      if(K1 == 0) P2 = 0;
+  30   2                      if(K2 == 0) P2 = 35;
+  31   2                      if(K3 == 0) P2 = 70;
+  32   2                      if(K4 == 0) P2 = 105;
+  33   2                      if(K5 == 0) P2 = 140;
+  34   2                      if(K6 == 0) P2 = 175;
+  35   2                      if(K7 == 0) P2 = 210;
+  36   2                      if(K8 == 0) P2 = 255;
+  37   2                      DelayMS(2);
+  38   2              }
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     82    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

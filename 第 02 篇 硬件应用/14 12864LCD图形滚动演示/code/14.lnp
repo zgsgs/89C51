@@ -1,0 +1,5 @@
+"STARTUP.obj",
+"LCD_12864.obj",
+"main.obj" 
+TO "14" 
+RAMSIZE(256) 

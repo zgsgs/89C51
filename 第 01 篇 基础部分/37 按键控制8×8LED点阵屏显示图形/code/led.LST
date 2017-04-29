@@ -1,0 +1,66 @@
+C51 COMPILER V8.08   LED                                                                   08/10/2009 16:00:39 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char 
+   4          #define uint unsigned int
+   5          
+   6          uchar code M[3][8]=
+   7          {
+   8                  {0x00,0x7e,0x7e,0x7e,0x7e,0x7e,0x7e,0x00},
+   9                  {0x00,0x38,0x44,0x54,0x44,0x38,0x00,0x00},
+  10                  {0x00,0x20,0x30,0x38,0x3c,0x3e,0x00,0x00}
+  11          };
+  12          
+  13          uchar i,j;
+  14          void main()
+  15          {
+  16   1              P0 = 0xff;
+  17   1              P1 = 0xff;
+  18   1              TMOD = 0x01;
+  19   1              TH0  = (65535-2000)/256;
+  20   1              TL0  = (65535-2000)%256;
+  21   1              IT0 = 1;
+  22   1              IE  = 0x83;
+  23   1              i   = 0xff;
+  24   1              while(1);
+  25   1      }
+  26          
+  27          void Key_Down() interrupt 0
+  28          {
+  29   1              P0 = 0xff;
+  30   1              P1 = 0x80;
+  31   1              j = 0;
+  32   1              i = (i+1)%3;
+  33   1              TR0 = 1;
+  34   1      }
+  35          
+  36          void Show_Dot_Matrix() interrupt 1
+  37          {
+  38   1              TH0  = (65535-2000)/256;
+  39   1              TL0  = (65535-2000)%256;
+  40   1              P1 = _crol_(P1,1);
+  41   1              P0 = ~M[i][j];
+  42   1              j=(j+1)%8;      
+  43   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    181    ----
+   CONSTANT SIZE    =     24    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

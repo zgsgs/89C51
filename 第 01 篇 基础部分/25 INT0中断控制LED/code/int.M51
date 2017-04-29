@@ -1,0 +1,80 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  11:09:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE int.obj TO int RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  int.obj (INT)
+
+
+LINK MAP OF MODULE:  int (INT)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     UNIT         ?PR?EXTERNAL_INTERRUPT_0?INT
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     000BH     UNIT         ?PR?MIAN?INT
+
+
+
+OVERLAY MAP OF MODULE:   int (INT)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+
+
+SYMBOL TABLE OF MODULE:  int (INT)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        INT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:0000H         PUBLIC        External_Interrupt_0
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:0006H         PUBLIC        mian
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:00A8H.0       PUBLIC        EX0
+  B:0080H.0       PUBLIC        LED
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MIAN
+  C:0006H         LINE#         6
+  C:0006H         LINE#         7
+  C:0006H         LINE#         8
+  C:0008H         LINE#         9
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  11:09:25  PAGE 2
+
+
+  C:000AH         LINE#         10
+  C:000CH         LINE#         11
+  C:000FH         LINE#         12
+  -------         ENDPROC       MIAN
+  -------         PROC          EXTERNAL_INTERRUPT_0
+  C:0000H         LINE#         15
+  C:0000H         LINE#         17
+  C:0002H         LINE#         18
+  -------         ENDPROC       EXTERNAL_INTERRUPT_0
+  -------         ENDMOD        INT
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MIAN?INT
+
+Program Size: data=0.0 xdata=0 code=17
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

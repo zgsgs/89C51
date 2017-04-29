@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\32 10秒的秒表\code\timer-smg.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling timer-smg.c...
+TIMER-SMG.C(30): error C175: 0x1: duplicate case value
+Target not created
+Build target 'Target 1'
+compiling timer-smg.c...
+TIMER-SMG.C(52): warning C206: 'Key_Event_Habdle': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_EVENT_HANDLE?TIMER_SMG
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  KEY_EVENT_HABDLE
+    MODULE:  timer-smg.obj (TIMER_SMG)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  KEY_EVENT_HABDLE
+    MODULE:  timer-smg.obj (TIMER_SMG)
+    ADDRESS: 019AH
+Program Size: data=22.1 xdata=0 code=441
+"timer-smg" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling timer-smg.c...
+linking...
+Program Size: data=22.1 xdata=0 code=441
+"timer-smg" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

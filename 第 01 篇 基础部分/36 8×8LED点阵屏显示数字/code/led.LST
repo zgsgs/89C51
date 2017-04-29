@@ -1,0 +1,69 @@
+C51 COMPILER V8.08   LED                                                                   08/10/2009 15:47:06 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          uchar code Table_OF_Digits[]=
+   6          {
+   7                  0x00,0x3e,0x41,0x41,0x41,0x3e,0x00,0x00,
+   8                  0x00,0x00,0x00,0x21,0x7f,0x01,0x00,0x00,
+   9                  0x00,0x27,0x45,0x45,0x45,0x39,0x00,0x00,
+  10                  0x00,0x22,0x49,0x49,0x49,0x36,0x00,0x00,
+  11                  0x00,0x0c,0x14,0x24,0x7f,0x04,0x00,0x00,
+  12                  0x00,0x72,0x51,0x51,0x51,0x4e,0x00,0x00,
+  13                  0x00,0x3e,0x49,0x49,0x49,0x26,0x00,0x00,
+  14                  0x00,0x40,0x40,0x40,0x4f,0x70,0x00,0x00,
+  15                  0x00,0x36,0x49,0x49,0x49,0x36,0x00,0x00,
+  16                  0x00,0x32,0x49,0x49,0x49,0x3e,0x00,0x00,
+  17          };
+  18          uchar i=0,t=0,Num_Index = 0;
+  19          
+  20          void main()
+  21          {
+  22   1              P3 = 0x80;
+  23   1              Num_Index = 0;
+  24   1              TMOD = 0x00;
+  25   1              TH0 = (8192-2000)/32;
+  26   1              TL0 = (8192-2000)%32;
+  27   1              TR0 = 1;
+  28   1              IE = 0x82;
+  29   1              while(1);
+  30   1      }
+  31          
+  32          void LED_Screen_Display() interrupt 1
+  33          {
+  34   1              TH0 = (8192-2000)/32;
+  35   1              TL0 = (8192-2000)%32;
+  36   1              P3 = _crol_(P3,1);
+  37   1              P0 = ~Table_OF_Digits[Num_Index * 8 +i];
+  38   1              if(++i == 8) i = 0;
+  39   1              if(++t == 250)
+  40   1              {
+  41   2                      t = 0x00;
+  42   2                      if(++Num_Index == 10) Num_Index = 0;
+  43   2              }
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    134    ----
+   CONSTANT SIZE    =     80    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V8.08   LED                                                                   08/10/2009 15:47:06 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

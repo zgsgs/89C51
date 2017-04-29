@@ -1,0 +1,250 @@
+C51 COMPILER V8.08   24                                                                    08/13/2009 11:21:37 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 24
+OBJECT MODULE PLACED IN 24.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 24.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          bit I2C_Busy, NO_Ack,Bus_Fault,point;
+   7          
+   8          uchar bdata a;
+   9          sbit LSB = a^0;
+  10          sbit MSB = a^7;
+  11          sbit SDA = P3^3;
+  12          sbit SCL = P3^2;
+  13          uchar Array[] = {'0','1','2','3','4','5','6','7','8','9'};
+  14          uchar command_data[]=
+  15          {
+  16                  0xac,0x00,0xee,0xa1,0x00,0x00,0xa2,0x00,0x00,0xaa
+  17          };
+  18          uchar Prompt[]="Waiting for a while...\r";
+  19          uchar i;
+  20          void DelayMS(uint ms)
+  21          {
+  22   1              uchar i;
+  23   1              while(ms--)
+  24   1              {
+  25   2                      for(i=0;i<120;i++);
+  26   2              }
+  27   1      }
+  28          
+  29          void SendStop()
+  30          {
+  31   1              SDA = 0;
+  32   1              SCL = 1;
+  33   1              _nop_();
+  34   1              SDA = 1;
+  35   1              I2C_Busy = 0;
+  36   1      }
+  37          
+  38          void SendByte(uchar wd)
+  39          {
+  40   1              uchar i;
+  41   1              a = wd;
+  42   1              for(i=0;i<8;i++)
+  43   1              {
+  44   2                      SCL = 0;
+  45   2                      _nop_();
+  46   2                      _nop_();
+  47   2                      SDA = MSB;
+  48   2                      a <<= 1;
+  49   2                      _nop_();
+  50   2                      _nop_();
+  51   2                      SCL = 1;
+  52   2                      _nop_();
+  53   2                      _nop_();
+  54   2                      SCL = 0;
+  55   2              }
+C51 COMPILER V8.08   24                                                                    08/13/2009 11:21:37 PAGE 2   
+
+  56   1              SDA = 1;
+  57   1              SCL = 1;
+  58   1              _nop_();
+  59   1              _nop_();
+  60   1      
+  61   1              if(!SDA)
+  62   1              {
+  63   2                      SCL = 0;
+  64   2                      _nop_();
+  65   2                      _nop_();
+  66   2              }
+  67   1              else
+  68   1              {
+  69   2                      NO_Ack = 1;
+  70   2                      SCL = 0;
+  71   2                      _nop_();
+  72   2                      _nop_();
+  73   2              }
+  74   1      }
+  75          
+  76          void Master(uchar slave_addr)
+  77          {
+  78   1      
+  79   1              I2C_Busy = 1;
+  80   1              NO_Ack = 0;
+  81   1              Bus_Fault = 0;
+  82   1              if(!SCL || !SDA)
+  83   1                      Bus_Fault = 1;
+  84   1              else
+  85   1              {
+  86   2                      SDA = 0;
+  87   2                      _nop_();
+  88   2                      _nop_();
+  89   2                      SCL = 0;
+  90   2                      _nop_();
+  91   2                      _nop_();
+  92   2                      SendByte(slave_addr);
+  93   2              }
+  94   1      }
+  95          
+  96          uchar RecvByte(uchar cnt)
+  97          {
+  98   1              uchar i,rcv_data;
+  99   1              for(i=0;i<8;i++)
+ 100   1              {
+ 101   2                      SDA = 1;
+ 102   2                      SCL = 1;
+ 103   2                      _nop_();
+ 104   2                      LSB = SDA;
+ 105   2                      if(i<7)
+ 106   2                              a <<= 1;
+ 107   2                      _nop_();
+ 108   2                      SCL = 0;
+ 109   2                      _nop_();
+ 110   2              } 
+ 111   1              
+ 112   1              if(cnt == 1)
+ 113   1                      SDA = 1;
+ 114   1              else
+ 115   1                      SDA = 0;
+ 116   1              SCL = 1;
+ 117   1              _nop_();
+C51 COMPILER V8.08   24                                                                    08/13/2009 11:21:37 PAGE 3   
+
+ 118   1              SCL = 0;
+ 119   1              SDA = 1;
+ 120   1              _nop_();
+ 121   1              rcv_data = a;
+ 122   1              return rcv_data;        
+ 123   1      }
+ 124          
+ 125          void SendData(uchar slave_address,uchar start,uchar end)
+ 126          {
+ 127   1              Master(slave_address);
+ 128   1              for(i=start;i<=end;i++)
+ 129   1                      SendByte(command_data[i]);      
+ 130   1              SendStop();
+ 131   1      }
+ 132          
+ 133          void InitialiseSerialPort()
+ 134          {
+ 135   1              TMOD = 0x20;
+ 136   1              TH1  = 0xfd;
+ 137   1              SCON = 0x50;
+ 138   1              TR1  = 1;
+ 139   1      }
+ 140          
+ 141          void SendCharToSerialPort(uchar ch)
+ 142          {
+ 143   1              SBUF = ch;
+ 144   1              while(!TI);
+ 145   1              TI = 0;
+ 146   1      }
+ 147          
+ 148          void SendTemperatureToSerialPort(uchar val)
+ 149          {
+ 150   1              if(val>200)
+ 151   1              {
+ 152   2                      val = 255-val;
+ 153   2                      SendCharToSerialPort('-');
+ 154   2                      if(!point)
+ 155   2                              val+=1;
+ 156   2              }
+ 157   1              SendCharToSerialPort(Array[(val/10)/10]);
+ 158   1              SendCharToSerialPort(Array[(val/10)%10]);
+ 159   1              SendCharToSerialPort(Array[val%10]);
+ 160   1              SendCharToSerialPort('.');
+ 161   1              if(point)
+ 162   1                      SendCharToSerialPort('5');
+ 163   1              else
+ 164   1                      SendCharToSerialPort('0');
+ 165   1              SendCharToSerialPort(' ');
+ 166   1              SendCharToSerialPort('C');
+ 167   1              SendCharToSerialPort('\r');     
+ 168   1      }
+ 169          
+ 170          void SetTemperatureLimit(uchar HI,uchar LO)
+ 171          {
+ 172   1              command_data[4] = HI;
+ 173   1              command_data[5] = 0;
+ 174   1              command_data[7] = LO;
+ 175   1              command_data[8] = 0;
+ 176   1              SendData(0x90,3,5);
+ 177   1              DelayMS(10);
+ 178   1              SendData(0x90,6,8);     
+ 179   1      }
+C51 COMPILER V8.08   24                                                                    08/13/2009 11:21:37 PAGE 4   
+
+ 180          
+ 181          void StartConversion()
+ 182          {
+ 183   1              SendData(0x90,2,2);
+ 184   1              DelayMS(750);
+ 185   1      }
+ 186          
+ 187          uchar ReadTemp()
+ 188          {
+ 189   1              uchar d;
+ 190   1              SendData(0x90,9,9);
+ 191   1              Master(0x91);
+ 192   1              d = RecvByte(0);
+ 193   1              point = RecvByte(1)>>7;
+ 194   1              SendStop();
+ 195   1              return d;
+ 196   1      }
+ 197          
+ 198          void WriteConfig(uchar c)
+ 199          {
+ 200   1              command_data[1] = c;
+ 201   1              SendData(0x90,0,1);             
+ 202   1      }
+ 203          
+ 204          void main()
+ 205          {
+ 206   1              uchar i;
+ 207   1              InitialiseSerialPort();
+ 208   1              while(Prompt[i]!='\0')
+ 209   1                      SendCharToSerialPort(Prompt[i++]);
+ 210   1              WriteConfig(0x02);
+ 211   1              StartConversion();
+ 212   1              SetTemperatureLimit(40,35);
+ 213   1              while(1)
+ 214   1              {
+ 215   2                      DelayMS(50);
+ 216   2                      SendTemperatureToSerialPort(ReadTemp());
+ 217   2              }       
+ 218   1      }
+ 219          
+ 220          
+ 221          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    459    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     46       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      4    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

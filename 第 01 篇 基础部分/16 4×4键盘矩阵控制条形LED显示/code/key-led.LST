@@ -1,0 +1,98 @@
+C51 COMPILER V8.08   KEY_LED                                                               08/10/2009 09:52:11 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_LED
+OBJECT MODULE PLACED IN key-led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,0x8e,0x00
+   9          };
+  10          uchar code KeyCodeTable[]=
+  11          {
+  12                  0x11,0x12,0x14,0x18,0x21,0x22,0x24,0x28,0x41,0x42,0x44,0x48,0x81,0x82,0x84,0x88
+  13          };
+  14          
+  15          void Delay()
+  16          {
+  17   1              uchar i;
+  18   1              for(i=0;i<200;i++);
+  19   1      }
+  20          
+  21          uchar Keys_Scan()
+  22          {
+  23   1              uchar sCode,kCode,i,k;
+  24   1              P1 = 0xf0;
+  25   1              if((P1&0xf0)!=0xf0)
+  26   1              {
+  27   2                      Delay();
+  28   2                      if((P1&0xf0)!=0xf0)
+  29   2                      {
+  30   3                              sCode = 0xfe;
+  31   3                              for(k=0;k<4;k++)
+  32   3                              {
+  33   4                                      P1 = sCode;
+  34   4                                      if((P1&0xf0)!=0xf0)
+  35   4                                      {
+  36   5                                              kCode = ~P1;
+  37   5                                              for(i=0;i<16;i++)
+  38   5                                              {
+  39   6                                                      if(kCode == KeyCodeTable[i])
+  40   6                                                              return i;
+  41   6                                              }
+  42   5                                      }
+  43   4                                      else 
+  44   4                                              sCode = _crol_(sCode,1);
+  45   4                              }
+  46   3                      }
+  47   2              }
+  48   1              return -1;
+  49   1      }
+  50          
+  51          void main()
+  52          {
+  53   1              uchar KeyNO = -1;
+  54   1              uchar i,P2_LED,P3_LED;
+  55   1              while(1)
+C51 COMPILER V8.08   KEY_LED                                                               08/10/2009 09:52:11 PAGE 2   
+
+  56   1              {
+  57   2                      KeyNO = Keys_Scan();
+  58   2                      if(KeyNO != -1)
+  59   2                      {
+  60   3                              P2_LED = 0xff;
+  61   3                              P3_LED = 0xff;
+  62   3                              for(i=0;i<=KeyNO;i++)
+  63   3                              {
+  64   4                                      if(i<8)
+  65   4                                              P3_LED>>=1;
+  66   4                                      else
+  67   4                                              P2_LED>>=1;
+  68   4                              }
+  69   3                              P3 = P3_LED;
+  70   3                              P2 = P2_LED;
+  71   3                      }
+  72   2              }
+  73   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    128    ----
+   CONSTANT SIZE    =     33    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

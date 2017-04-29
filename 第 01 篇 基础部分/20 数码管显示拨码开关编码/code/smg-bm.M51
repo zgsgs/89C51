@@ -1,0 +1,119 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  10:24:13  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE smg-bm.obj TO smg-bm RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  smg-bm.obj (SMG_BM)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  smg-bm (SMG_BM)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?SMG_BM
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     004DH     UNIT         ?PR?MAIN?SMG_BM
+            CODE    00DCH     0016H     UNIT         ?PR?_DELAYMS?SMG_BM
+            CODE    00F2H     000AH     UNIT         ?CO?SMG_BM
+            CODE    00FCH     0006H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   smg-bm (SMG_BM)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?SMG_BM
+  +--> ?C_INITSEG
+
+?PR?MAIN?SMG_BM
+  +--> ?CO?SMG_BM
+  +--> ?PR?_DELAYMS?SMG_BM
+
+
+
+SYMBOL TABLE OF MODULE:  smg-bm (SMG_BM)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        SMG_BM
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:24:13  PAGE 2
+
+
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:00DCH         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:008FH         PUBLIC        main
+  D:0008H         PUBLIC        DSY_Buffer
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  C:00F2H         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:00DCH         LINE#         12
+  C:00DCH         LINE#         13
+  C:00DCH         LINE#         15
+  C:00E6H         LINE#         16
+  C:00E6H         LINE#         17
+  C:00F1H         LINE#         18
+  C:00F1H         LINE#         19
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        m
+  D:0007H         SYMBOL        Num
+  -------         ENDDO         
+  C:008FH         LINE#         20
+  C:008FH         LINE#         21
+  C:008FH         LINE#         23
+  C:0092H         LINE#         24
+  C:0095H         LINE#         25
+  C:0095H         LINE#         26
+  C:0095H         LINE#         27
+  C:0097H         LINE#         28
+  C:0099H         LINE#         29
+  C:00A0H         LINE#         30
+  C:00ACH         LINE#         31
+  C:00B4H         LINE#         32
+  C:00B6H         LINE#         33
+  C:00B6H         LINE#         34
+  C:00C2H         LINE#         35
+  C:00C4H         LINE#         36
+  C:00CFH         LINE#         37
+  C:00D6H         LINE#         38
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        SMG_BM
+
+Program Size: data=12.0 xdata=0 code=258
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

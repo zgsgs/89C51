@@ -1,0 +1,134 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  16:26:58  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE yj.obj TO yj RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  yj.obj (YJ)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  yj (YJ)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         ?DT?YJ
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0004H     UNIT         ?C_INITSEG
+                    0007H     0004H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    009AH     002CH     UNIT         ?PR?MAIN?YJ
+            CODE    00C6H     001FH     UNIT         ?PR?T0_INT?YJ
+            CODE    00E5H     001EH     UNIT         ?CO?YJ
+            CODE    0103H     0016H     UNIT         ?PR?_DELAYMS?YJ
+
+
+
+OVERLAY MAP OF MODULE:   yj (YJ)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?T0_INT?YJ
+  +--> ?CO?YJ
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?YJ
+  +--> ?C_INITSEG
+
+?PR?MAIN?YJ
+  +--> ?PR?_DELAYMS?YJ
+
+
+
+SYMBOL TABLE OF MODULE:  yj (YJ)
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  16:26:58  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        YJ
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0103H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:009AH         PUBLIC        main
+  C:00E5H         PUBLIC        HI_LIST
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:00F4H         PUBLIC        LO_LIST
+  D:008CH         PUBLIC        TH0
+  C:00C6H         PUBLIC        T0_INT
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:0008H         PUBLIC        i
+  B:00B0H.4       PUBLIC        SPK
+  D:00D0H         PUBLIC        PSW
+  B:0090H.0       PUBLIC        K1
+  -------         PROC          T0_INT
+  C:00C6H         LINE#         18
+  C:00CCH         LINE#         20
+  C:00D4H         LINE#         21
+  C:00DCH         LINE#         22
+  C:00DEH         LINE#         23
+  -------         ENDPROC       T0_INT
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:0103H         LINE#         25
+  C:0103H         LINE#         26
+  C:0103H         LINE#         28
+  C:010DH         LINE#         29
+  C:010DH         LINE#         30
+  C:0118H         LINE#         31
+  C:0118H         LINE#         32
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  C:009AH         LINE#         34
+  C:009AH         LINE#         35
+  C:009AH         LINE#         36
+  C:009DH         LINE#         37
+  C:00A0H         LINE#         38
+  C:00A0H         LINE#         39
+  C:00A0H         LINE#         40
+  C:00A3H         LINE#         41
+  C:00A6H         LINE#         42
+  C:00B0H         LINE#         43
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  16:26:58  PAGE 3
+
+
+  C:00B0H         LINE#         44
+  C:00B2H         LINE#         45
+  C:00B9H         LINE#         46
+  C:00BBH         LINE#         47
+  C:00C2H         LINE#         48
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        YJ
+
+Program Size: data=10.0 xdata=0 code=277
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

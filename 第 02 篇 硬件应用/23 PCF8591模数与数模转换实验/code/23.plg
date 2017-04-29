@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\23 PCF8591模数与数模转换实验\code\23.uv2
+Project File Date:  08/13/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 23.c...
+23.C(95): error C202: 'Voltage': undefined identifier
+23.C(97): error C202: 'Voltage': undefined identifier
+23.C(99): error C202: 'Voltage': undefined identifier
+23.C(222): error C202: 'Voltage': undefined identifier
+23.C(223): error C202: 'Voltage': undefined identifier
+23.C(224): error C202: 'Voltage': undefined identifier
+23.C(226): error C202: 'Voltage': undefined identifier
+23.C(227): error C202: 'Voltage': undefined identifier
+23.C(228): error C202: 'Voltage': undefined identifier
+23.C(230): error C202: 'Voltage': undefined identifier
+23.C(231): error C202: 'Voltage': undefined identifier
+23.C(232): error C202: 'Voltage': undefined identifier
+23.C(234): error C202: 'Voltage': undefined identifier
+23.C(235): error C202: 'Voltage': undefined identifier
+23.C(236): error C202: 'Voltage': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling 23.c...
+23.C(173): error C193: '+': bad operand type
+Target not created
+Build target 'Target 1'
+compiling 23.c...
+23.C(178): warning C280: 'CtrlByte': unreferenced local variable
+linking...
+Program Size: data=52.2 xdata=0 code=814
+"23" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling 23.c...
+linking...
+Program Size: data=52.2 xdata=0 code=822
+"23" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 23.c...
+linking...
+Program Size: data=52.2 xdata=0 code=822
+creating hex file from "23"...
+"23" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

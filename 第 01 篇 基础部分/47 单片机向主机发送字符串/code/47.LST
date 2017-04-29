@@ -1,0 +1,89 @@
+C51 COMPILER V8.08   47                                                                    08/11/2009 10:10:59 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 47
+OBJECT MODULE PLACED IN 47.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 47.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          
+   6          void Delay(uint x)
+   7          {
+   8   1              uchar i;
+   9   1              while(x--)
+  10   1              {
+  11   2                      for(i=0;i<120;i++);
+  12   2              }
+  13   1      }
+  14          
+  15          void putc_to_SerialPort(uchar c)
+  16          {
+  17   1              SBUF = c;
+  18   1              while(TI == 0);
+  19   1              TI = 0;
+  20   1      }
+  21          
+  22          void puts_to_SerialPort(uchar *s)
+  23          {
+  24   1              while(*s != '\0')
+  25   1              {
+  26   2                      putc_to_SerialPort(*s);
+  27   2                      s++;
+  28   2                      Delay(5);       
+  29   2              }
+  30   1      }
+  31          
+  32          void main()
+  33          {
+  34   1              uchar c = 0;
+  35   1              SCON = 0x40;
+  36   1              TMOD = 0x20;
+  37   1              PCON = 0x00;
+  38   1              TH1  = 0xfd;
+  39   1              TL1  = 0xfd;
+  40   1              TI   = 0;
+  41   1              TR1  = 1;
+  42   1              Delay(200);
+  43   1              puts_to_SerialPort("Receiving From 8051...\r\n");
+  44   1              puts_to_SerialPort("------------------------------\r\n");
+  45   1              Delay(50);
+  46   1              while(1)
+  47   1              {
+  48   2                      putc_to_SerialPort(c+'A');
+  49   2                      Delay(100);
+  50   2                      putc_to_SerialPort(' '); //这个地方‘’间只能有且必须有一个空格
+  51   2                      Delay(100);
+  52   2                      if(c==25)
+  53   2                      {
+  54   3                              puts_to_SerialPort("\r\n---------------------------\r\n");
+  55   3                              Delay(100);
+C51 COMPILER V8.08   47                                                                    08/11/2009 10:10:59 PAGE 2   
+
+  56   3                      }
+  57   2                      c = (c+1)%26;
+  58   2                      if(c%10==0)
+  59   2                      {
+  60   3                              puts_to_SerialPort("\r\n");
+  61   3                              Delay(100);
+  62   3                      }
+  63   2              }
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    196    ----
+   CONSTANT SIZE    =     93    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

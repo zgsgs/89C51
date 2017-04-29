@@ -1,0 +1,83 @@
+C51 COMPILER V9.00   45_1                                                                  11/23/2016 16:58:47 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 45_1
+OBJECT MODULE PLACED IN 45-1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 45-1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          sbit LED1 = P0^0;
+   6          sbit LED2 = P0^3;
+   7          sbit K1 = P1^0;
+   8          
+   9          void Delay(uint x)
+  10          {
+  11   1              uchar i;
+  12   1              while(x--)
+  13   1              {
+  14   2                      for(i=0;i<120;i++);
+  15   2              }
+  16   1      }
+  17          
+  18          void putc_to_SerialPort(uchar c)
+  19          {
+  20   1              SBUF = c;
+  21   1              while(TI == 0);
+  22   1              TI = 0;
+  23   1      }
+  24          
+  25          void main()
+  26          {
+  27   1              uchar Operation_NO = 0;
+  28   1              SCON = 0x40;
+  29   1              TMOD = 0x20;
+  30   1              PCON = 0x00;
+  31   1              TH1 = 0xfd;
+  32   1              TL1 = 0xfd;
+  33   1              TI = 0;
+  34   1              TR1 = 1;
+  35   1              while(1)
+  36   1              {
+  37   2                      if(K1 == 0)
+  38   2                      {
+  39   3                              while(K1==0);
+  40   3                              Operation_NO=(Operation_NO+1)%4;
+  41   3                      }
+  42   2                      switch(Operation_NO)
+  43   2                      {
+  44   3                              case 0:
+  45   3                                              LED1=LED2=1; break;
+  46   3                              case 1:
+  47   3                                              putc_to_SerialPort('A');
+  48   3                                              LED1=~LED1;LED2=1;break;
+  49   3                              case 2:
+  50   3                                              putc_to_SerialPort('B');
+  51   3                                              LED2=~LED2;LED1=1;break;
+  52   3                              case 3:
+  53   3                                              putc_to_SerialPort('C');
+  54   3                                              LED1=~LED1;LED2=LED1;break;
+  55   3                      }
+C51 COMPILER V9.00   45_1                                                                  11/23/2016 16:58:47 PAGE 2   
+
+  56   2                      Delay(10);
+  57   2              }
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    123    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

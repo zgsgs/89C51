@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\25 DS18B20温度传感器实验\code\25.uv2
+Project File Date:  08/13/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 25.c...
+25.C(54): warning C206: 'LCD_Busy_Check': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_BISY_CHECK?25
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LCD_BUSY_CHECK
+    MODULE:  25.obj (25)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LCD_BUSY_CHECK
+    MODULE:  25.obj (25)
+    ADDRESS: 023EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LCD_BUSY_CHECK
+    MODULE:  25.obj (25)
+    ADDRESS: 025FH
+Program Size: data=29.2 xdata=0 code=780
+creating hex file from "25"...
+"25" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling 25.c...
+linking...
+Program Size: data=27.2 xdata=0 code=755
+creating hex file from "25"...
+"25" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 25.c...
+linking...
+Program Size: data=27.2 xdata=0 code=755
+creating hex file from "25"...
+"25" - 0 Error(s), 0 Warning(s).

@@ -1,0 +1,154 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2009  09:58:19  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 46-2.obj TO 46-2 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  46-2.obj (46_2)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  46-2 (46_2)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         ?DT?46_2
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0016H     UNIT         ?PR?_DELAY?46_2
+            CODE    0019H     0004H     UNIT         ?C_INITSEG
+                    001DH     0006H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00B2H     0055H     UNIT         ?C?LIB_CODE
+            CODE    0107H     0041H     UNIT         ?PR?MAIN?46_2
+            CODE    0148H     003CH     UNIT         ?PR?SERIAL_INT?46_2
+
+
+
+OVERLAY MAP OF MODULE:   46-2 (46_2)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?46_2
+  +--> ?C_INITSEG
+
+?PR?MAIN?46_2
+  +--> ?PR?_DELAY?46_2
+
+
+
+SYMBOL TABLE OF MODULE:  46-2 (46_2)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  09:58:19  PAGE 2
+
+
+  -------         MODULE        46_2
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:0090H.0       PUBLIC        LED1
+  B:0090H.3       PUBLIC        LED2
+  D:0008H         PUBLIC        NumX
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  C:0107H         PUBLIC        main
+  C:0148H         PUBLIC        Serial_INT
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  C:0003H         PUBLIC        _Delay
+  D:00D0H         PUBLIC        PSW
+  B:0090H.7       PUBLIC        K1
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0003H         LINE#         9
+  C:0003H         LINE#         10
+  C:0003H         LINE#         12
+  C:000DH         LINE#         13
+  C:000DH         LINE#         14
+  C:0018H         LINE#         15
+  C:0018H         LINE#         16
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  C:0107H         LINE#         18
+  C:0107H         LINE#         19
+  C:0107H         LINE#         20
+  C:010BH         LINE#         21
+  C:010EH         LINE#         22
+  C:0111H         LINE#         23
+  C:0114H         LINE#         24
+  C:0117H         LINE#         25
+  C:011AH         LINE#         26
+  C:011CH         LINE#         27
+  C:011EH         LINE#         28
+  C:0120H         LINE#         29
+  C:0123H         LINE#         30
+  C:0123H         LINE#         31
+  C:0123H         LINE#         32
+  C:012AH         LINE#         33
+  C:012AH         LINE#         34
+  C:012AH         LINE#         35
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  09:58:19  PAGE 3
+
+
+  C:012DH         LINE#         36
+  C:013EH         LINE#         37
+  C:0141H         LINE#         38
+  C:0144H         LINE#         39
+  C:0146H         LINE#         40
+  C:0146H         LINE#         41
+  -------         ENDPROC       MAIN
+  -------         PROC          SERIAL_INT
+  C:0148H         LINE#         44
+  C:0151H         LINE#         46
+  C:0154H         LINE#         47
+  C:0154H         LINE#         48
+  C:0156H         LINE#         49
+  C:0167H         LINE#         50
+  C:0167H         LINE#         51
+  C:016DH         LINE#         52
+  C:0173H         LINE#         53
+  C:0179H         LINE#         54
+  C:017DH         LINE#         55
+  C:017DH         LINE#         56
+  C:017DH         LINE#         57
+  -------         ENDPROC       SERIAL_INT
+  -------         ENDMOD        46_2
+
+  -------         MODULE        ?C?UIDIV
+  C:00B2H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=10.0 xdata=0 code=382
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

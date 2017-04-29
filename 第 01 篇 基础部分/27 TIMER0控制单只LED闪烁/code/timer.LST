@@ -1,0 +1,48 @@
+C51 COMPILER V8.08   TIMER                                                                 08/10/2009 13:11:33 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE TIMER
+OBJECT MODULE PLACED IN timer.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE timer.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          sbit LED = P0^0;
+   5          uchar T_Count = 0;
+   6          void main()
+   7          {
+   8   1              TMOD = 0x00;
+   9   1              TH0  = (8192-5000)/32;
+  10   1              TL0  = (8192-5000)%32;
+  11   1              IE   = 0x82;
+  12   1              TR0  = 1;
+  13   1              while(1);
+  14   1      }
+  15          
+  16          void LED_Flash() interrupt 1
+  17          {
+  18   1              TH0 = (8192-5000)/32;
+  19   1              TL0 = (8192-5000)%32;
+  20   1              if(++T_Count == 100)
+  21   1              {
+  22   2                      LED = !LED;
+  23   2                      T_Count = 0;
+  24   2              }
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

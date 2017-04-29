@@ -1,0 +1,97 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+E:\Study\Proteus\《单片机C语言程序设计实训100例——基于8051+Proteus仿真》案例压缩包\第 02 篇 硬件应用\06 IIC-24C04与数码管\code\24c04.uv2
+Project File Date:  08/07/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+Target has no object modules
+Target not created
+Build target 'Target 1'
+compiling 24c04.c...
+24C04.C(82): warning C206: 'Read_A_Byte': missing function-prototype
+24C04.C(94): warning C206: 'Read_Current': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RECEIVE_A_BYTE?24C04
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_CURRENT_ADDRESS_DATA?24C04
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  READ_A_BYTE
+    MODULE:  24c04.obj (24C04)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  READ_A_BYTE
+    MODULE:  24c04.obj (24C04)
+    ADDRESS: 0174H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+    ADDRESS: 01A8H
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+24C04.C(82): warning C206: 'Read_A_Byte': missing function-prototype
+24C04.C(94): warning C206: 'Read_Current': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RECEIVE_A_BYTE?24C04
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_CURRENT_ADDRESS_DATA?24C04
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  READ_A_BYTE
+    MODULE:  24c04.obj (24C04)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  READ_A_BYTE
+    MODULE:  24c04.obj (24C04)
+    ADDRESS: 0174H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+    ADDRESS: 01A8H
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+24C04.C(94): warning C206: 'Read_Current': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_CURRENT_ADDRESS_DATA?24C04
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  READ_CURRENT
+    MODULE:  24c04.obj (24C04)
+    ADDRESS: 01A8H
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+linking...
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+linking...
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+linking...
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 24c04.c...
+linking...
+Program Size: data=13.0 xdata=0 code=459
+"24c04" - 0 Error(s), 0 Warning(s).

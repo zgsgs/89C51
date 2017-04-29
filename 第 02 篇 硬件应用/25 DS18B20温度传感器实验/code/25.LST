@@ -1,0 +1,265 @@
+C51 COMPILER V8.08   25                                                                    08/13/2009 14:37:25 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 25
+OBJECT MODULE PLACED IN 25.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 25.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          #define delayNOP() {_nop_();_nop_();_nop_();_nop_();}
+   7          
+   8          sbit DQ = P3^3;
+   9          sbit LCD_RS = P2^0;
+  10          sbit LCD_RW = P2^1;
+  11          sbit LCD_EN = P2^2;
+  12          
+  13          uchar code Temp_Disp_Title[]={"Current Temp : "};
+  14          uchar Current_Temp_Display_Buffer[]={" TEMP:   "};
+  15          
+  16          uchar code Temperature_Char[8] = 
+  17          {
+  18                  0x0c,0x12,0x12,0x0c,0x00,0x00,0x00,0x00
+  19          };
+  20          
+  21          uchar code df_Table[]=
+  22          {
+  23                  0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9
+  24          };
+  25          
+  26          uchar CurrentT = 0;
+  27          uchar Temp_Value[]={0x00,0x00};
+  28          uchar Display_Digit[]={0,0,0,0};
+  29          bit DS18B20_IS_OK = 1;
+  30          
+  31          void DelayXus(uint x)
+  32          {
+  33   1              uchar i;
+  34   1              while(x--)
+  35   1              {
+  36   2                      for(i=0;i<200;i++);
+  37   2              }
+  38   1      }
+  39          
+  40          bit LCD_Busy_Check()
+  41          {
+  42   1              bit result;
+  43   1              LCD_RS = 0;
+  44   1              LCD_RW = 1;
+  45   1              LCD_EN = 1;
+  46   1              delayNOP();
+  47   1              result = (bit)(P0&0x80);
+  48   1              LCD_EN=0;
+  49   1              return result;
+  50   1      }
+  51          
+  52          void Write_LCD_Command(uchar cmd)
+  53          {
+  54   1              while(LCD_Busy_Check());
+  55   1              LCD_RS = 0;
+C51 COMPILER V8.08   25                                                                    08/13/2009 14:37:25 PAGE 2   
+
+  56   1              LCD_RW = 0;
+  57   1              LCD_EN = 0;
+  58   1              _nop_();
+  59   1              _nop_();
+  60   1              P0 = cmd;
+  61   1              delayNOP();
+  62   1              LCD_EN = 1;
+  63   1              delayNOP();
+  64   1              LCD_EN = 0;
+  65   1      }
+  66          
+  67          void Write_LCD_Data(uchar dat)
+  68          {
+  69   1              while(LCD_Busy_Check());
+  70   1              LCD_RS = 1;
+  71   1              LCD_RW = 0;
+  72   1              LCD_EN = 0;
+  73   1              P0 = dat;
+  74   1              delayNOP();
+  75   1              LCD_EN = 1;
+  76   1              delayNOP();
+  77   1              LCD_EN = 0;
+  78   1      }
+  79          
+  80          void LCD_Initialise()
+  81          {
+  82   1              Write_LCD_Command(0x01);
+  83   1              DelayXus(5);
+  84   1              Write_LCD_Command(0x38);
+  85   1              DelayXus(5);
+  86   1              Write_LCD_Command(0x0c);
+  87   1              DelayXus(5);
+  88   1              Write_LCD_Command(0x06);
+  89   1              DelayXus(5);    
+  90   1      }
+  91          
+  92          void Set_LCD_POS(uchar pos)
+  93          {
+  94   1              Write_LCD_Command(pos|0x80);    
+  95   1      }
+  96          
+  97          void Delay(uint x)
+  98          {
+  99   1              while(--x);
+ 100   1      }
+ 101          
+ 102          uchar Init_DS18B20()
+ 103          {
+ 104   1              uchar status;
+ 105   1              DQ = 1;
+ 106   1              Delay(8);
+ 107   1              DQ = 0;
+ 108   1              Delay(90);
+ 109   1              DQ = 1;
+ 110   1              Delay(8);
+ 111   1              DQ = 1;
+ 112   1              return status;
+ 113   1      }
+ 114          
+ 115          uchar ReadOneByte()
+ 116          {
+ 117   1              uchar i,dat=0;
+C51 COMPILER V8.08   25                                                                    08/13/2009 14:37:25 PAGE 3   
+
+ 118   1              DQ = 1;
+ 119   1              _nop_();
+ 120   1              for(i=0;i<8;i++)
+ 121   1              {
+ 122   2                      DQ = 0;
+ 123   2                      dat >>= 1;
+ 124   2                      DQ = 1;
+ 125   2                      _nop_();
+ 126   2                      _nop_();
+ 127   2                      if(DQ)
+ 128   2                              dat |= 0X80;
+ 129   2                      Delay(30);
+ 130   2                      DQ = 1;
+ 131   2              }
+ 132   1              return dat;
+ 133   1      }
+ 134          
+ 135          void WriteOneByte(uchar dat)
+ 136          {
+ 137   1              uchar i;
+ 138   1              for(i=0;i<8;i++)
+ 139   1              {
+ 140   2                      DQ = 0;
+ 141   2                      DQ = dat& 0x01;
+ 142   2                      Delay(5);
+ 143   2                      DQ = 1;
+ 144   2                      dat >>= 1;
+ 145   2              }
+ 146   1      }
+ 147          
+ 148          void Read_Temperature()
+ 149          {
+ 150   1              if(Init_DS18B20()==1)
+ 151   1                      DS18B20_IS_OK=0;
+ 152   1              else
+ 153   1              {
+ 154   2                      WriteOneByte(0xcc);
+ 155   2                      WriteOneByte(0x44);
+ 156   2                      Init_DS18B20();
+ 157   2                      WriteOneByte(0xcc);
+ 158   2                      WriteOneByte(0xbe);
+ 159   2                      Temp_Value[0] = ReadOneByte(); 
+ 160   2                      Temp_Value[1] = ReadOneByte();
+ 161   2                      DS18B20_IS_OK=1;        
+ 162   2              }       
+ 163   1      }
+ 164          
+ 165          void Display_Temperature()
+ 166          {
+ 167   1              uchar i;
+ 168   1              uchar t = 150, ng = 0;
+ 169   1              if((Temp_Value[1]&0xf8)==0xf8)
+ 170   1              {
+ 171   2                      Temp_Value[1] = ~Temp_Value[1];
+ 172   2                      Temp_Value[0] = ~Temp_Value[0]+1;
+ 173   2                      if(Temp_Value[0]==0x00)
+ 174   2                              Temp_Value[1]++;
+ 175   2                      ng = 1; 
+ 176   2              }
+ 177   1              Display_Digit[0] = df_Table[Temp_Value[0]&0x0f];
+ 178   1              CurrentT = ((Temp_Value[0]&0xf0)>>4) | ((Temp_Value[1]&0x07)<<4);
+ 179   1              Display_Digit[3] = CurrentT/100;
+C51 COMPILER V8.08   25                                                                    08/13/2009 14:37:25 PAGE 4   
+
+ 180   1              Display_Digit[2] = CurrentT%100/10;
+ 181   1              Display_Digit[1] = CurrentT%10;
+ 182   1              Current_Temp_Display_Buffer[11] = Display_Digit[0] + '0';
+ 183   1              Current_Temp_Display_Buffer[10] = '.';
+ 184   1              Current_Temp_Display_Buffer[9]  = Display_Digit[1] + '0';
+ 185   1              Current_Temp_Display_Buffer[8]  = Display_Digit[2] + '0';
+ 186   1              Current_Temp_Display_Buffer[7]  = Display_Digit[3] + '0';
+ 187   1              if(Display_Digit[3] == 0)
+ 188   1                      Current_Temp_Display_Buffer[7]  = ' ';
+ 189   1              if(Display_Digit[2] == 0&&Display_Digit[3]==0)
+ 190   1                      Current_Temp_Display_Buffer[8]  = ' ';
+ 191   1              if(ng)
+ 192   1              {
+ 193   2                      if(Current_Temp_Display_Buffer[8]  == ' ')
+ 194   2                              Current_Temp_Display_Buffer[8]  = '-';
+ 195   2                      else if(Current_Temp_Display_Buffer[7]  == ' ')
+ 196   2                              Current_Temp_Display_Buffer[7]  = '-';
+ 197   2                      else 
+ 198   2                              Current_Temp_Display_Buffer[6]  = '-';
+ 199   2              }
+ 200   1              Set_LCD_POS(0x00);
+ 201   1              for(i=0;i<16;i++)
+ 202   1              {
+ 203   2                      Write_LCD_Data(Temp_Disp_Title[i]);     
+ 204   2              }
+ 205   1              Set_LCD_POS(0x40);
+ 206   1              for(i=0;i<16;i++)
+ 207   1              {
+ 208   2                      Write_LCD_Data(Current_Temp_Display_Buffer[i]);         
+ 209   2              }               
+ 210   1              Set_LCD_POS(0x4d);
+ 211   1              Write_LCD_Data(0x00);
+ 212   1              Set_LCD_POS(0x4e);
+ 213   1              Write_LCD_Data('C');
+ 214   1      }
+ 215          
+ 216          void main()
+ 217          {
+ 218   1              LCD_Initialise();
+ 219   1              Read_Temperature();
+ 220   1              Delay(50000);
+ 221   1              Delay(50000);
+ 222   1              while(1)
+ 223   1              {
+ 224   2                      Read_Temperature();
+ 225   2                      if(DS18B20_IS_OK) 
+ 226   2                              Display_Temperature();
+ 227   2                      DelayXus(100);          
+ 228   2              }
+ 229   1      
+ 230   1      }
+ 231          
+ 232          
+ 233          
+ 234          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    544    ----
+   CONSTANT SIZE    =     40    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   25                                                                    08/13/2009 14:37:25 PAGE 5   
+
+   DATA SIZE        =     17       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

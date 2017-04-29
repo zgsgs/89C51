@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\17 数码管显示4×4键盘矩阵按键\code\key-smg.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling key-smg.c...
+KEY-SMG.C(69): error C211: call not to a function
+Target not created
+Build target 'Target 1'
+compiling key-smg.c...
+linking...
+Program Size: data=11.0 xdata=0 code=344
+"key-smg" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

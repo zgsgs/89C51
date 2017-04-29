@@ -1,0 +1,64 @@
+C51 COMPILER V8.08   KEY_BEEP                                                              08/10/2009 10:36:35 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_BEEP
+OBJECT MODULE PLACED IN key-beep.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-beep.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          sbit BEEP = P3^7;
+   6          sbit K1   = P1^4;
+   7          sbit K2   = P1^5;
+   8          sbit K3   = P1^6;
+   9          sbit K4   = P1^7;
+  10          
+  11          void DelayMS(uint x)
+  12          {
+  13   1              uchar t;
+  14   1              while(x--)
+  15   1              {
+  16   2                      for(t=0;t<120;t++);
+  17   2              }
+  18   1      }
+  19          
+  20          void Play(uchar t)
+  21          {
+  22   1              uchar i;
+  23   1              for(i=0;i<100;i++)
+  24   1              {
+  25   2                      BEEP = ~BEEP;
+  26   2                      DelayMS(t);
+  27   2              }
+  28   1              BEEP = 0;
+  29   1      }
+  30          
+  31          void main()
+  32          {
+  33   1              P1 = 0xff;
+  34   1              while(1)
+  35   1              {
+  36   2                      if(K1==0) Play(1);
+  37   2                      if(K2==0) Play(2);
+  38   2                      if(K3==0) Play(3);
+  39   2                      if(K4==0) Play(4);
+  40   2              }
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     79    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

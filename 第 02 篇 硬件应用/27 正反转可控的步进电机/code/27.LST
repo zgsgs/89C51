@@ -1,0 +1,104 @@
+C51 COMPILER V8.08   27                                                                    08/12/2009 12:54:15 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 27
+OBJECT MODULE PLACED IN 27.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 27.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          uchar code FFW[]=
+   6          {
+   7                  0x01,0x03,0x02,0x06,0x04,0x0c,0x08,0x09
+   8          };
+   9          
+  10          uchar code REV[]=
+  11          {
+  12                  0x09,0x08,0x0c,0x04,0x06,0x02,0x03,0x01
+  13          };
+  14          
+  15          sbit K1 = P3^0;
+  16          sbit K2 = P3^1;
+  17          sbit K3 = P3^2;
+  18          
+  19          void DelayMS(uint ms)
+  20          {
+  21   1              uchar i;
+  22   1              while(ms--)
+  23   1              {
+  24   2                      for(i=0;i<120;i++);
+  25   2              }
+  26   1      }
+  27          
+  28          void SETP_MOTOR_FFW(uchar n)
+  29          {
+  30   1              uchar i,j;
+  31   1              for(i=0;i<5*n;i++)
+  32   1              {
+  33   2                      for(j=0;j<8;j++)
+  34   2                      {
+  35   3                              if(K3 == 0)     break;
+  36   3                              P1 = FFW[j];
+  37   3                              DelayMS(25);
+  38   3                      }
+  39   2              }
+  40   1      }
+  41          
+  42          void SETP_MOTOR_REV(uchar n)
+  43          {
+  44   1              uchar i,j;
+  45   1              for(i=0;i<5*n;i++)
+  46   1              {
+  47   2                      for(j=0;j<8;j++)
+  48   2                      {
+  49   3                              if(K3 == 0)     break;
+  50   3                              P1 = REV[j];
+  51   3                              DelayMS(25);
+  52   3                      }
+  53   2              }
+  54   1      }
+  55          
+C51 COMPILER V8.08   27                                                                    08/12/2009 12:54:15 PAGE 2   
+
+  56          void main()
+  57          {
+  58   1              uchar N = 3;
+  59   1              while(1)
+  60   1              {
+  61   2                      if(K1 == 0)
+  62   2                      {
+  63   3                              P0 = 0xfe;
+  64   3                              SETP_MOTOR_FFW(N);
+  65   3                              if(K3 == 0) break;
+  66   3                      }
+  67   2                      else if(K2 == 0)
+  68   2                      {
+  69   3                              P0 = 0xfd;
+  70   3                              SETP_MOTOR_REV(N);
+  71   3                              if(K3 == 0) break;
+  72   3                      }
+  73   2                      else
+  74   2                      {
+  75   3                              P0 = 0xfb;
+  76   3                              P1 = 0x03;
+  77   3                      }
+  78   2              }
+  79   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    155    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

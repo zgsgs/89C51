@@ -1,0 +1,175 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/12/2009  12:54:16  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 27.obj TO 27 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  27.obj (27)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  27 (27)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     002AH     UNIT         ?PR?_SETP_MOTOR_FFW?27
+            CODE    002DH     002AH     UNIT         ?PR?_SETP_MOTOR_REV?27
+            CODE    0057H     0029H     UNIT         ?PR?MAIN?27
+            CODE    0080H     001EH     UNIT         ?PR?_DELAYMS?27
+            CODE    009EH     0010H     UNIT         ?CO?27
+            CODE    00AEH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   27 (27)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?27
+
+?PR?MAIN?27                    0008H    0001H
+  +--> ?PR?_SETP_MOTOR_FFW?27
+  +--> ?PR?_SETP_MOTOR_REV?27
+
+?PR?_SETP_MOTOR_FFW?27         -----    -----
+  +--> ?CO?27
+  +--> ?PR?_DELAYMS?27
+
+?PR?_SETP_MOTOR_REV?27         -----    -----
+  +--> ?CO?27
+  +--> ?PR?_DELAYMS?27
+
+
+
+SYMBOL TABLE OF MODULE:  27 (27)
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  12:54:16  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        27
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:002DH         PUBLIC        _SETP_MOTOR_REV
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0088H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:0057H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:009EH         PUBLIC        FFW
+  D:00C8H         PUBLIC        T2CON
+  C:00A6H         PUBLIC        REV
+  C:0003H         PUBLIC        _SETP_MOTOR_FFW
+  D:00D0H         PUBLIC        PSW
+  B:00B0H.0       PUBLIC        K1
+  B:00B0H.1       PUBLIC        K2
+  B:00B0H.2       PUBLIC        K3
+  -------         PROC          L?0033
+  -------         ENDPROC       L?0033
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0088H         LINE#         19
+  C:0088H         LINE#         20
+  C:0088H         LINE#         22
+  C:0092H         LINE#         23
+  C:0092H         LINE#         24
+  C:009DH         LINE#         25
+  C:009DH         LINE#         26
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _SETP_MOTOR_FFW
+  D:0001H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0003H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         28
+  C:0005H         LINE#         29
+  C:0005H         LINE#         31
+  C:001AH         LINE#         32
+  C:001AH         LINE#         33
+  C:001CH         LINE#         34
+  C:001CH         LINE#         35
+  C:001FH         LINE#         36
+  C:0022H         LINE#         37
+  C:0025H         LINE#         38
+  C:0029H         LINE#         39
+  C:002CH         LINE#         40
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  12:54:16  PAGE 3
+
+
+  -------         ENDPROC       _SETP_MOTOR_FFW
+  -------         PROC          _SETP_MOTOR_REV
+  D:0001H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0003H         SYMBOL        j
+  -------         ENDDO         
+  C:002DH         LINE#         42
+  C:002FH         LINE#         43
+  C:002FH         LINE#         45
+  C:0044H         LINE#         46
+  C:0044H         LINE#         47
+  C:0046H         LINE#         48
+  C:0046H         LINE#         49
+  C:0049H         LINE#         50
+  C:004CH         LINE#         51
+  C:004FH         LINE#         52
+  C:0053H         LINE#         53
+  C:0056H         LINE#         54
+  -------         ENDPROC       _SETP_MOTOR_REV
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        N
+  -------         ENDDO         
+  C:0057H         LINE#         56
+  C:0057H         LINE#         57
+  C:0057H         LINE#         58
+  C:005AH         LINE#         59
+  C:005AH         LINE#         60
+  C:005AH         LINE#         61
+  C:005DH         LINE#         62
+  C:005DH         LINE#         63
+  C:0060H         LINE#         64
+  C:0065H         LINE#         65
+  C:0069H         LINE#         66
+  C:0069H         LINE#         67
+  C:006CH         LINE#         68
+  C:006CH         LINE#         69
+  C:006FH         LINE#         70
+  C:0074H         LINE#         71
+  C:0078H         LINE#         72
+  C:0078H         LINE#         74
+  C:0078H         LINE#         75
+  C:007BH         LINE#         76
+  C:007EH         LINE#         77
+  C:007EH         LINE#         78
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        27
+
+Program Size: data=10.0 xdata=0 code=186
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

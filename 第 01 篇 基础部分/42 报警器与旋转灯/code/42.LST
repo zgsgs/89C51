@@ -1,0 +1,83 @@
+C51 COMPILER V8.08   42                                                                    08/11/2009 09:10:07 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 42
+OBJECT MODULE PLACED IN 42.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 42.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          sbit SPK = P3^7;
+   7          uchar FRQ = 0x00;
+   8          
+   9          void Delayms(uint ms)
+  10          {
+  11   1              uchar i;
+  12   1              while(ms--)
+  13   1              {
+  14   2                      for(i=0;i<120;i++);
+  15   2              }
+  16   1      }
+  17          
+  18          void main()
+  19          {
+  20   1              P2 = 0x00;
+  21   1              TMOD = 0x11;
+  22   1              TH0 = 0x00;
+  23   1              TL0 = 0xff;
+  24   1              IT0 = 1;
+  25   1              IE = 0x8b;
+  26   1              IP = 0x01;
+  27   1              TR0 = 0;
+  28   1              TR1 = 0;
+  29   1              while(1)
+  30   1              {
+  31   2                      FRQ++;
+  32   2                      Delayms(1);
+  33   2              }
+  34   1      }
+  35          
+  36          void EX0_INT() interrupt 0
+  37          {
+  38   1              TR0 = !TR0;
+  39   1              TR1 = !TR1;
+  40   1              if(P2 == 0x00)
+  41   1                      P2 = 0xe0;
+  42   1              else 
+  43   1                      P2 = 0x00;
+  44   1      }
+  45          
+  46          void T0_INT() interrupt 1
+  47          {
+  48   1              TH0 = 0xfe;
+  49   1              TL0 = FRQ;
+  50   1              SPK = ~SPK;
+  51   1      }
+  52          
+  53          void T1_INT() interrupt 3
+  54          {
+  55   1              TH0 = -45000/256;
+C51 COMPILER V8.08   42                                                                    08/11/2009 09:10:07 PAGE 2   
+
+  56   1              TL0 = -45000%256;
+  57   1              P2 = _crol_(P2,1);
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    125    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

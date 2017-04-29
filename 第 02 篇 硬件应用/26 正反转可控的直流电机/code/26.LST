@@ -1,0 +1,75 @@
+C51 COMPILER V8.08   26                                                                    08/12/2009 12:40:18 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 26
+OBJECT MODULE PLACED IN 26.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 26.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          sbit K1   = P3^0;
+   7          sbit K2   = P3^1;
+   8          sbit K3   = P3^2;
+   9          sbit LED1 = P0^0;
+  10          sbit LED2 = P0^1;
+  11          sbit LED3 = P0^2;
+  12          sbit MA   = P1^0;
+  13          sbit MB   = P1^1;
+  14          
+  15          void main(void)
+  16          {
+  17   1              LED1 = 1;
+  18   1              LED2 = 1;
+  19   1              LED3 = 0;
+  20   1              while(1)
+  21   1              {
+  22   2                      if(K1 == 0)
+  23   2                      {
+  24   3                              while(K1 == 0);
+  25   3                              LED1 = 0;
+  26   3                              LED2 = 1;
+  27   3                              LED3 = 1;
+  28   3                              MA   = 0;
+  29   3                              MB   = 1;
+  30   3                      }
+  31   2                      if(K2 == 0)
+  32   2                      {
+  33   3                              while(K1 == 0);
+  34   3                              LED1 = 1;
+  35   3                              LED2 = 0;
+  36   3                              LED3 = 1;
+  37   3                              MA   = 1;
+  38   3                              MB   = 0;
+  39   3                      }
+  40   2                      if(K3 == 0)
+  41   2                      {
+  42   3                              while(K1 == 0);
+  43   3                              LED1 = 1;
+  44   3                              LED2 = 1;
+  45   3                              LED3 = 0;
+  46   3                              MA   = 0;
+  47   3                              MB   = 0;
+  48   3                      }
+  49   2              }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     56    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V8.08   26                                                                    08/12/2009 12:40:18 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

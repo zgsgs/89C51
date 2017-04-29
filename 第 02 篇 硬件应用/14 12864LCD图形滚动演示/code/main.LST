@@ -1,0 +1,83 @@
+C51 COMPILER V8.08   MAIN                                                                  08/12/2009 14:53:41 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "LCD_12864.h"
+   2          #include <stdio.h>
+   3          extern void cls();
+   4          extern uchar LCD_Initialise();
+   5          extern uchar LCD_Write_Command(uchar cmd);
+   6          extern uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2);
+   7          extern uchar LCD_Write_Data(uchar dat);
+   8          extern void Set_LCD_POS(uchar row,uchar col);
+   9          extern uchar code LCD_WIDTH;
+  10          extern uchar code LCD_HEIGHT;
+  11          sbit S1 = P1^0;
+  12          sbit S2 = P1^1;
+  13          
+  14          uchar code ImageX[] = 
+  15          {
+  16                  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
+  17          
+  18          };
+  19          
+  20          void main()
+  21          {
+  22   1              uchar i,j,m;
+  23   1              uint k,x;
+  24   1              LCD_Initialise();
+  25   1              Set_LCD_POS(0,0);
+  26   1              cls();
+  27   1              while(1)
+  28   1              {
+  29   2                      if(S1!=0)
+  30   2                      {
+  31   3                              LCD_Write_Command_P2(LC_GRH_STP,0,0);
+  32   3                              for(i=0;i<LCD_HEIGHT;i++)
+  33   3                              {
+  34   4                                      Set_LCD_POS(i,0);
+  35   4                                      LCD_Write_Command(LC_AUT_WR);
+  36   4                                      for(j=0;j<LCD_WIDTH;j++)
+  37   4                                      {
+  38   5                                              m = ImageX[i*LCD_WIDTH + j];
+  39   5                                              if(S2 == 0) 
+  40   5                                                      m = ~m;
+  41   5                                              LCD_Write_Data(m);
+  42   5                                      }
+  43   4                                      LCD_Write_Command(LC_AUT_OVR);
+  44   4                              }
+  45   3                      }
+  46   2                      else
+  47   2                      {
+  48   3                              k = 0;
+  49   3                              while(k!=128/8*LCD_HEIGHT)
+  50   3                              {
+  51   4                                      LCD_Write_Command_P2(LC_GRH_STP,k%256,k/256);
+  52   4                                      for(x=0;x<5000;x++);
+  53   4                                      k+=LCD_WIDTH;   
+  54   4                              }
+  55   3                      }
+C51 COMPILER V8.08   MAIN                                                                  08/12/2009 14:53:41 PAGE 2   
+
+  56   2              }
+  57   1              for(x=0;x<40000;x++);
+  58   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    173    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

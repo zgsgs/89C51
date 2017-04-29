@@ -1,0 +1,144 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/12/2009  10:37:12  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 19.obj TO 19 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  19.obj (19)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  19 (19)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     UNIT         ?PR?TIMER0_INT?19
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0050H     UNIT         ?PR?MAIN?19
+            CODE    005EH     0016H     UNIT         ?PR?_DELAYMS?19
+            CODE    0074H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   19 (19)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?19
+
+?PR?MAIN?19
+  +--> ?PR?_DELAYMS?19
+
+
+
+SYMBOL TABLE OF MODULE:  19 (19)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        19
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0003H         PUBLIC        Timer0_INT
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  10:37:12  PAGE 2
+
+
+  D:00A8H         PUBLIC        IE
+  C:005EH         PUBLIC        _DelayMS
+  B:00A0H.7       PUBLIC        OE
+  D:00B8H         PUBLIC        IP
+  C:000EH         PUBLIC        main
+  B:00A0H.5       PUBLIC        ST
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  B:00A0H.6       PUBLIC        EOC
+  B:00A0H.4       PUBLIC        CLK
+  D:00C8H         PUBLIC        T2CON
+  B:00B0H.0       PUBLIC        PWM
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:005EH         LINE#         12
+  C:005EH         LINE#         13
+  C:005EH         LINE#         15
+  C:0068H         LINE#         16
+  C:0068H         LINE#         17
+  C:0073H         LINE#         18
+  C:0073H         LINE#         19
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0004H         SYMBOL        Val
+  -------         ENDDO         
+  C:000EH         LINE#         21
+  C:000EH         LINE#         22
+  C:000EH         LINE#         24
+  C:0011H         LINE#         25
+  C:0014H         LINE#         26
+  C:0017H         LINE#         27
+  C:001AH         LINE#         28
+  C:001CH         LINE#         29
+  C:001CH         LINE#         30
+  C:001CH         LINE#         31
+  C:001EH         LINE#         32
+  C:0020H         LINE#         33
+  C:0022H         LINE#         34
+  C:0025H         LINE#         35
+  C:0027H         LINE#         36
+  C:0029H         LINE#         37
+  C:002BH         LINE#         38
+  C:002EH         LINE#         39
+  C:002EH         LINE#         40
+  C:0030H         LINE#         41
+  C:0033H         LINE#         42
+  C:0035H         LINE#         43
+  C:0035H         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  10:37:12  PAGE 3
+
+
+  C:0038H         LINE#         45
+  C:0038H         LINE#         46
+  C:003AH         LINE#         47
+  C:0041H         LINE#         48
+  C:0043H         LINE#         49
+  C:0043H         LINE#         50
+  C:0045H         LINE#         51
+  C:004CH         LINE#         52
+  C:004EH         LINE#         53
+  C:005CH         LINE#         54
+  -------         ENDPROC       MAIN
+  -------         PROC          TIMER0_INT
+  C:0003H         LINE#         57
+  C:0003H         LINE#         59
+  C:0005H         LINE#         60
+  -------         ENDPROC       TIMER0_INT
+  -------         ENDMOD        19
+
+Program Size: data=9.0 xdata=0 code=123
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

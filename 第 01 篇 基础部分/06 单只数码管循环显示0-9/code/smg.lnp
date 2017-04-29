@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"smg.obj" 
+TO "smg" 
+RAMSIZE(256) 

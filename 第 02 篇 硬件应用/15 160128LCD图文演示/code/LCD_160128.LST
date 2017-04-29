@@ -1,0 +1,300 @@
+C51 COMPILER V8.08   LCD_160128                                                            08/12/2009 16:09:44 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LCD_160128
+OBJECT MODULE PLACED IN LCD_160128.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE LCD_160128.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <stdarg.h>
+   2          #include <stdio.h>
+   3          #include <math.h>
+   4          #include <intrins.h>
+   5          #include <absacc.h>
+   6          #include <string.h>
+   7          #include <LCD_160128.h>
+   8          
+   9          sbit RESET = P3^3;
+  10          
+  11          #define ASC_CHR_WIDTH   8
+  12          #define ASC_CHR_HEIGHT 12
+  13          #define HZ_CHR_HEIGHT  12
+  14          #define HZ_CHR_WIDTH   12
+  15          uchar code LCD_WIDTH = 20;
+  16          uchar code LCD_HEIGHT= 128;
+  17          uchar code ASC_MSK[96*12]=
+  18          {
+  19                  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  20          };
+  21          
+  22          uchar gCurRow,gCurCol;
+  23          uchar tCurRow,tCurCol;
+  24          uchar ShowModeSW;
+  25          uint txthome,grhome;
+  26          
+  27          uchar Status_BIT_01();
+  28          uchar Status_BIT_3();
+  29          uchar GetCol();
+  30          uchar GetRow();
+  31          uchar LCD_Write_Command(uchar cmd);
+  32          uchar LCD_Write_Command_P1(uchar cmd,uchar para1);
+  33          uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2);
+  34          uchar LCD_Write_Data(uchar dat);
+  35          uchar LCD_Read_Data();
+  36          void cls();
+  37          uchar LCD_Initialise();
+  38          void Set_LCD_POS(uchar row,uchar col);
+  39          void charout(uchar *str);
+  40          uchar dprintf(uchar x,uchar y,uchar *fmt);
+  41          void OutToLCD(uchar Dat,uchar x,uchar y);
+  42          
+  43          void Line(uchar x1,uchar y1,uchar x2,uchar y2,bit Mode);
+  44          void Pixel(uchar x,uchar y,bit Mode);
+  45          
+  46          uchar Status_BIT_01()
+  47          {
+  48   1              uchar i;
+  49   1              for(i=5;i>0;i--)
+  50   1              {
+  51   2                      if((LCMCW & 0x03)==0x03)
+  52   2                      break;
+  53   2              }
+  54   1              return i;
+  55   1      }
+C51 COMPILER V8.08   LCD_160128                                                            08/12/2009 16:09:44 PAGE 2   
+
+  56          
+  57          uchar Status_BIT_3()
+  58          {
+  59   1              uchar i;
+  60   1              for(i=5;i>0;i--)
+  61   1              {
+  62   2                      if((LCMCW & 0x08)==0x08)
+  63   2                      break;
+  64   2              }
+  65   1              return i;       
+  66   1      }
+  67          
+  68          uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2)
+  69          {
+  70   1              if(Status_BIT_01()==0) return 1;
+  71   1              LCMDW = para1;
+  72   1              if(Status_BIT_01()==0) return 2;
+  73   1              LCMDW = para2;
+  74   1              if(Status_BIT_01()==0) return 3;
+  75   1              LCMDW = cmd;
+  76   1              return 0;
+  77   1      }
+  78          
+  79          uchar LCD_Write_Command_P1(uchar cmd,uchar para1)
+  80          {
+  81   1              if(Status_BIT_01()==0) return 1;
+  82   1              LCMDW = para1;
+  83   1              if(Status_BIT_01()==0) return 2;
+  84   1              LCMDW = cmd;
+  85   1              return 0;       
+  86   1      }  
+  87          
+  88          uchar LCD_Write_Command(uchar cmd)
+  89          {
+  90   1              if(Status_BIT_01()==0) return 1;
+  91   1              LCMDW = cmd;
+  92   1              return 0;       
+  93   1      }
+  94          
+  95          uchar LCD_Write_Data(uchar dat)
+  96          {
+  97   1              if(Status_BIT_3()==0) return 1;
+  98   1              LCMDW = dat;
+  99   1              return 0;               
+ 100   1      }
+ 101          
+ 102          uchar LCD_Read_Data()
+ 103          {
+ 104   1              if(Status_BIT_01()==0) return 1;
+ 105   1              return LCMDW;
+ 106   1      }
+ 107          
+ 108          void Set_LCD_POS(uchar row,uchar col)
+ 109          {
+ 110   1              uint Pos;
+ 111   1              Pos = row*LCD_WIDTH+col;
+ 112   1              LCD_Write_Command_P2(LC_ADD_POS,Pos%256,Pos/256);
+ 113   1              gCurRow = row;
+ 114   1              gCurCol = col;
+ 115   1      }
+ 116          
+ 117          void cls()
+C51 COMPILER V8.08   LCD_160128                                                            08/12/2009 16:09:44 PAGE 3   
+
+ 118          {
+ 119   1              uint i;
+ 120   1              LCD_Write_Command_P2(LC_ADD_POS,0x00,0x00);
+ 121   1              LCD_Write_Command(LC_AUT_WR);
+ 122   1              for(i=0;i<0x2000;i++)
+ 123   1              {
+ 124   2                      Status_BIT_3();
+ 125   2                      LCD_Write_Data(0x00);
+ 126   2              }
+ 127   1              LCD_Write_Command(LC_AUT_OVR);
+ 128   1              LCD_Write_Command_P2(LC_ADD_POS,0x00,0x00);
+ 129   1              gCurRow = 0;
+ 130   1              gCurCol = 0;
+ 131   1      }
+ 132          
+ 133          uchar LCD_Initialise()
+ 134          {
+ 135   1              RESET = 0;
+ 136   1              RESET = 1;
+ 137   1              LCD_Write_Command_P2(LC_TXT_STP,0x00,0x00);
+ 138   1              LCD_Write_Command_P2(LC_TXT_WID,LCD_WIDTH,0x00);
+ 139   1              LCD_Write_Command_P2(LC_GRH_STP,0x00,0x00);
+ 140   1              LCD_Write_Command_P2(LC_GRH_WID,LCD_WIDTH,0x00);
+ 141   1              LCD_Write_Command_P1(LC_CGR_POS,CGRAMSTART >> 11);
+ 142   1              LCD_Write_Command(LC_CUR_SHP | 0x01);
+ 143   1              LCD_Write_Command(LC_MOD_OR);
+ 144   1              LCD_Write_Command(LC_DIS_SW | 0x08);
+ 145   1              grhome = GRSTART;
+ 146   1              txthome = TXTSTART;
+ 147   1              return 0;
+ 148   1      }
+ 149          
+ 150          uchar Display_Str_at_xy(uchar x,uchar y,uchar *fmt)
+ 151          {
+ 152   1              char c1,c2,cData;
+ 153   1              uchar i=0,j,uLen;
+ 154   1              uLen = strlen(fmt);
+ 155   1              while(i<uLen)
+ 156   1              {
+ 157   2                      c1 = fmt[i];
+ 158   2                      c2 = fmt[i+1];
+ 159   2                      Set_LCD_POS(y,x/8);
+ 160   2                      if(c1>=0)
+ 161   2                      {
+ 162   3                              if(c1<0x20)
+ 163   3                              {
+ 164   4                                      switch(c1)
+ 165   4                                      {
+ 166   5                                              case CR:
+ 167   5                                              case LF:
+ 168   5                                                              i++;
+ 169   5                                                              x=0;
+ 170   5                                                              if(y<112) y+=HZ_CHR_HEIGHT;
+ 171   5                                                              continue;
+ 172   5                                              case BS:
+ 173   5                                                              i++;
+ 174   5                                                              if(y>ASC_CHR_WIDTH) y-=ASC_CHR_WIDTH;
+ 175   5                                                              cData=0x00;
+ 176   5                                                              break;  
+ 177   5                                      }
+ 178   4                              }
+ 179   3                              for(j=0;j<ASC_CHR_HEIGHT;j++)
+C51 COMPILER V8.08   LCD_160128                                                            08/12/2009 16:09:44 PAGE 4   
+
+ 180   3                              {
+ 181   4                                      if(c1>=0x1f)
+ 182   4                                      {
+ 183   5                                              cData = ASC_MSK[(c1-0x1f)*ASC_CHR_HEIGHT+j];
+ 184   5                                              Set_LCD_POS(y+j,x/8);
+ 185   5                                              if((x%8)==0)
+ 186   5                                              {
+ 187   6                                                      LCD_Write_Command(LC_AUT_WR);
+ 188   6                                                      LCD_Write_Data(cData);
+ 189   6                                                      LCD_Write_Command(LC_AUT_OVR);
+ 190   6                                              }
+ 191   5                                              else
+ 192   5                                                      OutToLCD(cData,x,y+j);
+ 193   5                                      }
+ 194   4                                      Set_LCD_POS(y+j,x/8);
+ 195   4                              }
+ 196   3                              if(c1!=BS) x+=ASC_CHR_WIDTH;
+ 197   3                      }
+ 198   2                      i++;
+ 199   2              }
+ 200   1              return uLen;
+ 201   1      }
+ 202          
+ 203          void OutToLCD(uchar Dat,uchar x,uchar y)
+ 204          {
+ 205   1              uchar dat1,dat2,a,b;
+ 206   1              b = x%8;
+ 207   1              a = 8-b;
+ 208   1              Set_LCD_POS(y,x/8);
+ 209   1              LCD_Write_Command(LC_AUT_RD);
+ 210   1              dat1 = LCD_Read_Data();
+ 211   1              dat2 = LCD_Read_Data();
+ 212   1              dat1 = (dat1 &(0xff<<a)) | (Dat>>b);
+ 213   1              dat2 = (dat1 &(0xff>>b)) | (Dat<<a);
+ 214   1              LCD_Write_Command(LC_AUT_OVR);
+ 215   1              Set_LCD_POS(y,x/8);
+ 216   1              LCD_Write_Command(LC_AUT_WR);
+ 217   1              LCD_Write_Data(dat1);
+ 218   1              LCD_Write_Data(dat2);
+ 219   1              LCD_Write_Command(LC_AUT_OVR);
+ 220   1      }
+ 221          
+ 222          void Pixel(uchar x,uchar y,bit Mode)
+ 223          {
+ 224   1              uchar start_addr,dat;
+ 225   1              start_addr=7-(x%8);
+ 226   1              dat = LC_BIT_OP | start_addr;
+ 227   1              if(Mode) dat |= 0x08;
+ 228   1              Set_LCD_POS(y,x/8);
+ 229   1              LCD_Write_Command(LC_BIT_OP | dat);
+ 230   1      }
+ 231          
+ 232          void Exchange(uchar *a,uchar *b)
+ 233          {
+ 234   1              uchar t;
+ 235   1              t = *a;*a = *b;*b = t;
+ 236   1      }
+ 237          
+ 238          void Line(uchar x1,uchar y1,uchar x2,uchar y2,bit Mode)
+ 239          {
+ 240   1              uchar x,y;
+ 241   1              float k,b;
+C51 COMPILER V8.08   LCD_160128                                                            08/12/2009 16:09:44 PAGE 5   
+
+ 242   1              if(abs(y1-y2)<=abs(x1-x2))
+ 243   1              {
+ 244   2                      k=(float)(y1-y2)/(float)(x2-x1);
+ 245   2                      b=y1-k*x1;
+ 246   2                      if(x1>x2) Exchange(&x1,&x2);
+ 247   2      
+ 248   2                      for(x=x1;x<=x2;x++)
+ 249   2                      {
+ 250   3                              y=(uchar)(k*x+b);
+ 251   3                              Pixel(x,y,Mode);
+ 252   3                      }
+ 253   2              }
+ 254   1              else 
+ 255   1              {
+ 256   2                      k=(float)(x2-x1)/(float)(y2-y1);
+ 257   2                      b=x1-k*y1;
+ 258   2                      if(y1>y2) Exchange(&y1,&y2);
+ 259   2      
+ 260   2                      for(y=y1;y<=y2;y++)
+ 261   2                      {
+ 262   3                              x=(uchar)(k*y+b);
+ 263   3                              Pixel(x,y,Mode);
+ 264   3                      }       
+ 265   2              }
+ 266   1      }
+ 267          
+ 268          
+ 269          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1251    ----
+   CONSTANT SIZE    =   1154    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9      41
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

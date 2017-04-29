@@ -1,0 +1,19 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\13 1602液晶显示的DS1302实时时钟\code\13.uv2
+Project File Date:  08/11/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 13.c...
+linking...
+Program Size: data=80.0 xdata=0 code=980
+creating hex file from "13"...
+"13" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

@@ -1,0 +1,474 @@
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 24C04
+OBJECT MODULE PLACED IN 24c04.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 24c04.c BROWSE DEBUG OBJECTEXTEND CODE
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          #define NOP4() {_nop_();_nop_();_nop_();_nop_();}
+   6          
+   7          sbit SCL = P1^0;
+   8          sbit SDA = P1^1;
+   9          sbit SPK = P3^0;
+  10          
+  11          uchar code HI_LIST[] =
+  12          {
+  13                  0,226,229,232,233,236,238,240,241,242,245,246,247,248
+  14          };
+  15          uchar code LO_LIST[] =
+  16          {
+  17                  0,4,13,10,20,3,8,6,2,23,5,26,1,4,3
+  18          };
+  19          uchar code Song_24C04[] =
+  20          {
+  21                  1,2,3,1,1,2,3,1,3,4,5,3,4,5
+  22          };
+  23          uchar sidx;
+  24          
+  25          void DelayMS(uint x)
+  26          {
+  27   1              uchar t;
+  28   1              while(x--)
+  29   1              {
+  30   2                      for(t=120;t>0;t--);
+  31   2              }
+  32   1      }
+  33          
+  34          void Start()
+  35          {
+  36   1              SDA=1;SCL=1;NOP4();SDA=0;NOP4();SCL=0;
+  37   1      }
+  38          
+  39          void Stop()
+  40          {
+  41   1              SDA=0;SCL=0;NOP4();SCL=1;NOP4();SDA=1;
+  42   1      }
+  43          
+  44          void RACK()
+  45          {
+  46   1              SDA=1;NOP4();SCL=1;NOP4();SCL=0;
+  47   1      }
+  48          
+  49          void NO_ACK()
+  50          {
+  51   1              SDA=1;SCL=1;NOP4();SCL=0;SDA=0;
+  52   1      }
+  53          
+  54          void Write_A_Byte(uchar b)
+  55          {
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 2   
+
+  56   1              uchar i;
+  57   1              for(i=0;i<8;i++)
+  58   1              {
+  59   2                      b<<=1;SDA=CY;_nop_();SCL=1;NOP4();SCL=0;
+  60   2              }
+  61   1              RACK();
+  62   1      }
+  63          
+  64          void Write_IIC(uchar addr,uchar dat)
+  65          {
+  66   1              Start();
+  67   1              Write_A_Byte(0xa0);
+  68   1              Write_A_Byte(addr);
+  69   1              Write_A_Byte(dat);
+  70   1              Stop();
+  71   1              DelayMS(10);
+  72   1      }
+  73          
+  74          uchar Read_A_Byte()
+  75          {
+  76   1              uchar i,b;
+  77   1              for(i=0;i<8;i++)
+  78   1              {
+  79   2                      SCL=1;b<<=1;B|=SDA;SCL=0;
+  80   2              }
+  81   1              return b;
+  82   1      }
+  83          
+  84          uchar Read_Current()
+  85          {
+  86   1              uchar d;
+  87   1              Start();
+  88   1              Write_A_Byte(0xa1);
+  89   1              d=Read_A_Byte();
+  90   1              NO_ACK();
+  91   1              Stop();
+  92   1              return d;
+  93   1      }
+  94          
+  95          uchar Random_Read(uchar addr)
+  96          {
+  97   1              Start();
+  98   1              Write_A_Byte(0xa0);
+  99   1              Write_A_Byte(addr);
+ 100   1              Stop();
+ 101   1              return Read_Current();          
+ 102   1      }
+ 103          
+ 104          void T0_INT() interrupt 1
+ 105          {
+ 106   1              SPK=!SPK;
+ 107   1              TH0=HI_LIST[sidx];
+ 108   1              TL0=LO_LIST[sidx];
+ 109   1      }
+ 110          
+ 111          void main()
+ 112          {
+ 113   1              uchar i;
+ 114   1              IE=0x82;
+ 115   1              TMOD=0x00;
+ 116   1              for(i=0;i<14;i++)
+ 117   1              {
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 3   
+
+ 118   2                      Write_IIC(i,Song_24C04[i]);     
+ 119   2              }
+ 120   1              while(1)
+ 121   1              {
+ 122   2                      for(i=0;i<14;i++)
+ 123   2                      {
+ 124   3                              sidx=Random_Read(i);
+ 125   3                              TR0=1;
+ 126   3                              DelayMS(300);
+ 127   3                      }
+ 128   2              }
+ 129   1      }
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 4   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION _DelayMS (BEGIN)
+                                           ; SOURCE LINE # 25
+;---- Variable 't' assigned to Register 'R5' ----
+;---- Variable 'x' assigned to Register 'R6/R7' ----
+                                           ; SOURCE LINE # 26
+0000         ?C0001:
+                                           ; SOURCE LINE # 28
+0000 EF                MOV     A,R7
+0001 1F                DEC     R7
+0002 AA06              MOV     R2,AR6
+0004 7001              JNZ     ?C0032
+0006 1E                DEC     R6
+0007         ?C0032:
+0007 4A                ORL     A,R2
+0008 600B              JZ      ?C0006
+                                           ; SOURCE LINE # 29
+                                           ; SOURCE LINE # 30
+000A 7D78              MOV     R5,#078H
+000C         ?C0003:
+000C ED                MOV     A,R5
+000D D3                SETB    C
+000E 9400              SUBB    A,#00H
+0010 40EE              JC      ?C0001
+0012 1D                DEC     R5
+0013 80F7              SJMP    ?C0003
+                                           ; SOURCE LINE # 31
+                                           ; SOURCE LINE # 32
+0015         ?C0006:
+0015 22                RET     
+             ; FUNCTION _DelayMS (END)
+
+             ; FUNCTION Start (BEGIN)
+                                           ; SOURCE LINE # 34
+                                           ; SOURCE LINE # 35
+                                           ; SOURCE LINE # 36
+0000 D291              SETB    SDA
+0002 D290              SETB    SCL
+0004 00                NOP     
+0005 00                NOP     
+0006 00                NOP     
+0007 00                NOP     
+0008 C291              CLR     SDA
+000A 00                NOP     
+000B 00                NOP     
+000C 00                NOP     
+000D 00                NOP     
+000E C290              CLR     SCL
+                                           ; SOURCE LINE # 37
+0010 22                RET     
+             ; FUNCTION Start (END)
+
+             ; FUNCTION L?0033 (BEGIN)
+0000 120000      R     LCALL   _Write_A_Byte
+0003 AF05              MOV     R7,AR5
+0005 120000      R     LCALL   _Write_A_Byte
+             ; FUNCTION Stop (BEGIN)
+                                           ; SOURCE LINE # 39
+                                           ; SOURCE LINE # 40
+                                           ; SOURCE LINE # 41
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 5   
+
+0008 C291              CLR     SDA
+000A C290              CLR     SCL
+000C 00                NOP     
+000D 00                NOP     
+000E 00                NOP     
+000F 00                NOP     
+0010 D290              SETB    SCL
+0012 00                NOP     
+0013 00                NOP     
+0014 00                NOP     
+0015 00                NOP     
+0016 D291              SETB    SDA
+                                           ; SOURCE LINE # 42
+0018 22                RET     
+             ; FUNCTION Stop (END)
+
+             ; FUNCTION RACK (BEGIN)
+                                           ; SOURCE LINE # 44
+                                           ; SOURCE LINE # 45
+                                           ; SOURCE LINE # 46
+0000 D291              SETB    SDA
+0002 00                NOP     
+0003 00                NOP     
+0004 00                NOP     
+0005 00                NOP     
+0006 D290              SETB    SCL
+0008 00                NOP     
+0009 00                NOP     
+000A 00                NOP     
+000B 00                NOP     
+000C C290              CLR     SCL
+                                           ; SOURCE LINE # 47
+000E 22                RET     
+             ; FUNCTION RACK (END)
+
+             ; FUNCTION NO_ACK (BEGIN)
+                                           ; SOURCE LINE # 49
+                                           ; SOURCE LINE # 50
+                                           ; SOURCE LINE # 51
+0000 D291              SETB    SDA
+0002 D290              SETB    SCL
+0004 00                NOP     
+0005 00                NOP     
+0006 00                NOP     
+0007 00                NOP     
+0008 C290              CLR     SCL
+000A C291              CLR     SDA
+                                           ; SOURCE LINE # 52
+000C 22                RET     
+             ; FUNCTION NO_ACK (END)
+
+             ; FUNCTION _Write_A_Byte (BEGIN)
+                                           ; SOURCE LINE # 54
+;---- Variable 'b' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 57
+;---- Variable 'i' assigned to Register 'R6' ----
+0000 E4                CLR     A
+0001 FE                MOV     R6,A
+0002         ?C0011:
+                                           ; SOURCE LINE # 58
+                                           ; SOURCE LINE # 59
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 6   
+
+0002 EF                MOV     A,R7
+0003 25E0              ADD     A,ACC
+0005 FF                MOV     R7,A
+0006 9291              MOV     SDA,C
+0008 00                NOP     
+0009 D290              SETB    SCL
+000B 00                NOP     
+000C 00                NOP     
+000D 00                NOP     
+000E 00                NOP     
+000F C290              CLR     SCL
+                                           ; SOURCE LINE # 60
+0011 0E                INC     R6
+0012 BE08ED            CJNE    R6,#08H,?C0011
+0015         ?C0012:
+                                           ; SOURCE LINE # 61
+0015 020000      R     LJMP    RACK
+             ; FUNCTION _Write_A_Byte (END)
+
+             ; FUNCTION _Write_IIC (BEGIN)
+                                           ; SOURCE LINE # 64
+;---- Variable 'dat' assigned to Register 'R5' ----
+;---- Variable 'addr' assigned to Register 'R4' ----
+0000 AC07              MOV     R4,AR7
+                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 66
+0002 120000      R     LCALL   Start
+                                           ; SOURCE LINE # 67
+0005 7FA0              MOV     R7,#0A0H
+0007 120000      R     LCALL   _Write_A_Byte
+                                           ; SOURCE LINE # 68
+000A AF04              MOV     R7,AR4
+                                           ; SOURCE LINE # 69
+                                           ; SOURCE LINE # 70
+000C 120000      R     LCALL   L?0033
+                                           ; SOURCE LINE # 71
+000F 7F0A              MOV     R7,#0AH
+0011 7E00              MOV     R6,#00H
+0013 020000      R     LJMP    _DelayMS
+             ; FUNCTION _Write_IIC (END)
+
+             ; FUNCTION Read_A_Byte (BEGIN)
+                                           ; SOURCE LINE # 74
+;---- Variable 'b' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 75
+                                           ; SOURCE LINE # 77
+;---- Variable 'i' assigned to Register 'R6' ----
+0000 E4                CLR     A
+0001 FE                MOV     R6,A
+0002         ?C0016:
+                                           ; SOURCE LINE # 78
+                                           ; SOURCE LINE # 79
+0002 D290              SETB    SCL
+0004 EF                MOV     A,R7
+0005 25E0              ADD     A,ACC
+0007 FF                MOV     R7,A
+0008 A291              MOV     C,SDA
+000A E4                CLR     A
+000B 33                RLC     A
+000C 42F0              ORL     B,A
+000E C290              CLR     SCL
+                                           ; SOURCE LINE # 80
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 7   
+
+0010 0E                INC     R6
+0011 BE08EE            CJNE    R6,#08H,?C0016
+0014         ?C0017:
+                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 82
+0014         ?C0019:
+0014 22                RET     
+             ; FUNCTION Read_A_Byte (END)
+
+             ; FUNCTION Read_Current (BEGIN)
+                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 85
+                                           ; SOURCE LINE # 87
+0000 120000      R     LCALL   Start
+                                           ; SOURCE LINE # 88
+0003 7FA1              MOV     R7,#0A1H
+0005 120000      R     LCALL   _Write_A_Byte
+                                           ; SOURCE LINE # 89
+0008 120000      R     LCALL   Read_A_Byte
+;---- Variable 'd' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 90
+000B 120000      R     LCALL   NO_ACK
+                                           ; SOURCE LINE # 91
+000E 120000      R     LCALL   Stop
+                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 93
+0011         ?C0020:
+0011 22                RET     
+             ; FUNCTION Read_Current (END)
+
+             ; FUNCTION _Random_Read (BEGIN)
+                                           ; SOURCE LINE # 95
+;---- Variable 'addr' assigned to Register 'R5' ----
+0000 AD07              MOV     R5,AR7
+                                           ; SOURCE LINE # 96
+                                           ; SOURCE LINE # 97
+0002 120000      R     LCALL   Start
+                                           ; SOURCE LINE # 98
+0005 7FA0              MOV     R7,#0A0H
+                                           ; SOURCE LINE # 99
+                                           ; SOURCE LINE # 100
+0007 120000      R     LCALL   L?0033
+                                           ; SOURCE LINE # 101
+000A 120000      R     LCALL   Read_Current
+                                           ; SOURCE LINE # 102
+000D         ?C0021:
+000D 22                RET     
+             ; FUNCTION _Random_Read (END)
+
+             ; FUNCTION T0_INT (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 106
+0006 B2B0              CPL     SPK
+                                           ; SOURCE LINE # 107
+0008 E500        R     MOV     A,sidx
+000A 900000      R     MOV     DPTR,#HI_LIST
+000D 93                MOVC    A,@A+DPTR
+000E F58C              MOV     TH0,A
+                                           ; SOURCE LINE # 108
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 8   
+
+0010 E500        R     MOV     A,sidx
+0012 900000      R     MOV     DPTR,#LO_LIST
+0015 93                MOVC    A,@A+DPTR
+0016 F58A              MOV     TL0,A
+                                           ; SOURCE LINE # 109
+0018 D082              POP     DPL
+001A D083              POP     DPH
+001C D0E0              POP     ACC
+001E 32                RETI    
+             ; FUNCTION T0_INT (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 111
+                                           ; SOURCE LINE # 112
+                                           ; SOURCE LINE # 114
+0000 75A882            MOV     IE,#082H
+                                           ; SOURCE LINE # 115
+0003 E4                CLR     A
+0004 F589              MOV     TMOD,A
+                                           ; SOURCE LINE # 116
+;---- Variable 'i' assigned to Register 'R3' ----
+0006 FB                MOV     R3,A
+0007         ?C0023:
+                                           ; SOURCE LINE # 117
+                                           ; SOURCE LINE # 118
+0007 AF03              MOV     R7,AR3
+0009 EB                MOV     A,R3
+000A 900000      R     MOV     DPTR,#Song_24C04
+000D 93                MOVC    A,@A+DPTR
+000E FD                MOV     R5,A
+000F 120000      R     LCALL   _Write_IIC
+                                           ; SOURCE LINE # 119
+0012 0B                INC     R3
+0013 BB0EF1            CJNE    R3,#0EH,?C0023
+0016         ?C0026:
+                                           ; SOURCE LINE # 120
+                                           ; SOURCE LINE # 121
+                                           ; SOURCE LINE # 122
+0016 E4                CLR     A
+0017 FB                MOV     R3,A
+0018         ?C0028:
+                                           ; SOURCE LINE # 123
+                                           ; SOURCE LINE # 124
+0018 AF03              MOV     R7,AR3
+001A 120000      R     LCALL   _Random_Read
+001D 8F00        R     MOV     sidx,R7
+                                           ; SOURCE LINE # 125
+001F D28C              SETB    TR0
+                                           ; SOURCE LINE # 126
+0021 7F2C              MOV     R7,#02CH
+0023 7E01              MOV     R6,#01H
+0025 120000      R     LCALL   _DelayMS
+                                           ; SOURCE LINE # 127
+0028 0B                INC     R3
+0029 BB0EEC            CJNE    R3,#0EH,?C0028
+002C 80E8              SJMP    ?C0026
+             ; FUNCTION main (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    268    ----
+C51 COMPILER V8.08   24C04                                                                 08/05/2009 21:30:57 PAGE 9   
+
+   CONSTANT SIZE    =     43    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,73 @@
+C51 COMPILER V8.08   KEY_LED                                                               08/10/2009 09:01:53 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_LED
+OBJECT MODULE PLACED IN key-led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          void DelayMS(uint x)
+   6          {
+   7   1              uchar t;
+   8   1              while(x--)
+   9   1              {
+  10   2                      for(t=0;t<120;t--);
+  11   2              }
+  12   1      }
+  13          
+  14          void main()
+  15          {
+  16   1              uchar k,t,Key_State;
+  17   1              P0 = 0xff;
+  18   1              P1 = 0xff;
+  19   1              while(1)
+  20   1              {
+  21   2                      t = P1;
+  22   2                      {
+  23   3                              DelayMS(10);
+  24   3                              if(t != P1)
+  25   3                                      continue;
+  26   3                              Key_State = ~t >> 4;
+  27   3                              k = 0;
+  28   3                              while(Key_State != 0)
+  29   3                              {
+  30   4                                      k++;
+  31   4                                      Key_State >>= 1;
+  32   4                              }
+  33   3                              switch(k)
+  34   3                              {
+  35   4                                      case 1: if(P0 == 0x00)
+  36   4                                                      P0 = 0xff;
+  37   4                                                      P0 <<= 1;
+  38   4                                                      DelayMS(200);
+  39   4                                                      break;
+  40   4                                      case 2: P0 = 0xf0;
+  41   4                                                      break;
+  42   4                                      case 3: P0 = 0x0f;
+  43   4                                                      break;
+  44   4                                      case 4: P0 = 0xff;
+  45   4                              }
+  46   3                      }
+  47   2              }
+  48   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    110    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   KEY_LED                                                               08/10/2009 09:01:53 PAGE 2   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

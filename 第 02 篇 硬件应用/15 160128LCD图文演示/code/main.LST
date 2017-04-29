@@ -1,0 +1,125 @@
+C51 COMPILER V8.08   MAIN                                                                  08/12/2009 16:09:44 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <LCD_160128.h>
+   2          #include <stdio.h>
+   3          extern void cls();
+   4          extern uchar LCD_Initialise();
+   5          extern uchar LCD_Write_Command(uchar cmd);
+   6          extern uchar LCD_Write_Command_P2(uchar cmd,uchar para1,uchar para2);
+   7          extern uchar LCD_Write_Data(uchar dat);
+   8          extern void Set_LCD_POS(uchar row,uchar col);
+   9          extern void Line(uchar x1,uchar y1,uchar x2,uchar y2,bit Mode);
+  10          extern uchar Display_Str_at_xy(uchar x,uchar y,char *fmt);
+  11          
+  12          extern uchar code LCD_WIDTH;
+  13          extern uchar code LCD_HEIGHT;
+  14          sbit S1 = P1^0;
+  15          sbit S2 = P1^1;
+  16          sbit S3 = P1^2;
+  17          sbit S4 = P1^3;
+  18          
+  19          uchar code ImageX[]=
+  20          {
+  21                  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  22                  0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  23          };
+  24          
+  25          uchar Current_Operation = 0;
+  26          uchar Statistics_Data[]={20,70,80,40,90,65,30}; 
+  27          
+  28          void Draw_Bar_Graph(uchar d[])
+  29          {
+  30   1              uchar i,h;
+  31   1              Line(4,2,4,100,1);
+  32   1              Line(4,100,158,100,1);
+  33   1              Line(4,2,1,10,1);
+  34   1              Line(4,2,7,10,1);
+  35   1              Line(158,100,152,97,1);
+  36   1              Line(158,100,152,103,1);
+  37   1              for(i=0;i<7;i++)
+  38   1              {
+  39   2                      h=100-d[i];
+  40   2                      Line(10+i*20,h,10+i*20,100,1);
+  41   2                      Line(10+i*20,h,10+i*20+15,h,1);
+  42   2                      Line(10+i*20+15,h,10+i*20+15,100,1);
+  43   2              }
+  44   1      }
+  45          
+  46          void main()
+  47          {
+  48   1              uchar i,j,m,c=0;uint k,x;
+  49   1              LCD_Initialise();
+  50   1              Set_LCD_POS(0,0);
+  51   1              cls();
+  52   1              while(1)
+  53   1              {
+  54   2                      if(S1==0) Current_Operation = 1;
+  55   2                      if(S2==0) Current_Operation = 2;
+C51 COMPILER V8.08   MAIN                                                                  08/12/2009 16:09:44 PAGE 2   
+
+  56   2                      if(S3==0) Current_Operation = 3;
+  57   2                      if(S4==0) Current_Operation = 4;
+  58   2                      if(c==Current_Operation) goto delayx;
+  59   2                      c=Current_Operation;
+  60   2                      switch(Current_Operation)
+  61   2                      {
+  62   3                              case 1:
+  63   3                              case 2:
+  64   3                                              LCD_Write_Command_P2(LC_GRH_STP,0x00,0x00);
+  65   3                                              for(i=0;i<LCD_HEIGHT;i++)
+  66   3                                              {
+  67   4                                                      Set_LCD_POS(i,0);
+  68   4                                                      LCD_Write_Command(LC_AUT_WR);
+  69   4                                                      for(j=0;j<LCD_WIDTH;j++)
+  70   4                                                      {
+  71   5                                                              m=ImageX[i*LCD_WIDTH+j];
+  72   5                                                              if(S2==0) m=~m;
+  73   5                                                              LCD_Write_Data(m);
+  74   5                                                      }
+  75   4                                                      LCD_Write_Command(LC_AUT_OVR);
+  76   4                                              }
+  77   3                                              break;
+  78   3                              case 3:
+  79   3                                              k=0;
+  80   3                                              while(k!=LCD_WIDTH*LCD_HEIGHT)
+  81   3                                              {
+  82   4                                                      LCD_Write_Command_P2(LC_GRH_STP,k%256,k/256);
+  83   4                                                      for(x=0;x<5000;x++);
+  84   4                                                      k+=LCD_WIDTH;
+  85   4                                              }
+  86   3                                              break;
+  87   3                              case 4:
+  88   3                                              LCD_Write_Command_P2(LC_GRH_STP,0x00,0x00);
+  89   3                                              Set_LCD_POS(0,0);
+  90   3                                              cls();
+  91   3                                              Draw_Bar_Graph(Statistics_Data);
+  92   3                                              Display_Str_at_xy(12,110,"statistics Graph");
+  93   3                                              break;  
+  94   3                      }
+  95   2                      delayx : for(x=0;x<20000;x++);  
+  96   2              }
+  97   1      }
+  98          
+  99          
+ 100          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    496    ----
+   CONSTANT SIZE    =     49    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8      13
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

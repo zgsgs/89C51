@@ -1,0 +1,132 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/05/2009  20:35:13  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE smg.obj TO smg RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  smg.obj (SMG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  smg (SMG)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000BH     UNIT         ?DT?SMG
+            DATA    0013H     0003H     UNIT         _DATA_GROUP_
+            IDATA   0016H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     005FH     UNIT         ?PR?MAIN?SMG
+            CODE    00EEH     0055H     UNIT         ?C?LIB_CODE
+            CODE    0143H     0016H     UNIT         ?PR?_DELAYMS?SMG
+            CODE    0159H     000EH     UNIT         ?C_INITSEG
+            CODE    0167H     000AH     UNIT         ?CO?SMG
+
+
+
+OVERLAY MAP OF MODULE:   smg (SMG)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?SMG
+  +--> ?C_INITSEG
+
+?PR?MAIN?SMG                   0013H    0003H
+  +--> ?CO?SMG
+  +--> ?PR?_DELAYMS?SMG
+
+
+
+SYMBOL TABLE OF MODULE:  smg (SMG)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/05/2009  20:35:13  PAGE 2
+
+
+  -------         MODULE        SMG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0143H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:008FH         PUBLIC        main
+  D:0008H         PUBLIC        Num
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  C:0167H         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:0143H         LINE#         16
+  C:0143H         LINE#         17
+  C:0143H         LINE#         19
+  C:014DH         LINE#         20
+  C:014DH         LINE#         21
+  C:0158H         LINE#         22
+  C:0158H         LINE#         23
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0013H         SYMBOL        i
+  D:0003H         SYMBOL        j
+  D:0014H         SYMBOL        k
+  D:0015H         SYMBOL        m
+  -------         ENDDO         
+  C:008FH         LINE#         25
+  C:008FH         LINE#         26
+  C:008FH         LINE#         28
+  C:0092H         LINE#         29
+  C:0095H         LINE#         30
+  C:0098H         LINE#         31
+  C:009AH         LINE#         32
+  C:009AH         LINE#         33
+  C:009AH         LINE#         34
+  C:009DH         LINE#         35
+  C:009DH         LINE#         36
+  C:009FH         LINE#         37
+  C:009FH         LINE#         38
+  C:00ACH         LINE#         39
+  C:00AEH         LINE#         40
+  C:00C7H         LINE#         41
+  C:00CEH         LINE#         42
+  C:00D2H         LINE#         43
+  C:00DBH         LINE#         44
+  C:00ECH         LINE#         45
+  -------         ENDPROC       MAIN
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/05/2009  20:35:13  PAGE 3
+
+
+  -------         ENDMOD        SMG
+
+  -------         MODULE        ?C?UIDIV
+  C:00EEH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=23.0 xdata=0 code=369
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

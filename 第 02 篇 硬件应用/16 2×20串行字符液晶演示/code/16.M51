@@ -1,0 +1,174 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/12/2009  10:25:25  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 16.obj TO 16 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  16.obj (16)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  16 (16)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0065H     UNIT         ?PR?MAIN?16
+            CODE    0068H     0016H     UNIT         ?PR?_DELAYMS?16
+            CODE    007EH     0012H     UNIT         ?CO?16
+            CODE    0090H     000CH     UNIT         ?PR?_WRCMD?16
+            CODE    009CH     000CH     UNIT         ?C_C51STARTUP
+            CODE    00A8H     0008H     UNIT         ?PR?_PUTC_TO_LCD?16
+            CODE    00B0H     0008H     UNIT         ?PR?GETC_FROM_TERMINAL?16
+
+
+
+OVERLAY MAP OF MODULE:   16 (16)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?16
+
+?PR?MAIN?16
+  +--> ?CO?16
+  +--> ?PR?_PUTC_TO_LCD?16
+  +--> ?PR?_DELAYMS?16
+  +--> ?PR?_WRCMD?16
+  +--> ?PR?GETC_FROM_TERMINAL?16
+
+?PR?_WRCMD?16
+  +--> ?PR?_PUTC_TO_LCD?16
+
+
+
+SYMBOL TABLE OF MODULE:  16 (16)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  10:25:25  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        16
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:00B0H         PUBLIC        getc_from_terminal
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0068H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:007EH         PUBLIC        prompts
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  C:0090H         PUBLIC        _wrcmd
+  C:0003H         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:00A8H         PUBLIC        _putc_to_LCD
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0068H         LINE#         7
+  C:0068H         LINE#         8
+  C:0068H         LINE#         10
+  C:0072H         LINE#         11
+  C:0072H         LINE#         12
+  C:007DH         LINE#         13
+  C:007DH         LINE#         14
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _PUTC_TO_LCD
+  D:0007H         SYMBOL        c
+  C:00A8H         LINE#         16
+  C:00A8H         LINE#         17
+  C:00A8H         LINE#         18
+  C:00AAH         LINE#         19
+  C:00ADH         LINE#         20
+  C:00AFH         LINE#         21
+  -------         ENDPROC       _PUTC_TO_LCD
+  -------         PROC          GETC_FROM_TERMINAL
+  C:00B0H         LINE#         23
+  C:00B0H         LINE#         24
+  C:00B0H         LINE#         25
+  C:00B3H         LINE#         26
+  C:00B5H         LINE#         27
+  C:00B7H         LINE#         28
+  -------         ENDPROC       GETC_FROM_TERMINAL
+  -------         PROC          _WRCMD
+  D:0006H         SYMBOL        comm
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/12/2009  10:25:25  PAGE 3
+
+
+  C:0090H         LINE#         30
+  C:0092H         LINE#         31
+  C:0092H         LINE#         32
+  C:0097H         LINE#         33
+  -------         ENDPROC       _WRCMD
+  -------         PROC          MAIN
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0004H         SYMBOL        c
+  -------         ENDDO         
+  C:0003H         LINE#         36
+  C:0003H         LINE#         37
+  C:0003H         LINE#         38
+  C:0005H         LINE#         39
+  C:0008H         LINE#         40
+  C:000BH         LINE#         41
+  C:000EH         LINE#         42
+  C:0011H         LINE#         43
+  C:0013H         LINE#         44
+  C:0015H         LINE#         45
+  C:0017H         LINE#         46
+  C:001CH         LINE#         47
+  C:0023H         LINE#         48
+  C:0023H         LINE#         49
+  C:002AH         LINE#         50
+  C:0031H         LINE#         51
+  C:0033H         LINE#         52
+  C:0038H         LINE#         53
+  C:003DH         LINE#         54
+  C:0044H         LINE#         55
+  C:0044H         LINE#         56
+  C:0044H         LINE#         57
+  C:0049H         LINE#         58
+  C:004CH         LINE#         59
+  C:004CH         LINE#         60
+  C:004EH         LINE#         61
+  C:0050H         LINE#         62
+  C:0050H         LINE#         63
+  C:0053H         LINE#         64
+  C:0053H         LINE#         65
+  C:0058H         LINE#         66
+  C:005AH         LINE#         67
+  C:005AH         LINE#         68
+  C:005FH         LINE#         69
+  C:0066H         LINE#         70
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        16
+
+Program Size: data=9.0 xdata=0 code=184
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

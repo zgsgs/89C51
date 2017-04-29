@@ -1,0 +1,62 @@
+C51 COMPILER V8.08   KEY_SMG                                                               08/10/2009 14:10:05 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_SMG
+OBJECT MODULE PLACED IN key-smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          uchar DSY_CODE[]=
+   6          {
+   7                  0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f
+   8          };
+   9          uchar Count = 0;
+  10          
+  11          void main()
+  12          {
+  13   1              P0 = 0x00;
+  14   1              P2 = 0x00;
+  15   1              TMOD = 0x06;
+  16   1              TH0=255;
+  17   1              TL0=255;
+  18   1              ET0=1;
+  19   1              EX0=1;
+  20   1              EA =1;
+  21   1              IP =0x02;
+  22   1              IT0=1;
+  23   1              TR0=1;
+  24   1              while(1)
+  25   1              {
+  26   2                      P0 = DSY_CODE[Count/10];
+  27   2                      P2 = DSY_CODE[Count%10];
+  28   2              }
+  29   1      }
+  30          
+  31          void Clear_Counter() interrupt 0
+  32          {
+  33   1              Count = 0;
+  34   1      }
+  35          
+  36          void Key_Counter() interrupt 1
+  37          {
+  38   1              Count = (Count + 1) %100;
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    112    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

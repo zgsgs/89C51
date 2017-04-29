@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\20 ADC0809模数转换与显示\code\20.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 20.c...
+linking...
+Program Size: data=9.0 xdata=0 code=150
+"20" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 20.c...
+linking...
+Program Size: data=9.0 xdata=0 code=150
+creating hex file from "20"...
+"20" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

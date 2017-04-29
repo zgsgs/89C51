@@ -1,0 +1,322 @@
+C51 COMPILER V8.08   17                                                                    08/12/2009 16:02:58 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 17
+OBJECT MODULE PLACED IN 17.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 17.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          #define Max_Page 6
+   6          #define DelayNOP() {_nop_();_nop_();_nop_();_nop_();}
+   7          
+   8          sbit CS  = P2^3;
+   9          sbit RES = P2^4;
+  10          sbit SDA = P2^5;
+  11          sbit SCLK = P2^6;
+  12          sbit A0  = P2^7;
+  13          sbit K1  = P1^5;
+  14          sbit K2  = P1^6;
+  15          sbit S1  = P1^7;
+  16          
+  17          uchar Auto_Flash;
+  18          uchar Page_Idx;
+  19          uchar Disp_Flag;
+  20          
+  21          uchar code Q[8]=
+  22          {
+  23                  0x00,0x5e,0x21,0x51,0x41,0x41,0x3e,0x00
+  24          };
+  25          
+  26          uchar code Clip_BMP[1024]=
+  27          {
+  28                  0xff,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x01,
+  29          };
+  30          
+  31          void DelayMS(uint ms)
+  32          {
+  33   1              uchar i;
+  34   1              while(ms--)
+  35   1              {
+  36   2                      for(i=0;i<120;i++);
+  37   2              }
+  38   1      }
+  39          
+  40          void Write_Command(uchar c)
+  41          {
+  42   1              uchar i;
+  43   1              SCLK = 0;
+  44   1              CS = 0;
+  45   1              A0 = 0;
+  46   1              DelayNOP();
+  47   1              for(i=0;i<8;i++)
+  48   1              {
+  49   2                      c<<=1;
+  50   2                      SDA = CY;
+  51   2                      SCLK = 1;
+  52   2                      DelayNOP();
+  53   2                      SCLK = 0;
+  54   2              }
+  55   1              DelayNOP();
+C51 COMPILER V8.08   17                                                                    08/12/2009 16:02:58 PAGE 2   
+
+  56   1              CS = 1;
+  57   1      }
+  58          
+  59          void Write_Data(uchar d)
+  60          {
+  61   1              uchar i;
+  62   1              SCLK = 0;
+  63   1              CS = 0;
+  64   1              A0 = 1;
+  65   1              DelayNOP();
+  66   1              for(i=0;i<8;i++)
+  67   1              {
+  68   2                      d<<=1;
+  69   2                      SDA = CY;
+  70   2                      SCLK = 1;
+  71   2                      DelayNOP();
+  72   2                      SCLK = 0;
+  73   2              }
+  74   1              DelayNOP();
+  75   1              CS = 1;
+  76   1      }
+  77          
+  78          void Init_LCD()
+  79          {
+  80   1              RES = 0;
+  81   1              DelayMS(10);
+  82   1              RES = 1;
+  83   1              Write_Command(0xa2);
+  84   1              Write_Command(0xa0);
+  85   1              Write_Command(0xc8);
+  86   1              Write_Command(0x27);
+  87   1              Write_Command(0x81);
+  88   1              Write_Command(0x1b);
+  89   1              Write_Command(0x2c);
+  90   1              Write_Command(0x2e);
+  91   1              Write_Command(0x2f);
+  92   1              Write_Command(0xa4);
+  93   1              Write_Command(0xaf);
+  94   1      }
+  95          
+  96          void Disp_All()
+  97          {
+  98   1              uchar i,j;
+  99   1              Write_Command(0x40);
+ 100   1              for(i=0;i<8;i++)
+ 101   1              {
+ 102   2                      Write_Command(0xb0+i);
+ 103   2                      Write_Command(0x10);
+ 104   2                      Write_Command(0x00);
+ 105   2                      for(j=0;j<128;j++)
+ 106   2                      {
+ 107   3                              Write_Data(0xff);
+ 108   3                      }
+ 109   2              }
+ 110   1      }
+ 111          
+ 112          void Disp_Off()
+ 113          {
+ 114   1              uchar i,j;
+ 115   1              Write_Command(0x40);
+ 116   1              for(i=0;i<8;i++)
+ 117   1              {
+C51 COMPILER V8.08   17                                                                    08/12/2009 16:02:58 PAGE 3   
+
+ 118   2                      Write_Command(0xb0+i);
+ 119   2                      Write_Command(0x10);
+ 120   2                      Write_Command(0x00);
+ 121   2                      for(j=0;j<128;j++)
+ 122   2                      {
+ 123   3                              Write_Data(0x00);
+ 124   3                      }
+ 125   2              }
+ 126   1      }
+ 127          
+ 128          void Disp_Frame()
+ 129          {
+ 130   1              uchar i,j;
+ 131   1              Write_Command(0x40);
+ 132   1              Write_Command(0xb0);
+ 133   1              Write_Command(0x10);
+ 134   1              Write_Command(0x00);
+ 135   1              Write_Data(0xff);
+ 136   1              for(j=0;j<126;j++)
+ 137   1              {
+ 138   2                      Write_Data(0x01);
+ 139   2              }
+ 140   1              Write_Data(0xff);
+ 141   1              for(i=0;i<6;i++)
+ 142   1              {
+ 143   2                      Write_Command(0xb0+i);
+ 144   2                      Write_Command(0x10);
+ 145   2                      Write_Command(0x00);
+ 146   2                      Write_Data(0xff);
+ 147   2                      for(j=0;j<126;j++)
+ 148   2                      {
+ 149   3                              Write_Data(0x00);
+ 150   3                      }
+ 151   2                      Write_Data(0xff);       
+ 152   2              }
+ 153   1              Write_Command(0xb7);
+ 154   1              Write_Command(0x10);
+ 155   1              Write_Command(0x00);
+ 156   1              Write_Data(0xff);
+ 157   1              for(j=0;j<126;j++)
+ 158   1              {
+ 159   2                      Write_Data(0x80);
+ 160   2              }
+ 161   1              Write_Data(0xff);
+ 162   1      }
+ 163          
+ 164          void Disp_Checker0()
+ 165          {
+ 166   1              uchar i,j;
+ 167   1              Write_Command(0x40);
+ 168   1              for(i=0;i<8;i++)
+ 169   1              {
+ 170   2                      Write_Command(0xb0+i);
+ 171   2                      Write_Command(0x10);
+ 172   2                      Write_Command(0x00);
+ 173   2                      for(j=0;j<64;j++)
+ 174   2                      {
+ 175   3                              Write_Data(0xaa);
+ 176   3                              Write_Data(0x55);
+ 177   3                      }
+ 178   2              }
+ 179   1      }
+C51 COMPILER V8.08   17                                                                    08/12/2009 16:02:58 PAGE 4   
+
+ 180          
+ 181          void Disp_Checker1()
+ 182          {
+ 183   1              uchar i,j;
+ 184   1              Write_Command(0x40);
+ 185   1              for(i=0;i<8;i++)
+ 186   1              {
+ 187   2                      Write_Command(0xb0+i);
+ 188   2                      Write_Command(0x10);
+ 189   2                      Write_Command(0x00);
+ 190   2                      for(j=0;j<64;j++)
+ 191   2                      {
+ 192   3                              Write_Data(0x55);
+ 193   3                              Write_Data(0xaa);
+ 194   3                      }
+ 195   2              }
+ 196   1      }
+ 197          
+ 198          void Disp_Q()
+ 199          {
+ 200   1              uchar i,j,k;
+ 201   1              Write_Command(0x40);
+ 202   1              for(i=0;i<8;i++)
+ 203   1              {
+ 204   2                      Write_Command(0xb0+i);
+ 205   2                      Write_Command(0x10);
+ 206   2                      Write_Command(0x00);
+ 207   2                      for(j=0;j<16;j++)
+ 208   2                      {
+ 209   3                              for(k=0;k<8;k++)
+ 210   3                              Write_Data(Q[k]);
+ 211   3                      }
+ 212   2              }
+ 213   1      }
+ 214          
+ 215          void Disp_Clip()
+ 216          {
+ 217   1              uchar i,j;
+ 218   1              Write_Command(0x40);
+ 219   1              for(i=0;i<8;i++)
+ 220   1              {
+ 221   2                      Write_Command(0xb0+i);
+ 222   2                      Write_Command(0x10);
+ 223   2                      Write_Command(0x00);
+ 224   2                      for(j=0;j<128;j++)
+ 225   2                      {
+ 226   3                              Write_Data(Clip_BMP[i*128+j]);
+ 227   3                      }
+ 228   2              }       
+ 229   1      }
+ 230          
+ 231          void Do_Key()
+ 232          {
+ 233   1              P1 = 0xff;
+ 234   1              DelayMS(5);
+ 235   1              if(S1 == 0) Auto_Flash = 1;
+ 236   1              else Auto_Flash = 0;
+ 237   1              if(K1 == 0)
+ 238   1              {
+ 239   2                      Disp_Flag = 1;
+ 240   2                      Page_Idx++;
+ 241   2                      if(Page_Idx >= Max_Page)
+C51 COMPILER V8.08   17                                                                    08/12/2009 16:02:58 PAGE 5   
+
+ 242   2                              Page_Idx = 0;
+ 243   2              }
+ 244   1              if(K2 == 0)
+ 245   1              {
+ 246   2                      Disp_Flag = 1;
+ 247   2                      if(Page_Idx > 0)
+ 248   2                      {
+ 249   3                              Page_Idx--;
+ 250   3                      }
+ 251   2                      else Page_Idx = Max_Page - 1;
+ 252   2              }
+ 253   1              DelayMS(100);
+ 254   1      }
+ 255          
+ 256          void main()
+ 257          {
+ 258   1              Auto_Flash = 1;
+ 259   1              Page_Idx = 0;
+ 260   1              Disp_Flag = 1;
+ 261   1              Init_LCD();
+ 262   1              DelayMS(5);
+ 263   1              Disp_Off();
+ 264   1              DelayMS(200);
+ 265   1              while(1)
+ 266   1              {
+ 267   2                      Do_Key();
+ 268   2                      if(Disp_Flag == 1)
+ 269   2                      {
+ 270   3                              switch(Page_Idx)
+ 271   3                              {
+ 272   4                                      case 0: Disp_All(); break;
+ 273   4                                      case 1: Disp_Frame(); break;
+ 274   4                                      case 2: Disp_Checker0(); break;
+ 275   4                                      case 3: Disp_Checker1(); break;
+ 276   4                                      case 4: Disp_Q(); break;
+ 277   4                                      case 5: Disp_Clip(); break;
+ 278   4                              }
+ 279   3                              Disp_Flag = 0;
+ 280   3                      }
+ 281   2                      if(Auto_Flash == 1)
+ 282   2                      {
+ 283   3                              Disp_Flag = 1;
+ 284   3                              if(++Page_Idx >= Max_Page) Page_Idx = 0;
+ 285   3                              DelayMS(1000);  
+ 286   3                      }
+ 287   2              }       
+ 288   1      }
+ 289          
+ 290          
+ 291          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    651    ----
+   CONSTANT SIZE    =   1032    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,71 @@
+C51 COMPILER V8.08   SMG                                                                   08/05/2009 20:35:12 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE SMG
+OBJECT MODULE PLACED IN smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90       
+   9          };
+  10          
+  11          uchar Num[]=
+  12          {
+  13                  10,10,10,10,10,10,10,10,2,9,8
+  14          };
+  15          
+  16          void DelayMS(uint x)
+  17          {
+  18   1              uchar t;
+  19   1              while(x--)
+  20   1              {
+  21   2                      for(t=120;t>0;t--);
+  22   2              }
+  23   1      }
+  24          
+  25          void main()
+  26          {
+  27   1              uchar i,j,k,m;
+  28   1              P0 = 0xff;
+  29   1              P2 = 0x00;
+  30   1              m  = 0x80;
+  31   1              k  = 0;
+  32   1              while(1)
+  33   1              {
+  34   2                      for(i=0;i<15;i++)
+  35   2                      {
+  36   3                              for(j=0;j<8;j++)
+  37   3                              {
+  38   4                                      m  = _crol_(m,1);
+  39   4                                      P2 = m;
+  40   4                                      P0 = DSY_CODE[Num[(k+j)%11]];
+  41   4                                      DelayMS(2);
+  42   4                              }
+  43   3                      }       
+  44   2                      k = (k+1)%11;
+  45   2              }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    117    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11       3
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   SMG                                                                   08/05/2009 20:35:12 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

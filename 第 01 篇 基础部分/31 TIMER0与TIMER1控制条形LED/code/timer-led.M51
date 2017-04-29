@@ -1,0 +1,129 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  13:42:11  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE timer-led.obj TO timer-led RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  timer-led.obj (TIMER_LED)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  timer-led (TIMER_LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?TIMER_LED
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0007H     UNIT         ?C_INITSEG
+                    000AH     0001H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     000DH                  *** GAP ***
+            CODE    001BH     0003H     ABSOLUTE     
+            CODE    001EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    00AAH     0031H     UNIT         ?PR?TIME0?TIMER_LED
+            CODE    00DBH     0031H     UNIT         ?PR?TIME1?TIMER_LED
+            CODE    010CH     001EH     UNIT         ?PR?MAIN?TIMER_LED
+
+
+
+OVERLAY MAP OF MODULE:   timer-led (TIMER_LED)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TIMER_LED
+  +--> ?C_INITSEG
+
+
+
+SYMBOL TABLE OF MODULE:  timer-led (TIMER_LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TIMER_LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  13:42:11  PAGE 2
+
+
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        tc0
+  D:0009H         PUBLIC        tc1
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:010CH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:00AAH         PUBLIC        Time0
+  C:00DBH         PUBLIC        Time1
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  D:008AH         PUBLIC        TL0
+  D:008BH         PUBLIC        TL1
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:010CH         LINE#         7
+  C:010CH         LINE#         8
+  C:010CH         LINE#         9
+  C:010FH         LINE#         10
+  C:0112H         LINE#         11
+  C:0115H         LINE#         12
+  C:0118H         LINE#         13
+  C:011BH         LINE#         14
+  C:011EH         LINE#         15
+  C:0121H         LINE#         16
+  C:0124H         LINE#         17
+  C:0126H         LINE#         18
+  C:0128H         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:00AAH         LINE#         22
+  C:00B5H         LINE#         24
+  C:00B8H         LINE#         25
+  C:00BBH         LINE#         26
+  C:00C2H         LINE#         27
+  C:00C2H         LINE#         28
+  C:00C5H         LINE#         29
+  C:00D2H         LINE#         30
+  C:00D2H         LINE#         31
+  -------         ENDPROC       TIME0
+  -------         PROC          TIME1
+  C:00DBH         LINE#         33
+  C:00E6H         LINE#         35
+  C:00E9H         LINE#         36
+  C:00ECH         LINE#         37
+  C:00F3H         LINE#         38
+  C:00F3H         LINE#         39
+  C:00F6H         LINE#         40
+  C:0103H         LINE#         41
+  C:0103H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  13:42:11  PAGE 3
+
+
+  -------         ENDPROC       TIME1
+  -------         ENDMOD        TIMER_LED
+
+Program Size: data=11.0 xdata=0 code=284
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

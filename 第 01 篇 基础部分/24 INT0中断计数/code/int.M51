@@ -1,0 +1,148 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  11:03:50  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE int.obj TO int RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  int.obj (INT)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  int (INT)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0005H     UNIT         ?DT?INT
+            IDATA   000DH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0092H     0055H     UNIT         ?PR?SHOW_COUNT_ON_DSY?INT
+            CODE    00E7H     0055H     UNIT         ?C?LIB_CODE
+            CODE    013CH     001BH     UNIT         ?PR?MAIN?INT
+            CODE    0157H     000DH     UNIT         ?PR?EX_INT0?INT
+            CODE    0164H     000AH     UNIT         ?C_INITSEG
+            CODE    016EH     000AH     UNIT         ?CO?INT
+
+
+
+OVERLAY MAP OF MODULE:   int (INT)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?INT
+  +--> ?C_INITSEG
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   SHOW_COUNT_NO_DSY
+
+
+
+SYMBOL TABLE OF MODULE:  int (INT)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  11:03:50  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        INT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        Count
+  D:00A8H         PUBLIC        IE
+  D:000AH         PUBLIC        Display_Buffer
+  D:00B8H         PUBLIC        IP
+  C:0157H         PUBLIC        EX_INT0
+  C:013CH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:0088H.0       PUBLIC        IT0
+  C:0092H         PUBLIC        Show_Count_ON_DSY
+  D:00C8H         PUBLIC        T2CON
+  C:016EH         PUBLIC        DSY_CODE
+  B:00B0H.6       PUBLIC        Clear_Key
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          SHOW_COUNT_ON_DSY
+  C:0092H         LINE#         13
+  C:0092H         LINE#         14
+  C:0092H         LINE#         15
+  C:009FH         LINE#         16
+  C:00B9H         LINE#         17
+  C:00C6H         LINE#         18
+  C:00CAH         LINE#         19
+  C:00CAH         LINE#         20
+  C:00CDH         LINE#         21
+  C:00D1H         LINE#         22
+  C:00D1H         LINE#         23
+  C:00D4H         LINE#         24
+  C:00D4H         LINE#         25
+  C:00D4H         LINE#         26
+  C:00DCH         LINE#         27
+  C:00E1H         LINE#         28
+  C:00E6H         LINE#         29
+  -------         ENDPROC       SHOW_COUNT_ON_DSY
+  -------         PROC          MAIN
+  C:013CH         LINE#         31
+  C:013CH         LINE#         32
+  C:013CH         LINE#         33
+  C:013FH         LINE#         34
+  C:0142H         LINE#         35
+  C:0145H         LINE#         36
+  C:0148H         LINE#         37
+  C:014AH         LINE#         38
+  C:014AH         LINE#         39
+  C:014AH         LINE#         40
+  C:014DH         LINE#         41
+  C:0152H         LINE#         42
+  C:0155H         LINE#         43
+  -------         ENDPROC       MAIN
+  -------         PROC          EX_INT0
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  11:03:50  PAGE 3
+
+
+  C:0157H         LINE#         46
+  C:0159H         LINE#         48
+  C:0161H         LINE#         49
+  -------         ENDPROC       EX_INT0
+  -------         ENDMOD        INT
+
+  -------         MODULE        ?C?UIDIV
+  C:00E7H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SHOW_COUNT_ON_DSY?INT
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  SHOW_COUNT_NO_DSY
+    MODULE:  int.obj (INT)
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  SHOW_COUNT_NO_DSY
+    MODULE:  int.obj (INT)
+    ADDRESS: 0153H
+
+Program Size: data=14.0 xdata=0 code=376
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

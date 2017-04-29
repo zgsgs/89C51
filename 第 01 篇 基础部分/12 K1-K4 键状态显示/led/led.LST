@@ -1,0 +1,71 @@
+C51 COMPILER V8.08   LED                                                                   08/01/2009 22:04:24 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          sbit LED1 = P0^0; 
+   5          sbit LED2 = P0^1;
+   6          sbit LED3 = P0^2;
+   7          sbit LED4 = P0^3;
+   8          sbit K1 = P1^0;
+   9          sbit K2 = P1^1;
+  10          sbit K3 = P1^2;
+  11          sbit K4 = P1^3;
+  12          
+  13          void DelayMS(uint x)
+  14          {
+  15   1              uchar t;
+  16   1              while(x--)
+  17   1              {
+  18   2                      for(t=120;t>0;t--);
+  19   2              }
+  20   1      }
+  21          
+  22          void main()
+  23          {
+  24   1              P0=0xff;
+  25   1              P1=0xff;
+  26   1              while(1)
+  27   1              {
+  28   2                      LED1 = K1;
+  29   2                      LED2 = K2;
+  30   2                      if(K3==0)
+  31   2                      {
+  32   3                              while(K3==0)
+  33   3                              {
+  34   4                                      LED3=~LED3;
+  35   4                              }
+  36   3                      }
+  37   2                      if(K4==0)
+  38   2                      {
+  39   3                              while(K4==0)
+  40   3                              {
+  41   4                                      LED4=~LED4;
+  42   4                              }
+  43   3                      }
+  44   2                      DelayMS(10);
+  45   2              }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     65    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   LED                                                                   08/01/2009 22:04:24 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,55 @@
+C51 COMPILER V8.08   SMG                                                                   08/01/2009 21:45:57 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE SMG
+OBJECT MODULE PLACED IN smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          uchar code DSY_CODE[]=
+   6          {
+   7                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90       
+   8          };
+   9          uchar code DSY_IDX[]=
+  10          {
+  11                  0x01;0x02;0x04;0x08;0x10;0x20;0x40;0x80
+*** ERROR C141 IN LINE 11 OF SMG.C: syntax error near ';'
+*** ERROR C141 IN LINE 11 OF SMG.C: syntax error near '0x02'
+  12          }
+  13          void DelayMS(uint x)
+  14          {
+  15   1              uchar t;
+  16   1              while(x--)
+  17   1              {
+  18   2                      for(t=120;t>0;t--);
+  19   2              }
+  20   1      }
+  21          
+  22          void main()
+  23          {
+  24   1              uchar k,m;
+  25   1              P0=0xff;
+  26   1              P2=0x00;
+  27   1              while(1)
+  28   1              {
+  29   2                      for(k=0;k<30;k++)
+  30   2                      {
+  31   3                              for(m=0;m<8;m++)
+  32   3                              {
+  33   4                                      P2=code DSY_IDX[k];
+*** ERROR C141 IN LINE 33 OF SMG.C: syntax error near 'code'
+  34   4                                      P0=DSY_CODE[m];
+  35   4                                      DelayMS(2);
+  36   4                              }
+  37   3                      }
+  38   2                      P2=0x00;
+  39   2                      DelayMS(1000);
+  40   2              }
+  41   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  3 ERROR(S)

@@ -1,0 +1,153 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  15:15:28  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE timer.obj TO timer RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  timer.obj (TIMER)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  timer (TIMER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0007H     UNIT         ?DT?TIMER
+            IDATA   000FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    009AH     0047H     UNIT         ?PR?MAIN?TIMER
+            CODE    00E1H     0041H     UNIT         ?PR?TIME0?TIMER
+            CODE    0122H     0015H     UNIT         ?PR?_DELAYMS?TIMER
+            CODE    0137H     000AH     UNIT         ?CO?TIMER
+            CODE    0141H     0009H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   timer (TIMER)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TIMER
+  +--> ?C_INITSEG
+
+?PR?MAIN?TIMER
+  +--> ?CO?TIMER
+  +--> ?PR?_DELAYMS?TIMER
+
+
+
+SYMBOL TABLE OF MODULE:  timer (TIMER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  15:15:28  PAGE 2
+
+
+  -------         MODULE        TIMER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        Count
+  D:00A8H         PUBLIC        IE
+  C:0122H         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  D:0009H         PUBLIC        Digits_of_6DSY
+  C:009AH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:00E1H         PUBLIC        Time0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  C:0137H         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0122H         LINE#         14
+  C:0122H         LINE#         15
+  C:0122H         LINE#         17
+  C:012BH         LINE#         18
+  C:012BH         LINE#         19
+  C:0136H         LINE#         20
+  C:0136H         LINE#         21
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          MAIN
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:009AH         LINE#         23
+  C:009AH         LINE#         24
+  C:009AH         LINE#         26
+  C:009DH         LINE#         27
+  C:00A0H         LINE#         28
+  C:00A2H         LINE#         29
+  C:00A5H         LINE#         30
+  C:00A8H         LINE#         31
+  C:00ABH         LINE#         32
+  C:00AEH         LINE#         33
+  C:00B0H         LINE#         34
+  C:00B0H         LINE#         35
+  C:00B0H         LINE#         36
+  C:00B2H         LINE#         37
+  C:00B8H         LINE#         38
+  C:00B8H         LINE#         39
+  C:00C4H         LINE#         40
+  C:00C6H         LINE#         41
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  15:15:28  PAGE 3
+
+
+  C:00D1H         LINE#         42
+  C:00D7H         LINE#         43
+  C:00DEH         LINE#         44
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:00E1H         LINE#         48
+  C:00ECH         LINE#         51
+  C:00EFH         LINE#         52
+  C:00F2H         LINE#         53
+  C:00FAH         LINE#         54
+  C:00FDH         LINE#         55
+  C:00FFH         LINE#         56
+  C:0101H         LINE#         57
+  C:0101H         LINE#         58
+  C:0109H         LINE#         59
+  C:0109H         LINE#         60
+  C:010BH         LINE#         61
+  C:0115H         LINE#         62
+  C:0115H         LINE#         63
+  C:0115H         LINE#         64
+  C:0119H         LINE#         65
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        TIMER
+
+Program Size: data=16.0 xdata=0 code=322
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

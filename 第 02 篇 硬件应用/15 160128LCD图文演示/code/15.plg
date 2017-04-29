@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\15 160128LCD图文演示\code\15.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling LCD_160128.c...
+LCD_160128.C(77): error C237: 'Status_BIT_3': function already has a body
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling LCD_160128.c...
+compiling main.c...
+linking...
+Program Size: data=59.2 xdata=0 code=4119
+"15" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling LCD_160128.c...
+compiling main.c...
+linking...
+Program Size: data=59.2 xdata=0 code=4119
+"15" - 0 Error(s), 0 Warning(s).

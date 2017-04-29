@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\02 74HC154译码器应用\code\2.uv2
+Project File Date:  08/11/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 2.c...
+linking...
+Program Size: data=9.0 xdata=0 code=57
+"2" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

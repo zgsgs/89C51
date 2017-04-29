@@ -1,0 +1,131 @@
+//-----------------------------------------------------------------
+//原始程序中相邻两位密码不能相同.
+//本压缩包中的HEX由修改后的新程序编译生成,允许输入任意密码.
+//-----------------------------------------------------------------
+//实训100例中本例内的main函数可用以下代码替换.
+//改动的主要是main函数中while循环内的代码.
+//-----------------------------------------------------------------
+// 主程序
+//-----------------------------------------------------------------
+void main()
+{
+   uchar i = 0;
+   uchar IIC_Password[10];
+   uchar IS_Valid_User = 0;
+   P0 = 0xFF;     
+   P1 = 0xFF;
+   P2 = 0xFF;  
+
+   TMOD = 0x02;                     //T0设置为8位自动重装模式
+   TH0 = 175;                  
+   TL0 = 175;
+   TR0 = 1;                         //启动T0
+
+   DelayMS(10);                
+   LCD_Init();                      //初始化LCD  
+   
+   IIC_24C04_Init();                //初始化24C04  
+   
+   Display_String(Title_Text,0x00); //在第1行显示标题
+   
+   //24C04的内容已由初始化BIN文件导入
+   //将24C04中预先写入的密码读入pass
+   RecString(0xa0, 0 , IIC_Password, 6);   
+   IIC_Password[6] = '\0';
+
+   while(1)
+   { 
+      P1 = 0xF0;
+      if(P1 != 0xF0) KeyNo = Keys_Scan();  //扫描键盘获取键序号KeyNo
+ 
+      switch ( KeyNo )
+      {
+           case 0:  case 1: case 2: case 3: case 4: 
+           case 5:  case 6: case 7: case 8: case 9:
+                        
+                   if ( i<= 5 )             //密码限制在6位以内
+                   {
+                        //如果i为0则执行一次清屏
+                        if (i ==0) Display_String("                ",0x40);
+                    
+                        UserPassword[i] = KeyNo + '0';
+                        UserPassword[i+1] = '\0';
+              
+                        DSY_BUFFER[i] = '*';
+                        DSY_BUFFER[i+1] = '\0';
+                    
+                        Display_String(DSY_BUFFER,0x40);
+                     
+                        i++;
+                    }
+                    break;
+                
+           case 10: //按A键开锁
+                    if (strcmp(UserPassword,IIC_Password) == 0) 
+                    {
+                       LED_OPEN = 0;  //点亮LED
+                       Clear_Password();
+                       Display_String("Unlock OK!      ",0x40);
+                       IS_Valid_User = 1;
+                    }
+                    else 
+                    {
+                       LED_OPEN =1;   //关闭LED
+                       Clear_Password();
+                       Display_String("ERROR !         ",0x40);
+                       IS_Valid_User = 0;
+                    }
+                    i = 0;
+                    break;
+                    
+           case 11: //按B键上锁
+                    LED_OPEN =1;   
+                    Clear_Password();
+                    Display_String(Title_Text,0x00);
+                    Display_String("                ",0x40);
+                    i = 0;                         
+                    IS_Valid_User = 0;               
+                    break;
+                                   
+           case 12: //按C键设置新密码
+                    //如果是合法用户则提示输入新密码
+                    if ( !IS_Valid_User ) Display_String("No rights !",0x40);
+                    else 
+                    {
+                       i = 0;
+                       Display_String("New Password:   ",0x00);
+                       Display_String("                ",0x40);
+                     }
+           
+                    break;                        
+                    
+           case 13: //按D键保存新密码
+                    if ( !IS_Valid_User ) Display_String("No rights !",0x40);
+                    else 
+                    {
+                       SendString(0xa0, 0 , UserPassword, 6);
+                       
+                       //重新读入刚写的密码
+                       RecString(0xa0, 0 , IIC_Password, 6);   
+                       IIC_Password[6] = '\0';                           
+                       
+                       i = 0;
+                       Display_String(Title_Text,0x00);
+                       Display_String("Password Saved! ",0x40);
+                     }               
+                    
+                    break;                        
+       
+           case 14: //按E键消除所有输入
+                    i = 0;
+                    Clear_Password();
+                    Display_String("                ",0x40);            
+       }
+ 
+       Beep();          
+       DelayMS(100);
+       P1= 0xF0;
+       while (P1 != 0xF0);    //如果有键未释放则等待
+       while (P1 == 0xF0);    //如果没有再次按下按键则等待
+   }
+}

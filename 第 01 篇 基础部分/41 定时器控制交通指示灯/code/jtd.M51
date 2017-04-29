@@ -1,0 +1,140 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2009  09:00:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE jtd.obj TO jtd RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  jtd.obj (JTD)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  jtd (JTD)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?JTD
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0091H     UNIT         ?PR?T0_INT?JTD
+            CODE    009FH     008CH     UNIT         ?C_C51STARTUP
+            CODE    012BH     000AH     UNIT         ?PR?MAIN?JTD
+            CODE    0135H     000AH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   jtd (JTD)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?JTD
+  +--> ?C_INITSEG
+
+
+
+SYMBOL TABLE OF MODULE:  jtd (JTD)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        JTD
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:0080H.1       PUBLIC        YELLOW_A
+  D:0080H         PUBLIC        P0
+  B:0080H.4       PUBLIC        YELLOW_B
+  D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  09:00:48  PAGE 2
+
+
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  B:0080H.2       PUBLIC        GREEN_A
+  B:0080H.5       PUBLIC        GREEN_B
+  D:00B8H         PUBLIC        IP
+  C:012BH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:0008H         PUBLIC        Operation_Type
+  D:008CH         PUBLIC        TH0
+  C:000EH         PUBLIC        T0_INT
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:0009H         PUBLIC        Flash_Count
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  B:0080H.0       PUBLIC        RED_A
+  D:000AH         PUBLIC        Time_Count
+  B:0080H.3       PUBLIC        RED_B
+  -------         PROC          T0_INT
+  C:000EH         LINE#         15
+  C:0012H         LINE#         17
+  C:0015H         LINE#         18
+  C:0018H         LINE#         19
+  C:0028H         LINE#         20
+  C:0028H         LINE#         21
+  C:0028H         LINE#         22
+  C:002EH         LINE#         23
+  C:0034H         LINE#         24
+  C:003CH         LINE#         25
+  C:003FH         LINE#         26
+  C:0042H         LINE#         27
+  C:0044H         LINE#         28
+  C:0044H         LINE#         29
+  C:004CH         LINE#         30
+  C:004FH         LINE#         31
+  C:0051H         LINE#         32
+  C:0053H         LINE#         33
+  C:005BH         LINE#         34
+  C:005EH         LINE#         35
+  C:0061H         LINE#         36
+  C:0063H         LINE#         37
+  C:0063H         LINE#         38
+  C:0069H         LINE#         39
+  C:006FH         LINE#         40
+  C:0077H         LINE#         41
+  C:007AH         LINE#         42
+  C:007DH         LINE#         43
+  C:007FH         LINE#         44
+  C:007FH         LINE#         45
+  C:0086H         LINE#         46
+  C:0089H         LINE#         47
+  C:008BH         LINE#         48
+  C:008DH         LINE#         49
+  C:0094H         LINE#         51
+  C:0097H         LINE#         52
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  09:00:48  PAGE 3
+
+
+  C:009AH         LINE#         53
+  C:009AH         LINE#         54
+  C:009AH         LINE#         55
+  -------         ENDPROC       T0_INT
+  -------         PROC          MAIN
+  C:012BH         LINE#         57
+  C:012BH         LINE#         58
+  C:012BH         LINE#         59
+  C:012EH         LINE#         60
+  C:0131H         LINE#         61
+  C:0133H         LINE#         62
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        JTD
+
+Program Size: data=12.0 xdata=0 code=311
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

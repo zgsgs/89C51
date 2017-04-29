@@ -1,0 +1,121 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  10:36:35  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE key-beep.obj TO key-beep RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  key-beep.obj (KEY_BEEP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  key-beep (KEY_BEEP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0025H     UNIT         ?PR?MAIN?KEY_BEEP
+            CODE    0028H     0016H     UNIT         ?PR?_DELAYMS?KEY_BEEP
+            CODE    003EH     0014H     UNIT         ?PR?_PLAY?KEY_BEEP
+            CODE    0052H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   key-beep (KEY_BEEP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?KEY_BEEP
+
+?PR?MAIN?KEY_BEEP
+  +--> ?PR?_PLAY?KEY_BEEP
+
+?PR?_PLAY?KEY_BEEP
+  +--> ?PR?_DELAYMS?KEY_BEEP
+
+
+
+SYMBOL TABLE OF MODULE:  key-beep (KEY_BEEP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        KEY_BEEP
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:0090H.7       PUBLIC        K4
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:36:35  PAGE 2
+
+
+  D:00A8H         PUBLIC        IE
+  C:0028H         PUBLIC        _DelayMS
+  C:003EH         PUBLIC        _Play
+  D:00B8H         PUBLIC        IP
+  B:00B0H.7       PUBLIC        BEEP
+  C:0003H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  B:0090H.4       PUBLIC        K1
+  B:0090H.5       PUBLIC        K2
+  B:0090H.6       PUBLIC        K3
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:0028H         LINE#         11
+  C:0028H         LINE#         12
+  C:0028H         LINE#         14
+  C:0032H         LINE#         15
+  C:0032H         LINE#         16
+  C:003DH         LINE#         17
+  C:003DH         LINE#         18
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          _PLAY
+  D:0004H         SYMBOL        t
+  -------         DO            
+  D:0003H         SYMBOL        i
+  -------         ENDDO         
+  C:003EH         LINE#         20
+  C:0040H         LINE#         21
+  C:0040H         LINE#         23
+  C:0042H         LINE#         24
+  C:0042H         LINE#         25
+  C:0044H         LINE#         26
+  C:004BH         LINE#         27
+  C:004FH         LINE#         28
+  C:0051H         LINE#         29
+  -------         ENDPROC       _PLAY
+  -------         PROC          MAIN
+  C:0003H         LINE#         31
+  C:0003H         LINE#         32
+  C:0003H         LINE#         33
+  C:0006H         LINE#         34
+  C:0006H         LINE#         35
+  C:0006H         LINE#         36
+  C:000EH         LINE#         37
+  C:0016H         LINE#         38
+  C:001EH         LINE#         39
+  C:0026H         LINE#         40
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        KEY_BEEP
+
+Program Size: data=9.0 xdata=0 code=94
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

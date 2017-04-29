@@ -1,0 +1,24 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\23 播放一段音乐\code\yy.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling yy.c...
+YY.C(26): error C141: syntax error near ','
+YY.C(26): error C202: 'j': undefined identifier
+YY.C(29): error C202: 'j': undefined identifier
+YY.C(32): error C202: 'k': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling yy.c...
+linking...
+Program Size: data=11.0 xdata=0 code=200
+"yy" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

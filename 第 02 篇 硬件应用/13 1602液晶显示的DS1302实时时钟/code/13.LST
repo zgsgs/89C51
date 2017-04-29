@@ -1,0 +1,179 @@
+C51 COMPILER V8.08   13                                                                    08/12/2009 16:06:44 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 13
+OBJECT MODULE PLACED IN 13.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 13.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #include <string.h>
+   5          #define uint unsigned int
+   6          #define uchar unsigned char
+   7          
+   8          sbit IO = P1^0;
+   9          sbit SCLK = P1^1;
+  10          sbit RST = P1^2;
+  11          sbit RS = P2^0;
+  12          sbit RW = P2^1;
+  13          sbit EN = P2^2;
+  14          
+  15          uchar *WEEK[]=
+  16          {
+  17                  "SUN","***","MON","TUS","WEN","THU","FRI","SAT"
+  18          };
+  19          uchar LCD_DSY_BUFFER1[]={"DATE 00-00-00    "};
+  20          uchar LCD_DSY_BUFFER2[]={"TIME 00:00:00    "};
+  21          uchar DateTime[7];
+  22          
+  23          void DelayMS(uint ms)
+  24          {
+  25   1              uchar i;
+  26   1              while(ms--)
+  27   1              {
+  28   2                      for(i=0;i<120;i++);
+  29   2              }
+  30   1      }
+  31          
+  32          void Write_A_Byte_TO_DS1302(uchar x)
+  33          {
+  34   1              uchar i;
+  35   1              for(i=0;i<8;i++)
+  36   1              {
+  37   2                      IO=x&0x01;SCLK=1;SCLK=0;x>>=1;
+  38   2              }
+  39   1      }
+  40          
+  41          uchar Get_A_Byte_FROM_DS1302()
+  42          {
+  43   1              uchar i,b=0x00;
+  44   1              for(i=0;i<8;i++)
+  45   1              {
+  46   2                      b |= _crol_((uchar)IO,i);
+  47   2                      SCLK=1;SCLK=0;
+  48   2              }
+  49   1              return b/16*10+b%16;
+  50   1      }
+  51          
+  52          uchar Read_Data(uchar addr)
+  53          {
+  54   1              uchar dat;
+  55   1              RST = 0;SCLK=0;RST=1;
+C51 COMPILER V8.08   13                                                                    08/12/2009 16:06:44 PAGE 2   
+
+  56   1              Write_A_Byte_TO_DS1302(addr);
+  57   1              dat = Get_A_Byte_FROM_DS1302();
+  58   1              SCLK=1;RST=0;
+  59   1              return dat;
+  60   1      }
+  61          
+  62          void GetTime()
+  63          {
+  64   1              uchar i,addr = 0x81;
+  65   1              for(i=0;i<7;i++)
+  66   1              {
+  67   2                      DateTime[i]=Read_Data(addr);addr+=2;
+  68   2              }
+  69   1      }
+  70          
+  71          uchar Read_LCD_State()
+  72          {
+  73   1              uchar state;
+  74   1              RS=0;RW=1;EN=1;DelayMS(1);
+  75   1              state=P0;
+  76   1              EN = 0;DelayMS(1);
+  77   1              return state;
+  78   1      }
+  79          
+  80          
+  81          void LCD_Busy_Wait()
+  82          {
+  83   1              while((Read_LCD_State()&0x80)==0x80);
+  84   1              DelayMS(5);
+  85   1      }
+  86          
+  87          void Write_LCD_Data(uchar dat)
+  88          {
+  89   1              LCD_Busy_Wait();
+  90   1              RS=1;RW=0;EN=0;P0=dat;EN=1;DelayMS(1);EN=0;     
+  91   1      }
+  92          
+  93          void Write_LCD_Command(uchar cmd)
+  94          {
+  95   1              LCD_Busy_Wait();
+  96   1              RS=0;RW=0;EN=0;P0=cmd;EN=1;DelayMS(1);EN=0;     
+  97   1      }
+  98          
+  99          void Init_LCD()
+ 100          {
+ 101   1              Write_LCD_Command(0x38);
+ 102   1              DelayMS(1);     
+ 103   1              Write_LCD_Command(0x01);
+ 104   1              DelayMS(1);     
+ 105   1              Write_LCD_Command(0x06);
+ 106   1              DelayMS(1);     
+ 107   1              Write_LCD_Command(0x0c);
+ 108   1              DelayMS(1);     
+ 109   1      }
+ 110          
+ 111          void Set_LCD_POS(uchar p)
+ 112          {
+ 113   1              Write_LCD_Command(p|0x80);      
+ 114   1      }
+ 115          
+ 116          void Display_LCD_String(uchar p,uchar *s)
+ 117          {
+C51 COMPILER V8.08   13                                                                    08/12/2009 16:06:44 PAGE 3   
+
+ 118   1              uchar i;
+ 119   1              Set_LCD_POS(p);
+ 120   1              for(i=0;i<16;i++)
+ 121   1              {
+ 122   2                      Write_LCD_Data(s[i]);
+ 123   2                      DelayMS(1);     
+ 124   2              }
+ 125   1      }
+ 126          
+ 127          void Format_DateTime(uchar d,uchar *a)
+ 128          {
+ 129   1              a[0]=d/10+'0';
+ 130   1              a[1]=d%10+'0';
+ 131   1      }
+ 132          
+ 133          void main()
+ 134          {
+ 135   1              Init_LCD();
+ 136   1              while(1)
+ 137   1              {
+ 138   2                      GetTime();
+ 139   2                      Format_DateTime(DateTime[6],LCD_DSY_BUFFER1+5);
+ 140   2                      Format_DateTime(DateTime[4],LCD_DSY_BUFFER1+8);
+ 141   2                      Format_DateTime(DateTime[3],LCD_DSY_BUFFER1+11);
+ 142   2      
+ 143   2                      strcpy(LCD_DSY_BUFFER1+13,WEEK[DateTime[5]]);
+ 144   2      
+ 145   2                      Format_DateTime(DateTime[2],LCD_DSY_BUFFER1+5);
+ 146   2                      Format_DateTime(DateTime[1],LCD_DSY_BUFFER1+8);
+ 147   2                      Format_DateTime(DateTime[0],LCD_DSY_BUFFER1+11);
+ 148   2      
+ 149   2                      Display_LCD_String(0x00,LCD_DSY_BUFFER1);
+ 150   2                      Display_LCD_String(0x40,LCD_DSY_BUFFER2);
+ 151   2              }
+ 152   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    408    ----
+   CONSTANT SIZE    =     32    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     67       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

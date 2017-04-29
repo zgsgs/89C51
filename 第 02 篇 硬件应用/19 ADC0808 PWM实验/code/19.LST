@@ -1,0 +1,85 @@
+C51 COMPILER V8.08   19                                                                    08/12/2009 10:37:11 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 19
+OBJECT MODULE PLACED IN 19.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 19.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          
+   6          sbit CLK = P2^4;
+   7          sbit ST  = P2^5;
+   8          sbit EOC = P2^6;
+   9          sbit OE  = P2^7;
+  10          sbit PWM = P3^0;
+  11          
+  12          void DelayMS(uint ms)
+  13          {
+  14   1              uchar i;
+  15   1              while(ms--)
+  16   1              {
+  17   2                      for(i=0;i<120;i++);
+  18   2              }
+  19   1      }
+  20          
+  21          void main()
+  22          {
+  23   1              uchar Val;
+  24   1              TMOD = 0x02;
+  25   1              TH0 = 0x14;
+  26   1              TL0 = 0x00;
+  27   1              IE  = 0x82;
+  28   1              TR0 = 1;
+  29   1              while(1)
+  30   1              {
+  31   2                      ST = 0;
+  32   2                      ST = 1;
+  33   2                      ST = 0;
+  34   2                      while(!EOC);
+  35   2                      OE  = 1;
+  36   2                      Val = P1;
+  37   2                      OE  = 0;
+  38   2                      if(Val == 0)
+  39   2                      {
+  40   3                              PWM = 0;
+  41   3                              DelayMS(0xff);
+  42   3                              continue;
+  43   3                      }
+  44   2                      if(Val == 0xff)
+  45   2                      {
+  46   3                              PWM = 1;
+  47   3                              DelayMS(0xff);
+  48   3                              continue;
+  49   3                      }
+  50   2                      PWM = 1;
+  51   2                      DelayMS(Val);
+  52   2                      PWM = 0;
+  53   2                      DelayMS(0xff - Val);
+  54   2              }
+  55   1      }
+C51 COMPILER V8.08   19                                                                    08/12/2009 10:37:11 PAGE 2   
+
+  56          
+  57          void Timer0_INT() interrupt 1
+  58          {
+  59   1              CLK = !CLK;
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    105    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

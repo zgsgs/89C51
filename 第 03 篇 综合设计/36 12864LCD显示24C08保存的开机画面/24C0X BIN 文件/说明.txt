@@ -1,0 +1,1 @@
+用Turbo C下运行cpp程序生成24C0X.BIN

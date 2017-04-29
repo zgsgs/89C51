@@ -1,0 +1,74 @@
+C51 COMPILER V8.08   28                                                                    08/11/2009 16:57:38 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 28
+OBJECT MODULE PLACED IN 28.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 28.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          sfr WDRST = 0xA6;
+   7          sbit LED1 = P0^0;
+   8          sbit LED2 = P0^1;
+   9          sbit K1   = P1^4;
+  10          
+  11          void DelayMS(uint ms)
+  12          {
+  13   1              uchar i;
+  14   1              while(ms--)
+  15   1              {
+  16   2                      for(i=0;i<120;i++);
+  17   2              }
+  18   1      }
+  19          
+  20          void main()
+  21          {
+  22   1              LED1 = 0;
+  23   1              LED2 = 1;
+  24   1              DelayMS(2000);
+  25   1              TMOD = 0x01;
+  26   1              TH0  = -16000/256;
+  27   1              TL0  = -16000%256;
+  28   1              IE   = 0x82;
+  29   1              WDRST = 0x1E;
+  30   1              WDRST = 0xE1;
+  31   1              while(1)
+  32   1              {
+  33   2                      if(K1==0)
+  34   2                      {
+  35   3                              TR0 = 0;
+  36   3                              LED1 = 1;
+  37   3                              LED2 = ~LED2;
+  38   3                              DelayMS(200);
+  39   3                      }
+  40   2              }
+  41   1      }
+  42          
+  43          void Timer0() interrupt 1
+  44          {
+  45   1              TH0  = -16000/256;
+  46   1              TL0  = -16000%256;
+  47   1              WDRST = 0x1E;
+  48   1              WDRST = 0xE1;   
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     82    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V8.08   28                                                                    08/11/2009 16:57:38 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

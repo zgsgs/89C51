@@ -1,0 +1,88 @@
+C51 COMPILER V8.08   JTD                                                                   08/11/2009 09:00:47 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE JTD
+OBJECT MODULE PLACED IN jtd.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE jtd.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          
+   6          sbit RED_A = P0^0;
+   7          sbit YELLOW_A = P0^1;
+   8          sbit GREEN_A = P0^2;
+   9          sbit RED_B = P0^3;
+  10          sbit YELLOW_B = P0^4;
+  11          sbit GREEN_B = P0^5;
+  12          
+  13          uchar Time_Count = 0,Flash_Count = 0,Operation_Type = 1;
+  14          
+  15          void T0_INT() interrupt 1
+  16          {
+  17   1              TH0 = -50000/256;
+  18   1              TL0 = -50000%256;
+  19   1              switch(Operation_Type)
+  20   1              {
+  21   2                      case 1:
+  22   2                              RED_A=0;YELLOW_A=0;GREEN_A=1;
+  23   2                              RED_B=1;YELLOW_B=0;GREEN_B=0;
+  24   2                              if(++Time_Count != 100) return;
+  25   2                              Time_Count=0;
+  26   2                              Operation_Type = 2;
+  27   2                              break;
+  28   2                      case 2:
+  29   2                              if(++Time_Count != 8) return;
+  30   2                              Time_Count=0;
+  31   2                              YELLOW_A=!YELLOW_A;
+  32   2                              GREEN_A=0;
+  33   2                              if(++Flash_Count != 10) return;
+  34   2                              Flash_Count=0;
+  35   2                              Operation_Type = 3;
+  36   2                              break;
+  37   2                      case 3:
+  38   2                              RED_A=1;YELLOW_A=0;GREEN_A=0;
+  39   2                              RED_B=0;YELLOW_B=0;GREEN_B=1;
+  40   2                              if(++Time_Count != 100) return;
+  41   2                              Time_Count=0;
+  42   2                              Operation_Type = 4;
+  43   2                              break;  
+  44   2                      case 4:
+  45   2                              if(++Time_Count != 8) return;
+  46   2                              Time_Count=0;
+  47   2                              YELLOW_B=!YELLOW_B;
+  48   2                              GREEN_B=0;
+  49   2                              if(++Flash_Count !=10) 
+  50   2                                      return;
+  51   2                              Flash_Count=0;
+  52   2                              Operation_Type = 1;
+  53   2                              break;  
+  54   2              }
+  55   1      }
+C51 COMPILER V8.08   JTD                                                                   08/11/2009 09:00:47 PAGE 2   
+
+  56          
+  57          void main()
+  58          {
+  59   1              TMOD = 0x01;
+  60   1              IE = 0x82;
+  61   1              TR0 = 1;
+  62   1              while(1);
+  63   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    155    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

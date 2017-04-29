@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\14 12864LCD图形滚动演示\code\14.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling LCD_12864.c...
+compiling main.c...
+MAIN.C(24): warning C206: 'LCD_Initiatise': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_INITIALISE?LCD_12864
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LCD_INITIATISE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LCD_INITIATISE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 0004H
+Program Size: data=27.0 xdata=0 code=530
+"14" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling LCD_12864.c...
+compiling main.c...
+MAIN.C(24): warning C206: 'LCD_Initiatise': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_INITIALISE?LCD_12864
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LCD_INITIATISE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LCD_INITIATISE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 0004H
+Program Size: data=27.0 xdata=0 code=530
+"14" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling LCD_12864.c...
+compiling main.c...
+linking...
+Program Size: data=27.0 xdata=0 code=530
+"14" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling LCD_12864.c...
+compiling main.c...
+linking...
+Program Size: data=27.0 xdata=0 code=530
+"14" - 0 Error(s), 0 Warning(s).

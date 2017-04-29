@@ -1,0 +1,115 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  15:47:06  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE led.obj TO led RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  led.obj (LED)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  led (LED)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         ?DT?LED
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    009AH     0071H     UNIT         ?PR?LED_SCREEN_DISPLAY?LED
+            CODE    010BH     0050H     UNIT         ?CO?LED
+            CODE    015BH     0015H     UNIT         ?PR?MAIN?LED
+            CODE    0170H     000AH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   led (LED)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?LED_SCREEN_DISPLAY?LED
+  +--> ?CO?LED
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?LED
+  +--> ?C_INITSEG
+
+
+
+SYMBOL TABLE OF MODULE:  led (LED)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  15:47:06  PAGE 2
+
+
+  -------         MODULE        LED
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        Num_Index
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:015BH         PUBLIC        main
+  C:010BH         PUBLIC        Table_OF_Digits
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  C:009AH         PUBLIC        LED_Screen_Display
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:0009H         PUBLIC        i
+  D:000AH         PUBLIC        t
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:015BH         LINE#         20
+  C:015BH         LINE#         21
+  C:015BH         LINE#         22
+  C:015EH         LINE#         23
+  C:0161H         LINE#         24
+  C:0163H         LINE#         25
+  C:0166H         LINE#         26
+  C:0169H         LINE#         27
+  C:016BH         LINE#         28
+  C:016EH         LINE#         29
+  -------         ENDPROC       MAIN
+  -------         PROC          LED_SCREEN_DISPLAY
+  C:009AH         LINE#         32
+  C:00ABH         LINE#         34
+  C:00AEH         LINE#         35
+  C:00B1H         LINE#         36
+  C:00BEH         LINE#         37
+  C:00DEH         LINE#         38
+  C:00E8H         LINE#         39
+  C:00EFH         LINE#         40
+  C:00EFH         LINE#         41
+  C:00F2H         LINE#         42
+  C:00FCH         LINE#         43
+  C:00FCH         LINE#         44
+  -------         ENDPROC       LED_SCREEN_DISPLAY
+  -------         ENDMOD        LED
+
+Program Size: data=12.0 xdata=0 code=370
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,49 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\16 2×20串行字符液晶演示\code\16.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+Target has no object modules
+Target not created
+Build target 'Target 1'
+compiling 16.c...
+16.C(60): warning C206: 'rwcmd': missing function-prototype
+16.C(60): error C267: 'rwcmd': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling 16.c...
+linking...
+Program Size: data=9.0 xdata=0 code=182
+"16" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 16.c...
+linking...
+Program Size: data=9.0 xdata=0 code=182
+creating hex file from "16"...
+"16" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 16.c...
+linking...
+Program Size: data=9.0 xdata=0 code=186
+creating hex file from "16"...
+"16" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 16.c...
+linking...
+Program Size: data=9.0 xdata=0 code=186
+creating hex file from "16"...
+"16" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 16.c...
+linking...
+Program Size: data=9.0 xdata=0 code=184
+creating hex file from "16"...
+"16" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

@@ -1,0 +1,48 @@
+C51 COMPILER V8.08   4                                                                     08/11/2009 10:48:10 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 4
+OBJECT MODULE PLACED IN 4.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 4.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          sbit LED = P1^0;
+   7          void EX_INT0() interrupt 0
+   8          {
+   9   1              uchar bi = P2 & 0x07;
+  10   1              P0 = _cror_(0x7f,bi);
+  11   1      }
+  12          
+  13          void main()
+  14          {
+  15   1              uint i;
+  16   1              IE  = 0x81;
+  17   1              IT0 = 0;
+  18   1              while(1)
+  19   1              {
+  20   2                      LED = !LED;
+  21   2                      for(i=0;i<30000;i++);
+  22   2                      if(INT0 == 1)
+  23   2                              P0 = 0xff;
+  24   2              } 
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     65    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

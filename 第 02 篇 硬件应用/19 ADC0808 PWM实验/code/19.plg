@@ -1,0 +1,24 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\19 ADC0808 PWM实验\code\19.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 19.c...
+19.C(9): error C202: 'p2': undefined identifier
+19.C(35): error C202: 'OE': undefined identifier
+19.C(37): error C202: 'OE': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling 19.c...
+linking...
+Program Size: data=9.0 xdata=0 code=123
+creating hex file from "19"...
+"19" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+E:\Study\Proteus\《单片机C语言程序设计实训100例——基于8051+Proteus仿真》案例压缩包\第 01 篇 基础部分\12 K1-K4 键状态显示\led\led.uv2
+Project File Date:  08/01/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling led.c...
+linking...
+Program Size: data=9.0 xdata=0 code=80
+"led" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+Program Size: data=9.0 xdata=0 code=80
+"led" - 0 Error(s), 0 Warning(s).

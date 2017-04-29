@@ -1,0 +1,43 @@
+C51 COMPILER V8.08   6264                                                                  08/07/2009 21:41:36 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 6264
+OBJECT MODULE PLACED IN 6264.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 6264.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <absacc.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          sbit LED = P1^0;
+   6          void main()
+   7          {
+   8   1              uint i;
+   9   1              LED = 1;
+  10   1              for(i=0;i<200;i++)
+  11   1              {
+  12   2                      XBYTE[i]=i+1;
+  13   2              }
+  14   1              for(i=0;i<200;i++)
+  15   1              {
+  16   2                      XBYTE[i+0x0100]=XBYTE[199-i];
+  17   2              }
+  18   1              LED=0;
+  19   1              while(1);
+  20   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     65    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

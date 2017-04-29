@@ -1,0 +1,24 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\26 正反转可控的直流电机\code\26.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 26.c...
+26.C(29): error C202: 'Mb': undefined identifier
+26.C(38): error C202: 'Mb': undefined identifier
+26.C(47): error C202: 'Mb': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling 26.c...
+linking...
+Program Size: data=9.0 xdata=0 code=71
+creating hex file from "26"...
+"26" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

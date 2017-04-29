@@ -1,0 +1,171 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  14:01:10  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE timer-smg.obj TO timer-smg RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  timer-smg.obj (TIMER_SMG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  timer-smg (TIMER_SMG)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000DH     UNIT         ?DT?TIMER_SMG
+                    0015H     000BH                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?TIMER_SMG
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    009AH     0055H     UNIT         ?C?LIB_CODE
+            CODE    00EFH     0048H     UNIT         ?PR?DSY_REFRESH?TIMER_SMG
+            CODE    0137H     0039H     UNIT         ?PR?KEY_EVENT_HANDLE?TIMER_SMG
+            CODE    0170H     002EH     UNIT         ?PR?MAIN?TIMER_SMG
+            CODE    019EH     0016H     UNIT         ?PR?_DELAYMS?TIMER_SMG
+            CODE    01B4H     000DH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   timer-smg (TIMER_SMG)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TIMER_SMG
+  +--> ?C_INITSEG
+
+?PR?MAIN?TIMER_SMG
+  +--> ?PR?_DELAYMS?TIMER_SMG
+  +--> ?PR?KEY_EVENT_HANDLE?TIMER_SMG
+
+
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  14:01:10  PAGE 2
+
+
+SYMBOL TABLE OF MODULE:  timer-smg (TIMER_SMG)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TIMER_SMG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:0008H         PUBLIC        Key_Flag_Idx
+  D:00A8H         PUBLIC        IE
+  B:0020H.0       PUBLIC        Key_State
+  C:019EH         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  C:00EFH         PUBLIC        DSY_Refresh
+  C:0170H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:0137H         PUBLIC        Key_Event_Handle
+  D:0009H         PUBLIC        Second_Counts
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:000AH         PUBLIC        i
+  D:000BH         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  B:00B0H.7       PUBLIC        K1
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:019EH         LINE#         13
+  C:019EH         LINE#         14
+  C:019EH         LINE#         16
+  C:01A8H         LINE#         17
+  C:01A8H         LINE#         18
+  C:01B3H         LINE#         19
+  C:01B3H         LINE#         20
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          KEY_EVENT_HANDLE
+  C:0137H         LINE#         22
+  C:0137H         LINE#         23
+  C:0137H         LINE#         24
+  C:013AH         LINE#         25
+  C:013AH         LINE#         26
+  C:014BH         LINE#         27
+  C:0156H         LINE#         28
+  C:0156H         LINE#         29
+  C:015DH         LINE#         30
+  C:0164H         LINE#         31
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  14:01:10  PAGE 3
+
+
+  C:016FH         LINE#         32
+  C:016FH         LINE#         33
+  C:016FH         LINE#         34
+  -------         ENDPROC       KEY_EVENT_HANDLE
+  -------         PROC          MAIN
+  C:0170H         LINE#         36
+  C:0170H         LINE#         37
+  C:0170H         LINE#         38
+  C:0173H         LINE#         39
+  C:0176H         LINE#         40
+  C:0179H         LINE#         41
+  C:017BH         LINE#         42
+  C:017DH         LINE#         43
+  C:0180H         LINE#         44
+  C:0183H         LINE#         45
+  C:0186H         LINE#         46
+  C:0186H         LINE#         47
+  C:0186H         LINE#         48
+  C:018EH         LINE#         49
+  C:018EH         LINE#         50
+  C:0195H         LINE#         51
+  C:0199H         LINE#         52
+  C:019CH         LINE#         53
+  C:019CH         LINE#         54
+  -------         ENDPROC       MAIN
+  -------         PROC          DSY_REFRESH
+  C:00EFH         LINE#         57
+  C:00FAH         LINE#         59
+  C:00FDH         LINE#         60
+  C:0100H         LINE#         61
+  C:0107H         LINE#         62
+  C:0107H         LINE#         63
+  C:010AH         LINE#         64
+  C:010CH         LINE#         65
+  C:0118H         LINE#         66
+  C:0126H         LINE#         67
+  C:012EH         LINE#         68
+  C:012EH         LINE#         69
+  -------         ENDPROC       DSY_REFRESH
+  -------         ENDMOD        TIMER_SMG
+
+  -------         MODULE        ?C?UIDIV
+  C:009AH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=22.1 xdata=0 code=441
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

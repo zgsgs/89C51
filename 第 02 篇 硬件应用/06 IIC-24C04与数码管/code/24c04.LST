@@ -1,0 +1,154 @@
+C51 COMPILER V8.08   24C04                                                                 08/07/2009 21:35:46 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 24C04
+OBJECT MODULE PLACED IN 24c04.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 24c04.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          #define NOP4() {_nop_();_nop_();_nop_();_nop_();}
+   6          
+   7          sbit SCL = P1^0;
+   8          sbit SDA = P1^1;
+   9          
+  10          uchar code DSY_CODE[]=
+  11          {
+  12                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90       
+  13          };
+  14          
+  15          uchar DISP_Buffer[]={0,0,0};
+  16          uchar Count = 0;
+  17          
+  18          void DelayMS(uint x)
+  19          {
+  20   1              uchar t;
+  21   1              while(x--)
+  22   1              {
+  23   2                      for(t=120;t>0;t--);
+  24   2              }
+  25   1      }
+  26          
+  27          void Start()
+  28          {
+  29   1              SDA=1;SCL=1;NOP4();SDA=0;NOP4();SCL=0;
+  30   1      }
+  31          
+  32          void Stop()
+  33          {
+  34   1              SDA=0;SCL=0;NOP4();SCL=1;NOP4();SDA=1;
+  35   1      }
+  36          
+  37          void RACK()
+  38          {
+  39   1              SDA=1;NOP4();SCL=1;NOP4();SCL=0;
+  40   1      }
+  41          
+  42          void NO_ACK()
+  43          {
+  44   1              SDA=1;SCL=1;NOP4();SCL=0;SDA=0;
+  45   1      }
+  46          
+  47          void Write_A_Byte(uchar b)
+  48          {
+  49   1              uchar i;
+  50   1              for(i=0;i<8;i++)
+  51   1              {
+  52   2                      b<<=1;SDA=CY;_nop_();SCL=1;NOP4();SCL=0;
+  53   2              }
+  54   1              RACK();
+  55   1      }
+C51 COMPILER V8.08   24C04                                                                 08/07/2009 21:35:46 PAGE 2   
+
+  56          
+  57          uchar Receive_A_Byte()
+  58          {
+  59   1              uchar i,d;
+  60   1              for(i=0;i<8;i++)
+  61   1              {
+  62   2                      SCL=1;d<<=1;d|=SDA;SCL=0;
+  63   2              }
+  64   1              return d;
+  65   1      }
+  66          
+  67          void Write_Random_Address_Byte(uchar add,uchar dat)
+  68          {
+  69   1              Start();
+  70   1              Write_A_Byte(0xa0);
+  71   1              Write_A_Byte(add);
+  72   1              Write_A_Byte(dat);
+  73   1              Stop();
+  74   1              DelayMS(10);
+  75   1      }
+  76          
+  77          uchar Read_Current_Address_Data()
+  78          {
+  79   1              uchar d;
+  80   1              Start();
+  81   1              Write_A_Byte(0xa1);
+  82   1              d=Receive_A_Byte();
+  83   1              NO_ACK();
+  84   1              Stop();
+  85   1              return d;
+  86   1      }
+  87          
+  88          uchar Random_Read(uchar addr)
+  89          {
+  90   1              Start();
+  91   1              Write_A_Byte(0xa0);
+  92   1              Write_A_Byte(addr);
+  93   1              Stop();
+  94   1              return Read_Current_Address_Data();             
+  95   1      }
+  96          
+  97          void Convert_And_Display()
+  98          {
+  99   1              DISP_Buffer[2] = Count/10;
+ 100   1              DISP_Buffer[1] = Count%100/10;
+ 101   1              DISP_Buffer[0] = Count%100%10;
+ 102   1              if(DISP_Buffer[2] == 0)
+ 103   1              {
+ 104   2                      DISP_Buffer[2] = 10;
+ 105   2                      if(DISP_Buffer[1] == 0)
+ 106   2                      {
+ 107   3                              DISP_Buffer[1] = 10;    
+ 108   3                      }
+ 109   2              }
+ 110   1              P2 = 0x80;
+ 111   1              P0 = DSY_CODE[DISP_Buffer[0]];
+ 112   1              DelayMS(2);
+ 113   1              P2 = 0x40;
+ 114   1              P0 = DSY_CODE[DISP_Buffer[1]];
+ 115   1              DelayMS(2);
+ 116   1              P2 = 0x20;
+ 117   1              P0 = DSY_CODE[DISP_Buffer[2]];
+C51 COMPILER V8.08   24C04                                                                 08/07/2009 21:35:46 PAGE 3   
+
+ 118   1              DelayMS(2); 
+ 119   1      }
+ 120          
+ 121          void main()
+ 122          {
+ 123   1              Count = Random_Read(0x00) + 1;
+ 124   1              Write_Random_Address_Byte(0x00,Count);
+ 125   1              while(1)
+ 126   1                      Convert_And_Display();  
+ 127   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    297    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

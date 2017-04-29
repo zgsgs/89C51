@@ -1,0 +1,185 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2009  10:10:59  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 47.obj TO 47 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  47.obj (47)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  47 (47)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         _DATA_GROUP_
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0075H     UNIT         ?PR?MAIN?47
+            CODE    0078H     006EH     UNIT         ?C?LIB_CODE
+            CODE    00E6H     005DH     UNIT         ?CO?47
+            CODE    0143H     002AH     UNIT         ?PR?_PUTS_TO_SERIALPORT?47
+            CODE    016DH     001DH     UNIT         ?PR?_DELAY?47
+            CODE    018AH     000CH     UNIT         ?C_C51STARTUP
+            CODE    0196H     0008H     UNIT         ?PR?_PUTC_TO_SERIALPORT?47
+
+
+
+OVERLAY MAP OF MODULE:   47 (47)
+
+
+SEGMENT                              DATA_GROUP 
+  +--> CALLED SEGMENT              START    LENGTH
+--------------------------------------------------
+?C_C51STARTUP                      -----    -----
+  +--> ?PR?MAIN?47
+
+?PR?MAIN?47                        -----    -----
+  +--> ?PR?_DELAY?47
+  +--> ?CO?47
+  +--> ?PR?_PUTS_TO_SERIALPORT?47
+
+?PR?_DELAY?47                      -----    -----
+  +--> ?PR?_PUTC_TO_SERIALPORT?47
+
+?PR?_PUTS_TO_SERIALPORT?47         0008H    0003H
+  +--> ?PR?_PUTC_TO_SERIALPORT?47
+  +--> ?PR?_DELAY?47
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  10:10:59  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  47 (47)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        47
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0143H         PUBLIC        _puts_to_SerialPort
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0098H.1       PUBLIC        TI
+  C:0003H         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  C:0196H         PUBLIC        _putc_to_SerialPort
+  C:0174H         PUBLIC        _Delay
+  D:00D0H         PUBLIC        PSW
+  C:0170H         SYMBOL        L?0020
+  -------         PROC          L?0019
+  -------         ENDPROC       L?0019
+  C:0170H         SYMBOL        L?0020
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0174H         LINE#         6
+  C:0174H         LINE#         7
+  C:0174H         LINE#         9
+  C:017EH         LINE#         10
+  C:017EH         LINE#         11
+  C:0189H         LINE#         12
+  C:0189H         LINE#         13
+  -------         ENDPROC       _DELAY
+  -------         PROC          _PUTC_TO_SERIALPORT
+  D:0007H         SYMBOL        c
+  C:0196H         LINE#         15
+  C:0196H         LINE#         16
+  C:0196H         LINE#         17
+  C:0198H         LINE#         18
+  C:019BH         LINE#         19
+  C:019DH         LINE#         20
+  -------         ENDPROC       _PUTC_TO_SERIALPORT
+  -------         PROC          _PUTS_TO_SERIALPORT
+  D:0008H         SYMBOL        s
+  C:0143H         LINE#         22
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  10:10:59  PAGE 3
+
+
+  C:0149H         LINE#         23
+  C:0149H         LINE#         24
+  C:0155H         LINE#         25
+  C:0155H         LINE#         26
+  C:0158H         LINE#         27
+  C:0163H         LINE#         28
+  C:016AH         LINE#         29
+  C:016CH         LINE#         30
+  -------         ENDPROC       _PUTS_TO_SERIALPORT
+  -------         PROC          MAIN
+  -------         DO            
+  D:0004H         SYMBOL        c
+  -------         ENDDO         
+  C:0003H         LINE#         32
+  C:0003H         LINE#         33
+  C:0003H         LINE#         34
+  C:0005H         LINE#         35
+  C:0008H         LINE#         36
+  C:000BH         LINE#         37
+  C:000DH         LINE#         38
+  C:0010H         LINE#         39
+  C:0013H         LINE#         40
+  C:0015H         LINE#         41
+  C:0017H         LINE#         42
+  C:001DH         LINE#         43
+  C:0026H         LINE#         44
+  C:002FH         LINE#         45
+  C:0036H         LINE#         46
+  C:0036H         LINE#         47
+  C:0036H         LINE#         48
+  C:003AH         LINE#         49
+  C:003DH         LINE#         50
+  C:003FH         LINE#         51
+  C:0042H         LINE#         52
+  C:0045H         LINE#         53
+  C:0045H         LINE#         54
+  C:004EH         LINE#         55
+  C:0051H         LINE#         56
+  C:0051H         LINE#         57
+  C:0061H         LINE#         58
+  C:006AH         LINE#         59
+  C:006AH         LINE#         60
+  C:0073H         LINE#         61
+  C:0076H         LINE#         62
+  C:0076H         LINE#         63
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        47
+
+  -------         MODULE        ?C?CLDPTR
+  C:0078H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:0091H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=12.0 xdata=0 code=414
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  10:10:59  PAGE 4
+
+
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

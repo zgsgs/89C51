@@ -1,0 +1,175 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  10:06:22  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE key-smg.obj TO key-smg RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  key-smg.obj (KEY_SMG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  key-smg (KEY_SMG)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?KEY_SMG
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     005CH     UNIT         ?PR?KEYS_SCAN?KEY_SMG
+            CODE    00EBH     002DH     UNIT         ?PR?MAIN?KEY_SMG
+            CODE    0118H     001AH     UNIT         ?PR?_DELAYMS?KEY_SMG
+            CODE    0132H     0011H     UNIT         ?CO?KEY_SMG
+            CODE    0143H     000EH     UNIT         ?PR?BEEP?KEY_SMG
+            CODE    0151H     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   key-smg (KEY_SMG)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?KEY_SMG
+  +--> ?C_INITSEG
+
+?PR?MAIN?KEY_SMG
+  +--> ?PR?KEYS_SCAN?KEY_SMG
+  +--> ?CO?KEY_SMG
+  +--> ?PR?BEEP?KEY_SMG
+  +--> ?PR?_DELAYMS?KEY_SMG
+
+?PR?KEYS_SCAN?KEY_SMG
+  +--> ?PR?_DELAYMS?KEY_SMG
+
+?PR?BEEP?KEY_SMG
+  +--> ?PR?_DELAYMS?KEY_SMG
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:06:22  PAGE 2
+
+
+
+
+SYMBOL TABLE OF MODULE:  key-smg (KEY_SMG)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        KEY_SMG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  C:008FH         PUBLIC        Keys_Scan
+  D:00A8H         PUBLIC        IE
+  C:011CH         PUBLIC        _DelayMS
+  D:00B8H         PUBLIC        IP
+  B:00B0H.7       PUBLIC        BEEP
+  C:00EBH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:0008H         PUBLIC        KeyNO
+  D:0009H         PUBLIC        Pre_KeyNO
+  D:00C8H         PUBLIC        T2CON
+  C:0132H         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  C:0143H         PUBLIC        Beep
+  C:0118H         SYMBOL        L?0032
+  -------         PROC          L?0031
+  -------         ENDPROC       L?0031
+  C:0118H         SYMBOL        L?0032
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:011CH         LINE#         12
+  C:011CH         LINE#         13
+  C:011CH         LINE#         15
+  C:0126H         LINE#         16
+  C:0126H         LINE#         17
+  C:0131H         LINE#         18
+  C:0131H         LINE#         19
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          KEYS_SCAN
+  -------         DO            
+  D:0007H         SYMBOL        Tmp
+  -------         ENDDO         
+  C:008FH         LINE#         21
+  C:008FH         LINE#         22
+  C:008FH         LINE#         24
+  C:0092H         LINE#         25
+  C:0095H         LINE#         26
+  C:0099H         LINE#         27
+  C:00A9H         LINE#         28
+  C:00A9H         LINE#         29
+  C:00AEH         LINE#         30
+  C:00B3H         LINE#         31
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:06:22  PAGE 3
+
+
+  C:00B8H         LINE#         32
+  C:00BDH         LINE#         33
+  C:00C0H         LINE#         34
+  C:00C0H         LINE#         35
+  C:00C3H         LINE#         36
+  C:00C6H         LINE#         37
+  C:00CDH         LINE#         38
+  C:00DBH         LINE#         39
+  C:00DBH         LINE#         40
+  C:00DCH         LINE#         41
+  C:00E0H         LINE#         42
+  C:00E4H         LINE#         43
+  C:00EAH         LINE#         44
+  C:00EAH         LINE#         45
+  -------         ENDPROC       KEYS_SCAN
+  -------         PROC          BEEP
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:0143H         LINE#         47
+  C:0143H         LINE#         48
+  C:0143H         LINE#         50
+  C:0145H         LINE#         51
+  C:0145H         LINE#         52
+  C:0148H         LINE#         53
+  C:014AH         LINE#         54
+  C:014EH         LINE#         55
+  C:0150H         LINE#         56
+  -------         ENDPROC       BEEP
+  -------         PROC          MAIN
+  C:00EBH         LINE#         58
+  C:00EBH         LINE#         59
+  C:00EBH         LINE#         60
+  C:00EEH         LINE#         61
+  C:00EEH         LINE#         62
+  C:00EEH         LINE#         63
+  C:00F1H         LINE#         64
+  C:00F7H         LINE#         65
+  C:00FAH         LINE#         66
+  C:0100H         LINE#         67
+  C:0100H         LINE#         68
+  C:0109H         LINE#         69
+  C:010CH         LINE#         70
+  C:010FH         LINE#         71
+  C:010FH         LINE#         72
+  C:0116H         LINE#         73
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        KEY_SMG
+
+Program Size: data=11.0 xdata=0 code=344
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

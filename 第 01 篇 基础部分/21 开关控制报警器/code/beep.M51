@@ -1,0 +1,100 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  10:30:14  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE beep.obj TO beep RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  beep.obj (BEEP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  beep (BEEP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0013H     UNIT         ?PR?_ALARM?BEEP
+            CODE    0016H     000FH     UNIT         ?PR?MAIN?BEEP
+            CODE    0025H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   beep (BEEP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?BEEP
+
+?PR?MAIN?BEEP
+  +--> ?PR?_ALARM?BEEP
+
+
+
+SYMBOL TABLE OF MODULE:  beep (BEEP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BEEP
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:0016H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  10:30:14  PAGE 2
+
+
+  D:00C8H         PUBLIC        T2CON
+  B:0090H.0       PUBLIC        SPK
+  C:0003H         PUBLIC        _Alarm
+  D:00D0H         PUBLIC        PSW
+  B:0090H.7       PUBLIC        K1
+  -------         PROC          _ALARM
+  D:0007H         SYMBOL        t
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0005H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         7
+  C:0003H         LINE#         8
+  C:0003H         LINE#         10
+  C:0005H         LINE#         11
+  C:0005H         LINE#         12
+  C:0007H         LINE#         13
+  C:0011H         LINE#         14
+  C:0015H         LINE#         15
+  -------         ENDPROC       _ALARM
+  -------         PROC          MAIN
+  C:0016H         LINE#         17
+  C:0016H         LINE#         18
+  C:0016H         LINE#         19
+  C:0016H         LINE#         20
+  C:0016H         LINE#         21
+  C:0019H         LINE#         22
+  C:0019H         LINE#         23
+  C:001EH         LINE#         24
+  C:0023H         LINE#         25
+  C:0023H         LINE#         26
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BEEP
+
+Program Size: data=9.0 xdata=0 code=49
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

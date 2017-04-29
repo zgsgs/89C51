@@ -1,0 +1,18 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+E:\Study\Proteus\《单片机C语言程序设计实训100例——基于8051+Proteus仿真》案例压缩包\第 01 篇 基础部分\09 8只数码管闪烁显示\code\smg.uv2
+Project File Date:  08/01/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling smg.c...
+SMG.C(11): error C141: syntax error near ';'
+SMG.C(11): error C141: syntax error near '0x02'
+SMG.C(33): error C141: syntax error near 'code'
+Target not created
+</pre>
+</body>
+</html>

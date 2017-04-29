@@ -1,0 +1,18 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 02 篇 硬件应用\21 用DAC0832生成锯齿波\code\21.uv2
+Project File Date:  08/12/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 21.c...
+linking...
+Program Size: data=9.0 xdata=0 code=63
+creating hex file from "21"...
+"21" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

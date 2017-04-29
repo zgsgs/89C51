@@ -1,0 +1,96 @@
+C51 COMPILER V8.08   16                                                                    08/12/2009 10:25:25 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 16
+OBJECT MODULE PLACED IN 16.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 16.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          uchar code prompts[]=" Serial LCD DEMO ";
+   6          
+   7          void DelayMS(uint ms)
+   8          {
+   9   1              uchar i;
+  10   1              while(ms--)
+  11   1              {
+  12   2                      for(i=0;i<120;i++);
+  13   2              }
+  14   1      }
+  15          
+  16          void putc_to_LCD(uchar c)
+  17          {
+  18   1              SBUF = c;
+  19   1              while(TI == 0);
+  20   1              TI = 0;
+  21   1      }
+  22          
+  23          uchar getc_from_terminal()
+  24          {
+  25   1              while(RI == 0);
+  26   1              RI = 0;
+  27   1              return SBUF;
+  28   1      }
+  29          
+  30          void wrcmd(uchar comm)
+  31          {
+  32   1              putc_to_LCD(0xfe);
+  33   1              putc_to_LCD(comm);
+  34   1      }
+  35          
+  36          void main()
+  37          {
+  38   1              uchar i=0,c;
+  39   1              TMOD = 0x20;
+  40   1              TH1 = 0xfd;
+  41   1              TL1 = 0xfd;
+  42   1              SCON = 0x50;
+  43   1              RI = 0;
+  44   1              TI = 0;
+  45   1              TR1 = 1;
+  46   1              DelayMS(200);
+  47   1              while(prompts[i] != '\0')
+  48   1              {
+  49   2                      putc_to_LCD(prompts[i+1]);
+  50   2                      DelayMS(5);
+  51   2              }
+  52   1              wrcmd(0xc0);
+  53   1              wrcmd(0x0d);
+  54   1              DelayMS(120);
+  55   1              while(1)
+C51 COMPILER V8.08   16                                                                    08/12/2009 10:25:25 PAGE 2   
+
+  56   1              {
+  57   2                      c = getc_from_terminal();
+  58   2                      if(c==0x0d)
+  59   2                      {
+  60   3                              wrcmd(0x01);
+  61   3                              continue;
+  62   3                      }
+  63   2                      if(c==0x08)
+  64   2                      {
+  65   3                              wrcmd(0x10);
+  66   3                              continue;
+  67   3                      }
+  68   2                      putc_to_LCD(c);
+  69   2                      DelayMS(200);
+  70   2              }
+  71   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    151    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

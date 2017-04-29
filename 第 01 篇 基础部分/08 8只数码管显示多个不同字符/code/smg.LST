@@ -1,0 +1,58 @@
+C51 COMPILER V8.08   SMG                                                                   08/01/2009 21:40:25 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE SMG
+OBJECT MODULE PLACED IN smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uchar unsigned char
+   4          #define uint unsigned int
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90       
+   9          };
+  10          
+  11          void DelayMS(uint x)
+  12          {
+  13   1              uchar t;
+  14   1              while(x--)
+  15   1              {
+  16   2                      for(t=120;t>0;t--);
+  17   2              }
+  18   1      }
+  19          
+  20          void main()
+  21          {
+  22   1              uchar k,m=0x80;
+  23   1              P0=0xff;
+  24   1              P2=0x00;
+  25   1              while(1)
+  26   1              {
+  27   2                      for(k=0;k<8;k++)
+  28   2                      {
+  29   3                              m=_crol_(m,1);
+  30   3                              P2=m;
+  31   3                              P0=DSY_CODE[k+1];
+  32   3                              DelayMS(2);
+  33   3                      }
+  34   2              }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     66    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

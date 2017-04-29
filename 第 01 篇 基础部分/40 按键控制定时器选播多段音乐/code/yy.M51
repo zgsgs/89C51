@@ -1,0 +1,173 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  17:09:55  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE yy.obj TO yy RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  yy.obj (YY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  yy (YY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?YY
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+                    0006H     0005H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0154H     UNIT         ?CO?YY
+            CODE    0162H     008CH     UNIT         ?C_C51STARTUP
+            CODE    01EEH     0072H     UNIT         ?PR?MAIN?YY
+            CODE    0260H     0067H     UNIT         ?C?LIB_CODE
+            CODE    02C7H     004AH     UNIT         ?PR?EX0_INT?YY
+            CODE    0311H     0048H     UNIT         ?PR?T0_INT?YY
+            CODE    0359H     0016H     UNIT         ?PR?_DELAY?YY
+            CODE    036FH     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   yy (YY)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?EX0_INT?YY
+  +--> ?CO?YY
+
+*** NEW ROOT ***************************************************
+
+?PR?T0_INT?YY
+  +--> ?CO?YY
+
+*** NEW ROOT ***************************************************
+
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  17:09:55  PAGE 2
+
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?YY
+  +--> ?C_INITSEG
+
+?PR?MAIN?YY
+  +--> ?CO?YY
+  +--> ?PR?_DELAY?YY
+
+
+
+SYMBOL TABLE OF MODULE:  yy (YY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        YY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0359H         PUBLIC        _delay
+  C:0036H         PUBLIC        Song
+  D:00B8H         PUBLIC        IP
+  C:02C7H         PUBLIC        EX0_INT
+  C:00CCH         PUBLIC        Len
+  C:01EEH         PUBLIC        main
+  C:0018H         PUBLIC        HI_LIST
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:0027H         PUBLIC        LO_LIST
+  D:008CH         PUBLIC        TH0
+  B:0088H.0       PUBLIC        IT0
+  C:0311H         PUBLIC        T0_INT
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  C:000EH         PUBLIC        DSY_CODE
+  B:00B0H.7       PUBLIC        SPK
+  D:0008H         PUBLIC        Tone_Index
+  D:0009H         PUBLIC        Song_Index
+  D:00D0H         PUBLIC        PSW
+  B:0090H.0       PUBLIC        K1
+  -------         PROC          EX0_INT
+  C:02C7H         LINE#         37
+  C:02DEH         LINE#         39
+  C:02E0H         LINE#         40
+  C:02F1H         LINE#         41
+  C:02F4H         LINE#         42
+  C:02FCH         LINE#         43
+  -------         ENDPROC       EX0_INT
+  -------         PROC          T0_INT
+  C:0311H         LINE#         45
+  C:0320H         LINE#         47
+  C:0322H         LINE#         48
+  C:0345H         LINE#         49
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  17:09:55  PAGE 3
+
+
+  C:034CH         LINE#         50
+  -------         ENDPROC       T0_INT
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0359H         LINE#         52
+  C:0359H         LINE#         53
+  C:0359H         LINE#         55
+  C:0363H         LINE#         56
+  C:0363H         LINE#         57
+  C:036EH         LINE#         58
+  C:036EH         LINE#         59
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  C:01EEH         LINE#         61
+  C:01EEH         LINE#         62
+  C:01EEH         LINE#         63
+  C:01F1H         LINE#         64
+  C:01F4H         LINE#         65
+  C:01F7H         LINE#         66
+  C:01F9H         LINE#         67
+  C:01FCH         LINE#         68
+  C:01FCH         LINE#         69
+  C:01FCH         LINE#         70
+  C:01FFH         LINE#         71
+  C:0202H         LINE#         72
+  C:0204H         LINE#         73
+  C:0207H         LINE#         74
+  C:022CH         LINE#         75
+  C:022CH         LINE#         76
+  C:0255H         LINE#         77
+  C:0257H         LINE#         78
+  C:0259H         LINE#         79
+  C:025BH         LINE#         80
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        YY
+
+  -------         MODULE        ?C?IMUL
+  C:0260H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?UIDIV
+  C:0272H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=11.0 xdata=0 code=881
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

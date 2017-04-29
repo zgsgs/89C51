@@ -1,0 +1,49 @@
+C51 COMPILER V8.08   21                                                                    08/12/2009 10:54:09 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 21
+OBJECT MODULE PLACED IN 21.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 21.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /***************   writer:shopping.w   ******************/
+   2          #include <reg52.h>
+   3          #include <absacc.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          #define DAC0832 XBYTE[0xfffe]
+   7          
+   8          void DelayMS(uint ms)
+   9          {
+  10   1              uchar i;
+  11   1              while(ms--)
+  12   1              {
+  13   2                      for(i=0;i<120;i++);
+  14   2              }
+  15   1      }
+  16          
+  17          void main()
+  18          {
+  19   1              uchar i;
+  20   1              while(1)
+  21   1              {
+  22   2                      for(i=0;i<256;i++)
+  23   2                      DAC0832 = i;
+  24   2                      DelayMS(1);
+  25   2              }
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     48    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

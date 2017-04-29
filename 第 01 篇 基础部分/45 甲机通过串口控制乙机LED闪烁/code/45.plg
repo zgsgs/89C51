@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\@Download\《单片机C语言程序设计实训100例——基于8051+Proteus仿真》案例压缩包\第 01 篇 基础部分\45 甲机通过串口控制乙机LED闪烁\code\45-1.uvproj
+Project File Date:  <unknown>
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 45-1.c...
+linking...
+Program Size: data=9.0 xdata=0 code=138
+"45" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 45-1.c...
+linking...
+Program Size: data=9.0 xdata=0 code=138
+creating hex file from "45"...
+"45" - 0 Error(s), 0 Warning(s).

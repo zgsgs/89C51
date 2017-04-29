@@ -1,0 +1,19 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\25 INT0中断控制LED\code\int.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling int.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MIAN?INT
+Program Size: data=0.0 xdata=0 code=17
+"int" - 0 Error(s), 1 Warning(s).
+</pre>
+</body>
+</html>

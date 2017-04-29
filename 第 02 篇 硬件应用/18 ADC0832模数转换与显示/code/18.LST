@@ -1,0 +1,166 @@
+C51 COMPILER V8.08   18                                                                    08/12/2009 16:59:54 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE 18
+OBJECT MODULE PLACED IN 18.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 18.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5          #define delay4us() {_nop_();_nop_();_nop_();_nop_();}
+   6          
+   7          sbit RS = P2^0;
+   8          sbit RW = P2^1;
+   9          sbit E  = P2^2;
+  10          
+  11          sbit CS  = P1^0;
+  12          sbit CLK = P1^1;
+  13          sbit DIO = P1^2;
+  14          
+  15          uchar Display_Buffer[] = "0.00V";
+  16          uchar code Line1[] = "Current Voltage:";
+  17          
+  18          void DelayMS(uint ms)
+  19          {
+  20   1              uchar i;
+  21   1              while(ms--)
+  22   1              {
+  23   2                      for(i=0;i<120;i++);
+  24   2              }
+  25   1      }
+  26          
+  27          bit LCD_Busy_Check()
+  28          {
+  29   1              bit result;
+  30   1              RS = 0;
+  31   1              RW = 1;
+  32   1              E  = 1;
+  33   1              delay4us();
+  34   1              result = (bit)(P0&0x80);
+  35   1              E  = 0;
+  36   1              return result;
+  37   1      }
+  38          
+  39          void LCD_Write_Command(uchar cmd)
+  40          {
+  41   1              while(LCD_Busy_Check());
+  42   1              RS = 0;
+  43   1              RW = 0;
+  44   1              E  = 0;
+  45   1              _nop_();
+  46   1              _nop_();
+  47   1              P0 = cmd;
+  48   1              delay4us();
+  49   1              E = 1;
+  50   1              delay4us();
+  51   1              E = 0;
+  52   1      }
+  53          
+  54          void Set_Disp_Pos(uchar pos)
+  55          {
+C51 COMPILER V8.08   18                                                                    08/12/2009 16:59:54 PAGE 2   
+
+  56   1              LCD_Write_Command(pos | 0x80);
+  57   1      }
+  58          
+  59          void LCD_Write_Data(uchar dat)
+  60          {
+  61   1              while(LCD_Busy_Check());
+  62   1              RS = 1;
+  63   1              RW = 0;
+  64   1              E  = 0;
+  65   1              P0 = dat;
+  66   1              delay4us();
+  67   1              E = 1;
+  68   1              delay4us();
+  69   1              E = 0;
+  70   1      }
+  71          
+  72          void LCD_Initialise()
+  73          {
+  74   1              LCD_Write_Command(0x38); DelayMS(1);
+  75   1              LCD_Write_Command(0x0c); DelayMS(1);
+  76   1              LCD_Write_Command(0x06); DelayMS(1);
+  77   1              LCD_Write_Command(0x01); DelayMS(1);
+  78   1      }
+  79          
+  80          uchar Get_AD_Result()
+  81          {
+  82   1              uchar i,dat1=0,dat2=0;
+  83   1              CS  = 0;
+  84   1              CLK = 0;
+  85   1              DIO = 1; _nop_(); _nop_();
+  86   1              CLK = 1; _nop_(); _nop_();
+  87   1              CLK = 0;DIO = 1; _nop_(); _nop_();
+  88   1              CLK = 1; _nop_(); _nop_();
+  89   1              CLK = 0;DIO = 1; _nop_(); _nop_();
+  90   1              CLK = 1;DIO = 1; _nop_(); _nop_();
+  91   1              CLK = 0;DIO = 1; _nop_(); _nop_();
+  92   1              for(i=0;i<8;i++)
+  93   1              {
+  94   2                      CLK = 1; _nop_(); _nop_();
+  95   2                      CLK = 0; _nop_(); _nop_();
+  96   2                      dat1 = dat1 << 1 | DIO; 
+  97   2              }
+  98   1              for(i=0;i<8;i++)
+  99   1              {
+ 100   2                      dat2 = dat2 << ((uchar)(DIO)<<i);
+ 101   2                      CLK = 1; _nop_(); _nop_();
+ 102   2                      CLK = 0; _nop_(); _nop_();
+ 103   2              }
+ 104   1              CS = 1;
+ 105   1              return (dat1 == dat2) ? dat1:0;
+ 106   1      }
+ 107          
+ 108          void main()
+ 109          {
+ 110   1              uchar i;
+ 111   1              uint d;
+ 112   1              LCD_Initialise();
+ 113   1              DelayMS(10);
+ 114   1              while(1)
+ 115   1              {
+ 116   2                      d = Get_AD_Result()*500.0/255;
+ 117   2                      Display_Buffer[0]=d/100+'0';
+C51 COMPILER V8.08   18                                                                    08/12/2009 16:59:54 PAGE 3   
+
+ 118   2                      Display_Buffer[2]=d/10%10+'0';
+ 119   2                      Display_Buffer[3]=d%10+'0';
+ 120   2                      Set_Disp_Pos(0x01);
+ 121   2                      i = 0;
+ 122   2                      while(Line1[i]!='\0')
+ 123   2                      {
+ 124   3                              LCD_Write_Data(Line1[i+1]);     
+ 125   3                      }
+ 126   2                      Set_Disp_Pos(0x46);
+ 127   2                      i = 0;
+ 128   2                      while(Display_Buffer[i]!='\0')
+ 129   2                      {
+ 130   3                              LCD_Write_Data(Display_Buffer[i+1]);    
+ 131   3                      }
+ 132   2              }
+ 133   1      }
+ 134          
+ 135          
+ 136          
+ 137          
+ 138          
+ 139          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    403    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

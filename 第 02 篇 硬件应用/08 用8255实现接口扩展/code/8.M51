@@ -1,0 +1,118 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/11/2009  10:58:20  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 8.obj TO 8 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  8.obj (8)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  8 (8)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0009H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0055H     UNIT         ?C?LIB_CODE
+            CODE    0058H     0040H     UNIT         ?PR?MAIN?8
+            CODE    0098H     001EH     UNIT         ?CO?8
+            CODE    00B6H     0016H     UNIT         ?PR?_DELAY?8
+            CODE    00CCH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   8 (8)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?8
+
+?PR?MAIN?8                     0008H    0001H
+  +--> ?CO?8
+  +--> ?PR?_DELAY?8
+
+
+
+SYMBOL TABLE OF MODULE:  8 (8)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        8
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/11/2009  10:58:20  PAGE 2
+
+
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:0058H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:00AEH         PUBLIC        DSY_Index
+  C:0098H         PUBLIC        DSY_CODE_Queue
+  D:00C8H         PUBLIC        T2CON
+  C:00B6H         PUBLIC        _Delay
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:00B6H         LINE#         23
+  C:00B6H         LINE#         24
+  C:00B6H         LINE#         26
+  C:00C0H         LINE#         27
+  C:00C0H         LINE#         28
+  C:00CBH         LINE#         29
+  C:00CBH         LINE#         30
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  D:0003H         SYMBOL        k
+  -------         ENDDO         
+  C:0058H         LINE#         32
+  C:0058H         LINE#         33
+  C:0058H         LINE#         35
+  C:005EH         LINE#         36
+  C:005EH         LINE#         37
+  C:005EH         LINE#         38
+  C:0060H         LINE#         39
+  C:0060H         LINE#         40
+  C:0062H         LINE#         41
+  C:0062H         LINE#         42
+  C:006BH         LINE#         43
+  C:0076H         LINE#         44
+  C:007DH         LINE#         45
+  C:0081H         LINE#         46
+  C:0085H         LINE#         47
+  C:0096H         LINE#         48
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        8
+
+  -------         MODULE        ?C?UIDIV
+  C:0003H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=10.0 xdata=0 code=216
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

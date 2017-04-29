@@ -1,0 +1,22 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\study\第 01 篇 基础部分\14 K1-K4 控制数码管移位显示\code\key-smg.uv2
+Project File Date:  08/10/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling key-smg.c...
+linking...
+Program Size: data=18.0 xdata=0 code=331
+"key-smg" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling key-smg.c...
+linking...
+Program Size: data=18.0 xdata=0 code=331
+"key-smg" - 0 Error(s), 0 Warning(s).
+</pre>
+</body>
+</html>

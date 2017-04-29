@@ -1,0 +1,112 @@
+C51 COMPILER V8.08   INT                                                                   08/10/2009 11:24:40 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE INT
+OBJECT MODULE PLACED IN int.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE int.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          
+   5          sbit k3 = P3^4;
+   6          sbit k4 = P3^5;
+   7          
+   8          uchar code DSY_CODE[]=
+   9          {
+  10                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0xff
+  11          };
+  12          
+  13          uchar code Scan_BITs[]=
+  14          {
+  15                  0x20,0x10,0x08,0x04,0x02,0x01
+  16          };
+  17          
+  18          uchar data Buffer_Counts[]={0,0,0,0,0,0};
+  19          uint Count_A=0;
+  20          uint Count_B=0;
+  21          
+  22          void DelayMS(uint x)
+  23          {
+  24   1              uchar t;
+  25   1              while(x--)
+  26   1              {
+  27   2                      for(t=0;t<120;t++);
+  28   2              }
+  29   1      }
+  30          
+  31          void Show_Counts()
+  32          {
+  33   1              uint i;
+  34   1              Buffer_Counts[2] = Count_A / 100;
+  35   1              Buffer_Counts[1] = Count_A % 100 /10;
+  36   1              Buffer_Counts[0] = Count_A % 10;        
+  37   1              if(Buffer_Counts[2]==0)
+  38   1              {
+  39   2                      Buffer_Counts[2] = 0x0a;
+  40   2                      if(Buffer_Counts[1]==0)
+  41   2                      {
+  42   3                              Buffer_Counts[1]=0x0a;
+  43   3                      }
+  44   2              }
+  45   1      
+  46   1              Buffer_Counts[5] = Count_B / 100;
+  47   1              Buffer_Counts[4] = Count_B % 100 /10;
+  48   1              Buffer_Counts[3] = Count_B % 10;        
+  49   1              if(Buffer_Counts[5]==0)
+  50   1              {
+  51   2                      Buffer_Counts[5] = 0x0a;
+  52   2                      if(Buffer_Counts[4]==0)
+  53   2                      {
+  54   3                              Buffer_Counts[4]=0x0a;
+  55   3                      }
+C51 COMPILER V8.08   INT                                                                   08/10/2009 11:24:40 PAGE 2   
+
+  56   2              }
+  57   1              for(i=0;i<6;i++)
+  58   1              {
+  59   2                      P2 = Scan_BITs[i];
+  60   2                      P1 = DSY_CODE[Buffer_Counts[i]];
+  61   2                      DelayMS(1);
+  62   2              }
+  63   1      }
+  64          
+  65          void main()
+  66          {
+  67   1              IT0 = 1;
+  68   1              IT1 = 1;
+  69   1              PX0 = 1;
+  70   1              IE  = 0x85;
+  71   1              while(1)
+  72   1              {
+  73   2                      if(k3 == 0) Count_A = 0;
+  74   2                      if(k4 == 0) Count_B = 0;
+  75   2                      Show_Counts();
+  76   2              }
+  77   1      }
+  78          
+  79          void EX_INT0() interrupt 0
+  80          {
+  81   1              Count_A++;
+  82   1      }
+  83          
+  84          void EX_INT1() interrupt 2
+  85          {
+  86   1              Count_B++;
+  87   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    260    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

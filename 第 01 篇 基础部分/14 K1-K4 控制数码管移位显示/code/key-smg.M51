@@ -1,0 +1,155 @@
+BL51 BANKED LINKER/LOCATER V6.05                                                        08/10/2009  09:18:56  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE key-smg.obj TO key-smg RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  key-smg.obj (KEY_SMG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  key-smg (KEY_SMG)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0008H     UNIT         ?DT?KEY_SMG
+            DATA    0010H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0011H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0068H     UNIT         ?PR?MAIN?KEY_SMG
+            CODE    00F7H     0020H     UNIT         ?PR?SHOW_COUNT_ON_DSY?KEY_SMG
+            CODE    0117H     0016H     UNIT         ?PR?_DELAYMS?KEY_SMG
+            CODE    012DH     0013H     UNIT         ?CO?KEY_SMG
+            CODE    0140H     000BH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   key-smg (KEY_SMG)
+
+
+SEGMENT                                 DATA_GROUP 
+  +--> CALLED SEGMENT                 START    LENGTH
+-----------------------------------------------------
+?C_C51STARTUP                         -----    -----
+  +--> ?PR?MAIN?KEY_SMG
+  +--> ?C_INITSEG
+
+?PR?MAIN?KEY_SMG                      0010H    0001H
+  +--> ?PR?SHOW_COUNT_ON_DSY?KEY_SMG
+
+?PR?SHOW_COUNT_ON_DSY?KEY_SMG         -----    -----
+  +--> ?CO?KEY_SMG
+  +--> ?PR?_DELAYMS?KEY_SMG
+
+
+
+SYMBOL TABLE OF MODULE:  key-smg (KEY_SMG)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  09:18:56  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        KEY_SMG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0117H         PUBLIC        _DelayMS
+  D:0008H         PUBLIC        Display_Buffer
+  D:00B8H         PUBLIC        IP
+  C:008FH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0138H         PUBLIC        DSY_Index
+  C:00F7H         PUBLIC        Show_Count_ON_DSY
+  D:00C8H         PUBLIC        T2CON
+  C:012DH         PUBLIC        DSY_CODE
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAYMS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0005H         SYMBOL        t
+  -------         ENDDO         
+  C:0117H         LINE#         18
+  C:0117H         LINE#         19
+  C:0117H         LINE#         21
+  C:0121H         LINE#         22
+  C:0121H         LINE#         23
+  C:012CH         LINE#         24
+  C:012CH         LINE#         25
+  -------         ENDPROC       _DELAYMS
+  -------         PROC          SHOW_COUNT_ON_DSY
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:00F7H         LINE#         27
+  C:00F7H         LINE#         28
+  C:00F7H         LINE#         30
+  C:00F9H         LINE#         31
+  C:00F9H         LINE#         32
+  C:0100H         LINE#         33
+  C:010BH         LINE#         34
+  C:0112H         LINE#         35
+  C:0116H         LINE#         36
+  -------         ENDPROC       SHOW_COUNT_ON_DSY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0007H         SYMBOL        Key_NO
+  D:0010H         SYMBOL        Key_Counts
+  -------         ENDDO         
+  C:008FH         LINE#         38
+  C:008FH         LINE#         39
+  C:008FH         LINE#         41
+  C:0092H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.05                                                      08/10/2009  09:18:56  PAGE 3
+
+
+  C:0095H         LINE#         43
+  C:0098H         LINE#         44
+  C:009AH         LINE#         45
+  C:009AH         LINE#         46
+  C:009AH         LINE#         47
+  C:009DH         LINE#         48
+  C:00A0H         LINE#         49
+  C:00A2H         LINE#         50
+  C:00AEH         LINE#         51
+  C:00AEH         LINE#         52
+  C:00B0H         LINE#         53
+  C:00B7H         LINE#         54
+  C:00BAH         LINE#         55
+  C:00C1H         LINE#         56
+  C:00C3H         LINE#         57
+  C:00CAH         LINE#         58
+  C:00D3H         LINE#         59
+  C:00D7H         LINE#         60
+  C:00D9H         LINE#         61
+  C:00DBH         LINE#         62
+  C:00DEH         LINE#         63
+  C:00DEH         LINE#         64
+  C:00EAH         LINE#         65
+  C:00EDH         LINE#         66
+  C:00EDH         LINE#         67
+  C:00F2H         LINE#         68
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        KEY_SMG
+
+Program Size: data=18.0 xdata=0 code=331
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

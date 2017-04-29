@@ -1,0 +1,99 @@
+C51 COMPILER V8.08   KEY_SMG                                                               08/10/2009 10:06:21 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE KEY_SMG
+OBJECT MODULE PLACED IN key-smg.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE key-smg.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #define uchar unsigned char
+   3          #define uint unsigned int
+   4          sbit BEEP = P3^7;
+   5          
+   6          uchar code DSY_CODE[]=
+   7          {
+   8                  0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,0x8e,0x00
+   9          };
+  10          uchar Pre_KeyNO = 16,KeyNO = 16;
+  11          
+  12          void DelayMS(uint ms)
+  13          {
+  14   1              uchar t;
+  15   1              while(ms--)
+  16   1              {
+  17   2                      for(t=0;t<120;t++);
+  18   2              }
+  19   1      }
+  20          
+  21          void Keys_Scan()
+  22          {
+  23   1              uchar Tmp;
+  24   1              P1 = 0x0f;
+  25   1              DelayMS(1);
+  26   1              Tmp = P1 ^ 0x0f;
+  27   1              switch(Tmp)
+  28   1              {
+  29   2                      case 1: KeyNO = 0; break;
+  30   2                      case 2: KeyNO = 1; break;
+  31   2                      case 4: KeyNO = 2; break;
+  32   2                      case 8: KeyNO = 3; break;
+  33   2                      default: KeyNO = 16;
+  34   2              }
+  35   1              P1 = 0xf0;
+  36   1              DelayMS(1);
+  37   1              Tmp = P1 >> 4 ^ 0x0f;
+  38   1              switch(Tmp)
+  39   1              {
+  40   2                      case 1: KeyNO += 0; break;
+  41   2                      case 2: KeyNO += 4; break;
+  42   2                      case 4: KeyNO += 8; break;
+  43   2                      case 8: KeyNO += 12;
+  44   2              }
+  45   1      }
+  46          
+  47          void Beep()
+  48          {
+  49   1              uchar i;
+  50   1              for(i=0;i<100;i++)
+  51   1              {
+  52   2                      DelayMS(1);
+  53   2                      BEEP = ~BEEP;
+  54   2              }
+  55   1              BEEP = 1;
+C51 COMPILER V8.08   KEY_SMG                                                               08/10/2009 10:06:21 PAGE 2   
+
+  56   1      }
+  57          
+  58          void main()
+  59          {
+  60   1              P0 = 0x00;
+  61   1              while(1)
+  62   1              {
+  63   2                      P1 = 0xf0;
+  64   2                      if(P1 != 0xf0)
+  65   2                              Keys_Scan();
+  66   2                      if(Pre_KeyNO != KeyNO)
+  67   2                      {
+  68   3                              P0 = ~DSY_CODE[KeyNO];
+  69   3                              Beep();
+  70   3                              Pre_KeyNO = KeyNO;
+  71   3                      }
+  72   2                      DelayMS(100);
+  73   2              }
+  74   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    177    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
